@@ -14,7 +14,7 @@ from node import Node
 #     Advances in Computer Games 12, in Pamplona, Spain, 2009.
 
 class UCT(MC):
-	'''Intelligence artificielle reposant sur l'algorithme Upper-Condence-Tree'''
+	'''Intelligence artificielle reposant sur l'algorithme Upper-Confidence-Tree'''
 
 	def __init__(self, symbole = 'O', num_tirages_MC = 3, num_descentes_dans_arbre = 7, facteur_uct = 0.0):
 		'''Créer un joueur du symbole indiqué'''
