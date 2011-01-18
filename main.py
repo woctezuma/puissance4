@@ -26,44 +26,44 @@ def menu():
         input = raw_input("0) No player game.\n1) Single player game.\n2) Player vs player game.\n3) Statistiques.\nq) Quit.\nChoix : ")
         if(input == '0'):
             np(choix_ai_joueur, choix_ai_adversaire, num_tirages_MC, num_descentes_dans_arbre, facteur_uct)
-	    print("\n\n")
+            print("\n\n")
         if(input == '1'):
             sp(choix_ai_adversaire, num_tirages_MC, num_descentes_dans_arbre, facteur_uct)
-	    print("\n\n")
+            print("\n\n")
         if(input == '2'):
             pvp()
-	    print("\n\n")
+            print("\n\n")
         if(input == '3'):
             ratio_victoires = obtenirStatistiquesDeVictoires(num_parties_jouees, choix_ai_joueur, choix_ai_adversaire, num_tirages_MC, num_descentes_dans_arbre, facteur_uct)
-	    print("Choix AI du joueur 1 ?"),
-	    print(choix_ai_joueur)
-	    print("Choix AI du joueur 2 ?"),
-	    print(choix_ai_adversaire)
-	    if choix_ai_joueur != 1:
-		print("Nombre de tirages MC ?"),
-		print(num_tirages_MC)
-	    if choix_ai_joueur == 3:
-		print("Nombre de descentes dans l'arbre UCT ?"),
-		print(num_descentes_dans_arbre)
-		print("Facteur UCT ?"),
-		print(facteur_uct)
-	    print("Pourcentage de victoires ?"),
-	    print(ratio_victoires)
-	    print("\n\n")
+            print("Choix AI du joueur 1 ?"),
+            print(choix_ai_joueur)
+            print("Choix AI du joueur 2 ?"),
+            print(choix_ai_adversaire)
+            if choix_ai_joueur != 1:
+                print("Nombre de tirages MC ?"),
+                print(num_tirages_MC)
+            if choix_ai_joueur == 3:
+                print("Nombre de descentes dans l'arbre UCT ?"),
+                print(num_descentes_dans_arbre)
+                print("Facteur UCT ?"),
+                print(facteur_uct)
+            print("Pourcentage de victoires ?"),
+            print(ratio_victoires)
+            print("\n\n")
 
 def np(choix_ai_joueur, choix_ai_adversaire, num_tirages_MC = 3, num_descentes_dans_arbre = 7, facteur_uct = 0.0, show_grid = False):
     '''Une partie entre intelligences artificielles'''
     grid = Grille()
     ai1 = AI('X')
     if choix_ai_joueur == 2:
-	ai1 = MC('X', num_tirages_MC)
+        ai1 = MC('X', num_tirages_MC)
     elif choix_ai_joueur == 3:
-	ai1 = UCT('X', num_tirages_MC, num_descentes_dans_arbre, facteur_uct)
+        ai1 = UCT('X', num_tirages_MC, num_descentes_dans_arbre, facteur_uct)
     ai2 = AI('O')
     if choix_ai_adversaire == 2:
-	ai2 = MC('O') # paramètres par défaut
+        ai2 = MC('O') # paramètres par défaut
     elif choix_ai_adversaire == 3:
-	ai2 = UCT('O') # paramètres par défaut
+        ai2 = UCT('O') # paramètres par défaut
     le_joueur1_gagne = False
     mes_coups_possibles = grid.lookForAllowedSteps()
     while(grid.checkVictory() is False and len(mes_coups_possibles)>0):
@@ -97,7 +97,7 @@ def sp(choix_ai_adversaire, num_tirages_MC = 3, num_descentes_dans_arbre = 7, fa
     if choix_ai_adversaire == 2:
         ai = MC('O', num_tirages_MC)
     elif choix_ai_adversaire == 3:
-	ai = UCT('O', num_tirages_MC, num_descentes_dans_arbre, facteur_uct)
+        ai = UCT('O', num_tirages_MC, num_descentes_dans_arbre, facteur_uct)
     le_joueur1_gagne = False
     mes_coups_possibles = grid.lookForAllowedSteps()
     input = []
@@ -145,12 +145,12 @@ def obtenirStatistiquesDeVictoires(num_parties_jouees, choix_ai_joueur, choix_ai
     num_victoires_du_joueur1 = 0
     for i in range(num_parties_jouees):
         (il_y_a_un_vainqueur, le_joueur1_gagne) = np(choix_ai_joueur, choix_ai_adversaire, num_tirages_MC, num_descentes_dans_arbre, facteur_uct)
-	num_parties_avec_vainqueur += int(il_y_a_un_vainqueur)
-	num_victoires_du_joueur1 += int(le_joueur1_gagne)
+        num_parties_avec_vainqueur += int(il_y_a_un_vainqueur)
+        num_victoires_du_joueur1 += int(le_joueur1_gagne)
     try:
-	ratio_victoires = round(100.0*num_victoires_du_joueur1/num_parties_avec_vainqueur)/100.0
+        ratio_victoires = round(100.0*num_victoires_du_joueur1/num_parties_avec_vainqueur)/100.0
     except ZeroDivisionError:
-	ratio_victoires = 0.5
+        ratio_victoires = 0.5
     return ratio_victoires
 
 if __name__ == "__main__":
