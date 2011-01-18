@@ -55,6 +55,7 @@ class MC(AI):
 		return mon_coup_urgent
 
 def getOtherSymbol(symbole):
+    '''Passer du symbole d'un joueur au symbole de son adversaire'''
     if symbole == 'X':
 	    return 'O'
     else:
