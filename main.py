@@ -6,42 +6,57 @@
 from time import sleep
 from ai import AI
 from mc import MC
+from uct import UCT
 from grille import Grille
 
 def menu():
     '''Menu principal'''
-    choix_ai_basique = False
+    # Intelligences artificielles disponibles :
+    # 1 : jeu aléatoire biaisé
+    # 2 : jeu Monte-Carlo biaisé
+    # 3 : jeu UCT
+    choix_ai_joueur = 1
+    choix_ai_adversaire = 2
     num_tirages_MC = 3
     num_parties_jouees = 50 # pour les statistiques de victoires
     input = []
     while(input not in ['q']):
         input = raw_input("0) No player game.\n1) Single player game.\n2) Player vs player game.\n3) Statistiques.\nq) Quit.\nChoix : ")
         if(input == '0'):
-            np(choix_ai_basique, num_tirages_MC)
+            np(choix_ai_joueur, choix_ai_adversaire, num_tirages_MC)
 	    print("\n\n")
         if(input == '1'):
-            sp(choix_ai_basique, num_tirages_MC)
+            sp(choix_ai_adversaire, num_tirages_MC)
 	    print("\n\n")
         if(input == '2'):
             pvp()
 	    print("\n\n")
         if(input == '3'):
-            ratio_victoires = obtenirStatistiquesDeVictoires(num_parties_jouees, choix_ai_basique, num_tirages_MC)
-	    print("Choix AI basique ?"),
-	    print(choix_ai_basique)
-	    print("Sinon, nombre de tirages MC ?"),
-	    print(num_tirages_MC)
+            ratio_victoires = obtenirStatistiquesDeVictoires(num_parties_jouees, choix_ai_joueur, choix_ai_adversaire, num_tirages_MC)
+	    print("Choix AI du joueur 1 ?"),
+	    print(choix_ai_joueur)
+	    print("Choix AI du joueur 2 ?"),
+	    print(choix_ai_adversaire)
+	    if choix_ai_joueur != 1:
+		print("Sinon, nombre de tirages MC ?"),
+		print(num_tirages_MC)
 	    print("Ratio de victoires ?"),
 	    print(ratio_victoires)
 	    print("\n\n")
 
-def np(choix_ai_basique, num_tirages_MC = 3, show_grid = False):
+def np(choix_ai_joueur, choix_ai_adversaire, num_tirages_MC = 3, show_grid = False):
     '''Une partie entre intelligences artificielles'''
     grid = Grille()
-    ai1 = MC('X', num_tirages_MC)
-    if choix_ai_basique:
-        ai1 = AI('X')
+    ai1 = AI('X')
+    if choix_ai_joueur == 2:
+	ai1 = MC('X', num_tirages_MC)
+    elif choix_ai_joueur == 3:
+	ai1 = UCT('X', num_tirages_MC) # autres paramètres par défaut
     ai2 = AI('O')
+    if choix_ai_adversaire == 2:
+	ai2 = MC('O') # paramètres par défaut
+    elif choix_ai_adversaire == 3:
+	ai2 = UCT('O') # paramètres par défaut
     le_joueur1_gagne = False
     mes_coups_possibles = grid.lookForAllowedSteps()
     while(grid.checkVictory() is False and len(mes_coups_possibles)>0):
@@ -68,12 +83,14 @@ def np(choix_ai_basique, num_tirages_MC = 3, show_grid = False):
     print(le_joueur1_gagne)
     return (il_y_a_un_vainqueur, le_joueur1_gagne)
 
-def sp(choix_ai_basique, num_tirages_MC = 3):
+def sp(choix_ai_adversaire, num_tirages_MC = 3):
     '''Une partie opposant un joueur humain à une intelligence artificielle'''
     grid = Grille()
-    ai = MC('O')
-    if choix_ai_basique:
-        ai = AI('O')
+    ai = AI('O')
+    if choix_ai_adversaire == 2:
+        ai = MC('O', num_tirages_MC)
+    elif choix_ai_adversaire == 3:
+	ai = UCT('O', num_tirages_MC)
     le_joueur1_gagne = False
     mes_coups_possibles = grid.lookForAllowedSteps()
     input = []
@@ -116,11 +133,11 @@ def pvp():
     print "The game ended in the following state:"
     grid.showGrid()
 
-def obtenirStatistiquesDeVictoires(num_parties_jouees, choix_ai_basique, num_tirages_MC = 3):
+def obtenirStatistiquesDeVictoires(num_parties_jouees, choix_ai_joueur, choix_ai_adversaire, num_tirages_MC = 3):
     num_parties_avec_vainqueur = 0
     num_victoires_du_joueur1 = 0
     for i in range(num_parties_jouees):
-        (il_y_a_un_vainqueur, le_joueur1_gagne) = np(choix_ai_basique, num_tirages_MC)
+        (il_y_a_un_vainqueur, le_joueur1_gagne) = np(choix_ai_joueur, choix_ai_adversaire, num_tirages_MC)
 	num_parties_avec_vainqueur += int(il_y_a_un_vainqueur)
 	num_victoires_du_joueur1 += int(le_joueur1_gagne)
     try:

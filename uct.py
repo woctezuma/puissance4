@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from math import sqrt, log
 from random import randint
 from mc import MC, getOtherSymbol
 from grille import Grille
@@ -67,46 +68,68 @@ class UCT(MC):
 		# boucle : fils non explorés de N
 		grille = Grille()
 		grille.set(N.name)
-		while all([self.score_choix_action_dans_etat.has_key((N.name, i)) for i in grille.lookForAllowedSteps()]):
+		mes_coups_possibles = grille.lookForAllowedSteps()
+		while all([self.compteur_choix_action_dans_etat.has_key((N.name, i)) for i in mes_coups_possibles]):
 			# soit F le fils de N ayant la plus grande valeur UCT
-			grille.set(N.name)
-			try:
-				self.compteur_visite_etat[N.name] += 1
-			except KeyError:
-				self.compteur_visite_etat[N.name] = 0
-			action = self.choisirActionUCT(grille)
-			try:
-				self.compteur_choix_action_dans_etat[(N.name, action)] += 1
-			except KeyError:
-				self.compteur_choix_action_dans_etat[(N.name, action)] = 0
-			nouvel_etat = changerEtatApresTransition(N.name, action, joueur)
-			F = Node(nouvel_etat, N)
-			F.code = action
-			N = F
-			joueur = getOtherSymbol(joueur)
+			if(len(mes_coups_possibles)>0):
+				action = self.choisirActionUCT(grille)
+				nouvel_etat = changerEtatApresTransition(N.name, action, joueur)
+				F = Node(nouvel_etat, N)
+				F.code = action
+				N = F
+				joueur = getOtherSymbol(joueur)
+				grille.set(N.name)
+				mes_coups_possibles = grille.lookForAllowedSteps()
+			else:
+				break
 		# soir F un fils de N tiré au hasard parmi les fils non explorés
 		grille.set(N.name)
 		mes_coups_possibles = grille.lookForAllowedSteps()
-		actions_inexplorees = [i for i in mes_coups_possibles if not self.score_choix_action_dans_etat.has_key((N.name, i))]
-		tirage = randint(0, len(actions_inexplorees)-1)
-		action = actions_inexplorees[tirage]
-		etat_inexplore = changerEtatApresTransition(N.name, action, joueur)
-		F = Node(etat_inexplore, N)
-		F.code = action
-		joueur = getOtherSymbol(joueur)
-		try:
-			self.compteur_choix_action_dans_etat[(N.name, action)] += 1
-		except KeyError:
-			self.compteur_choix_action_dans_etat[(N.name, action)] = 0
-		try:
-			self.compteur_visite_etat[(F.name)] += 1
-		except KeyError:
-			self.compteur_visite_etat[(F.name)] = 0
-		return (F,joueur)
+		if(len(mes_coups_possibles)>0):
+			actions_inexplorees = [i for i in mes_coups_possibles if not self.compteur_choix_action_dans_etat.has_key((N.name, i))]
+			tirage = randint(0, len(actions_inexplorees)-1)
+			action = actions_inexplorees[tirage]
+			etat_inexplore = changerEtatApresTransition(N.name, action, joueur)
+			F = Node(etat_inexplore, N)
+			F.code = action
+			joueur = getOtherSymbol(joueur)
+		else:
+			F = N
+		return (F, joueur)
 
 	def TreeUp(self, noeud_N, evaluation_R, symbole_racine, symbole_noeud_N):
 		'''Remonter dans l'arbre UCT'''
-		pass
+		symbole_courant = symbole_noeud_N
+		while(noeud_N is not self.tree):
+			nom_N = noeud_N.name
+			nom_parent_N = noeud_N.parent.name
+			action_pour_arriver_en_N = noeud_N.code
+			try:
+				self.compteur_visite_etat[nom_N] += 1
+			except KeyError:
+				self.compteur_visite_etat[nom_N] = 1
+			try:
+				self.compteur_choix_action_dans_etat[(nom_parent_N, action_pour_arriver_en_N)] += 1
+			except KeyError:
+				self.compteur_choix_action_dans_etat[(nom_parent_N, action_pour_arriver_en_N)] = 1
+			q = evaluation_R
+			if symbole_courant != symbole_noeud_N:
+				q *= -1.0
+			try:
+				mu_avant = self.score_choix_action_dans_etat[(nom_parent_N, action_pour_arriver_en_N)]
+			except KeyError:
+				mu_avant = 0
+			n = self.compteur_choix_action_dans_etat[(nom_parent_N, action_pour_arriver_en_N)]
+			mu = mu_avant + (1.0/n)*(q - mu_avant)
+			self.score_choix_action_dans_etat[(nom_parent_N, action_pour_arriver_en_N)] = mu
+			noeud_N = noeud_N.parent
+			symbole_courant = getOtherSymbol(symbole_courant)
+		# Enfin, visite de la racine.
+		try:
+			self.compteur_visite_etat[noeud_N.name] += 1
+		except KeyError:
+			self.compteur_visite_etat[noeud_N.name] = 1
+		return
 
 	def choisirActionUCT(self, grille):
 		'''Choisir une action en utilisant le critère UCB'''
@@ -115,7 +138,7 @@ class UCT(MC):
 		meilleure_action = None
 		meilleure_evaluation = None
 		for action in mes_coups_possibles:
-			if not self.score_choix_action_dans_etat.has_key((state, action)):
+			if not self.score_choix_action_dans_etat.has_key((etat, action)):
 				continue
 			recompense_moyenne = self.score_choix_action_dans_etat[(etat, action)]
 			num_etat_action = self.compteur_choix_action_dans_etat[(etat, action)]
@@ -125,11 +148,10 @@ class UCT(MC):
 				meilleure_evaluation = evaluation
 				meilleure_action = action
 		if meilleure_action == None:
-			print("Erreur")
-			raise
+			print("Aucun coup admissible.")
 		return meilleure_action
 
-def changerEtatApresTransition(self, etat, action, joueur):
+def changerEtatApresTransition(etat, action, joueur):
 	'''Déterminer l'état obtenu lorsque le joueur effectue l'action dans l'état donné'''
 	grille_copiee = Grille()
 	grille_copiee.set(etat)
