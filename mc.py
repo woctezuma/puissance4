@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from random import randint
 from ai import AI
 from grille import Grille
 
