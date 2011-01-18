@@ -113,9 +113,11 @@ class UCT(MC):
 			except KeyError:
 				self.compteur_choix_action_dans_etat[(nom_parent_N, action_pour_arriver_en_N)] = 1
 			q = evaluation_R
-			if symbole_courant != symbole_noeud_N:
+			# Pour information, la ligne ci-dessous est juste, ne pas mettre de signe "!=" au lieu de "==".
+			if symbole_courant == symbole_noeud_N: # <- La ligne qui m'a fait perdre beaucoup de temps.
 				q *= -1.0
 			try:
+				# En effet, nous nous intéressons au parent de N, et non à N lui-même.
 				mu_avant = self.score_choix_action_dans_etat[(nom_parent_N, action_pour_arriver_en_N)]
 			except KeyError:
 				mu_avant = 0
