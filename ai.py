@@ -3,8 +3,7 @@
 # Source d'inspiration :
 # http://www.cs.helsinki.fi/u/vpeltoni/
 
-import random
-from grille import Grille
+from random import randint
 
 class AI():
     '''Intelligence artificielle'''
@@ -112,7 +111,7 @@ class AI():
         mon_coup_urgent = self.lookForObviousSteps(grille)
         if mon_coup_urgent == -1:
             mes_coups_possibles = grille.lookForAllowedSteps()
-            tirage_aleatoire = random.randint(0, len(mes_coups_possibles)-1)
+            tirage_aleatoire = randint(0, len(mes_coups_possibles)-1)
             return mes_coups_possibles[tirage_aleatoire]
         else:
             return mon_coup_urgent
@@ -134,4 +133,5 @@ class AI():
                 grille.drop(adversaire, VotreCoup)
                 le_joueur1_gagne = False
                 mes_coups_possibles = grille.lookForAllowedSteps()
-        return le_joueur1_gagne
+        il_y_a_un_vainqueur = grille.checkVictory()
+        return (il_y_a_un_vainqueur, le_joueur1_gagne)
