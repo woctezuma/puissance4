@@ -10,21 +10,35 @@ from grille import Grille
 
 def menu():
     '''Menu principal'''
+    choix_ai_basique = False
+    num_tirages_MC = 3
+    num_parties_jouees = 50 # pour les statistiques de victoires
     input = []
     while(input not in ['q']):
-        input = raw_input("0) No player game.\n1) Single player game.\n2) Player vs player game.\nq) Quit.\ninput:")
+        input = raw_input("0) No player game.\n1) Single player game.\n2) Player vs player game.\n3) Statistiques.\nq) Quit.\nChoix : ")
         if(input == '0'):
-            choix_ai_basique = False
-            np(choix_ai_basique)
+            np(choix_ai_basique, num_tirages_MC)
+	    print("\n\n")
         if(input == '1'):
-            sp()
+            sp(choix_ai_basique, num_tirages_MC)
+	    print("\n\n")
         if(input == '2'):
             pvp()
+	    print("\n\n")
+        if(input == '3'):
+            ratio_victoires = obtenirStatistiquesDeVictoires(num_parties_jouees, choix_ai_basique, num_tirages_MC)
+	    print("Choix AI basique ?"),
+	    print(choix_ai_basique)
+	    print("Sinon, nombre de tirages MC ?"),
+	    print(num_tirages_MC)
+	    print("Ratio de victoires ?"),
+	    print(ratio_victoires)
+	    print("\n\n")
 
-def np(choix_ai_basique, show_grid = False):
+def np(choix_ai_basique, num_tirages_MC = 3, show_grid = False):
     '''Une partie entre intelligences artificielles'''
     grid = Grille()
-    ai1 = MC('X')
+    ai1 = MC('X', num_tirages_MC)
     if choix_ai_basique:
         ai1 = AI('X')
     ai2 = AI('O')
@@ -48,11 +62,13 @@ def np(choix_ai_basique, show_grid = False):
     il_y_a_un_vainqueur = grid.checkVictory()
     print "The game ended in the following state:"
     grid.showGrid()
-    print("Y a-t-il un gagnant ?", il_y_a_un_vainqueur)
-    print("Si oui, est-ce le joueur n°1 (X) ?", le_joueur1_gagne)
+    print("Y a-t-il un gagnant ?"),
+    print(il_y_a_un_vainqueur)
+    print("Si oui, est-ce le joueur 1 (X) ?"),
+    print(le_joueur1_gagne)
     return (il_y_a_un_vainqueur, le_joueur1_gagne)
 
-def sp(choix_ai_basique = False):
+def sp(choix_ai_basique, num_tirages_MC = 3):
     '''Une partie opposant un joueur humain à une intelligence artificielle'''
     grid = Grille()
     ai = MC('O')
@@ -78,8 +94,10 @@ def sp(choix_ai_basique = False):
     il_y_a_un_vainqueur = grid.checkVictory()
     print "The game ended in the following state:"
     grid.showGrid()
-    print("Y a-t-il un gagnant ?", il_y_a_un_vainqueur)
-    print("Si oui, est-ce le joueur n°1 (X) ?", le_joueur1_gagne)
+    print("Y a-t-il un gagnant ?"),
+    print(il_y_a_un_vainqueur)
+    print("Si oui, est-ce le joueur n 1 (X) ?"),
+    print(le_joueur1_gagne)
 
 def pvp():
     '''Une partie entre joueurs humains'''
@@ -98,73 +116,18 @@ def pvp():
     print "The game ended in the following state:"
     grid.showGrid()
 
-def obtenirStatistiquesDeVictoires():
-    return
-
-def getStatsVictory(numParties, MonteCarloOnly, numDescentesDansArbre, numMCSimulations, uct_factor):
-    numPartiesAvecVainqueur = 0
-    numVictoiresDesCroix = 0
-    for i in range(numParties):
-        (il_y_a_un_vainqueur, LesCroixGagnent) = auto(MonteCarloOnly, numDescentesDansArbre, numMCSimulations, uct_factor)
-        numPartiesAvecVainqueur += int(il_y_a_un_vainqueur)
-        numVictoiresDesCroix += int(LesCroixGagnent)
-    return round(numVictoiresDesCroix*100.0/numPartiesAvecVainqueur)/100.0
-
+def obtenirStatistiquesDeVictoires(num_parties_jouees, choix_ai_basique, num_tirages_MC = 3):
+    num_parties_avec_vainqueur = 0
+    num_victoires_du_joueur1 = 0
+    for i in range(num_parties_jouees):
+        (il_y_a_un_vainqueur, le_joueur1_gagne) = np(choix_ai_basique, num_tirages_MC)
+	num_parties_avec_vainqueur += int(il_y_a_un_vainqueur)
+	num_victoires_du_joueur1 += int(le_joueur1_gagne)
+    try:
+	ratio_victoires = round(100.0*num_victoires_du_joueur1/num_parties_avec_vainqueur)/100.0
+    except ZeroDivisionError:
+	ratio_victoires = 0.5
+    return ratio_victoires
 
 if __name__ == "__main__":
     menu()
-
-    ## pour les statistiques de victoire
-    numParties = 50
-    ## paramètres possibles
-    MonteCarloOnly = False
-    numDescentesDansArbre = 30
-    numMCSimulations = 100
-    uct_factor = 5.0
-
-    ## statistiques
-
-    #print("Monte-Carlo biaisé")
-    #MonteCarloOnly = True
-    #for numMCSimulations in range(50,201,50):
-        #numVictoires = getStatsVictory(numParties, MonteCarloOnly, numDescentesDansArbre, numMCSimulations, uct_factor)
-        #print(numVictoires, MonteCarloOnly, numDescentesDansArbre, numMCSimulations, uct_factor)
-
-    #print("UCT")
-    #MonteCarloOnly = False
-    #numMCSimulations = 50
-    #for uct_factor in range(0,16,5):
-        #for numDescentesDansArbre in range(10,51,20):
-            #numVictoires = getStatsVictory(numParties, MonteCarloOnly, numDescentesDansArbre, numMCSimulations, uct_factor)
-            #print(numVictoires, MonteCarloOnly, numDescentesDansArbre, numMCSimulations, uct_factor)
-
-    #print("UCT bis")
-    #MonteCarloOnly = False
-    #numDescentesDansArbre = 15
-    #numMCSimulations = 50
-    #for uct_factor in range(0,101,10):
-            #numVictoires = getStatsVictory(numParties, MonteCarloOnly, numDescentesDansArbre, numMCSimulations, uct_factor)
-            #print(numVictoires, MonteCarloOnly, numDescentesDansArbre, numMCSimulations, uct_factor)
-
-    #print("UCT ter")
-    #MonteCarloOnly = False
-    #numMCSimulations = 30
-    #for uct_factor in range(0,16,5):
-        #for numDescentesDansArbre in range(2,16,4):
-            #numVictoires = getStatsVictory(numParties, MonteCarloOnly, numDescentesDansArbre, numMCSimulations, uct_factor)
-            #print(numVictoires, MonteCarloOnly, numDescentesDansArbre, numMCSimulations, uct_factor)
-
-    #print("Monte-Carlo biaisé bis")
-    #MonteCarloOnly = True
-    #for numMCSimulations in range(1, 7):
-        #numVictoires = getStatsVictory(numParties, MonteCarloOnly, numDescentesDansArbre, numMCSimulations, uct_factor)
-        #print(numVictoires, MonteCarloOnly, numDescentesDansArbre, numMCSimulations, uct_factor)
-
-    print("Post-soutenance")
-    numDescentesDansArbre = 7
-    numMCSimulations = 2
-    uct_factor = 0.0
-    numVictoires = getStatsVictory(numParties, MonteCarloOnly, numDescentesDansArbre, numMCSimulations, uct_factor)
-    print(numVictoires, MonteCarloOnly, numDescentesDansArbre, numMCSimulations, uct_factor)
-
-    print("Done.")

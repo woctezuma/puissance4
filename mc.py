@@ -21,7 +21,10 @@ class MC(AI):
 	    (il_y_a_un_vainqueur, le_joueur1_gagne) = ai.autoComplete(grille_simulee)
 	    num_parties_avec_vainqueur += int(il_y_a_un_vainqueur)
 	    num_victoires_du_joueur1 += int(le_joueur1_gagne)
-	score  = (2.0*num_victoires_du_joueur1 - num_parties_avec_vainqueur)/num_parties_avec_vainqueur
+	try:
+	    score  = (2.0*num_victoires_du_joueur1 - num_parties_avec_vainqueur)/num_parties_avec_vainqueur
+	except ZeroDivisionError:
+	    score = 0.5
 	return score
 
     def aiMonteCarlo(self, grille):
