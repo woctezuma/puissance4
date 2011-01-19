@@ -21,7 +21,7 @@ ou en diagonale) quatre pions de sa couleur, ce joueur est alors le gagnant.
 2. Recherche Monte-Carlo
 ========================
 
-Nous présentons quatre types de « joueur » par ordre croissant de complexité.
+Nous présentons trois types de « joueur » par ordre croissant de complexité.
 
 	2.1 Aléatoire biaisé
 	====================
