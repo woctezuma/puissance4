@@ -20,18 +20,18 @@ ou en diagonale) quatre pions de sa couleur, ce joueur est alors le gagnant.
 
 Nous présentons trois types de « joueur » par ordre croissant de complexité.
 
-###	Aléatoire biaisé
+###	1. Aléatoire biaisé
 
 Le joueur « aléatoire » tire selon une loi uniforme son prochain coup
 parmi l'ensemble des coups admissibles (toutes les colonnes qui ne sont pas complètes).
 
 Nous améliorons le joueur « aléatoire » en utilisant une connaissance propre au jeu du Puissance 4 : si trois jetons d'une même couleur sont alignés et s'il existe dans l'alignement une case vide dont la case inférieure est occupée, c'est-à-dire permettant d'obtenir un alignement de quatre jetons, alors ce coup est joué. Cela permet ou bien de gagner par cet alignement (si les jetons sont de la couleur du joueur), ou bien d'empêcher l'adversaire de gagner au coup suivant en réalisant cet alignement-ci (si les jetons sont de la couleur de l'adversaire). Nous jouons de même s'il existe une case vide sur l'alignement de deux jetons et d'un troisième de couleur identique, et que la case inférieure à la case vide est occupée. Cela permet d'accélérer les fins de partie lors de l'affrontement de deux joueurs faisant des choix aléatoires.
 
-###	Monte-Carlo biaisé
+###	2. Monte-Carlo biaisé
 
 Le joueur « Monte-Carlo biaisé » repose sur l'utilisation de simulations Monte-Carlo utilisant le joueur « aléatoire biaisé » : une grille étant donnée, le joueur répertorie l'ensemble des coups admissibles, puis, après avoir virtuellement joué chacun de ces coups possibles, simule un nombre fixé de fins de partie obtenues par l'affrontement de deux joueurs de type « aléatoire biaisé ». Le score associé à chacun des coups admissibles correspond au nombre de victoires suivant ce coup lors des simulations. Le joueur choisit alors le coup qui rend maximal ce score. C'est donc un joueur qui évalue un couple (position, action)
 
-###	Upper Confidence bounds for Trees
+###	3. Upper Confidence bounds for Trees
 
 L'algorithme « Upper Confidence bounds for Trees » (UCT) est une adaptation de l'algorithme « Upper Confidence Bound » (UCB) aux problèmes faisant intervenir des arbres, comme c'est le cas du jeu de Puissance 4.
 
@@ -54,9 +54,9 @@ Le noeud de départ correspond à la position actuelle, nous mettons donc à jou
 ## Bibliographie
 
 [1] T. Cazenave, A. Saffidine,
-	Utilisation de la recherche arborescente Monte-Carlo au Hex,
-	Revue d'Intelligence Artificielle, vol. 23, no. 2-3, pp. 183-202, 2009.
+	**Utilisation de la recherche arborescente Monte-Carlo au Hex**,
+	*Revue d'Intelligence Artificielle*, vol. 23, no. 2-3, pp. 183-202, 2009.
 
 [2] F. Teytaud, O. Teytaud,
-	Creating an Upper-Condence-Tree program for Havannah,
-	Advances in Computer Games 12, in Pamplona, Spain, 2009.
+	**Creating an Upper-Condence-Tree program for Havannah**,
+	*Advances in Computer Games* 12, in Pamplona, Spain, 2009.
