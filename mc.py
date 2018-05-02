@@ -3,13 +3,14 @@
 from ai import AI
 from grille import Grille
 
+
 class MC(AI):
     """Intelligence artificielle reposant sur des simulations Monte-Carlo"""
 
-    def __init__(self, symbole = 'O', num_tirages_mc = 3):
+    def __init__(self, symbole='O', num_tirages_m_c=3):
         """Créer un joueur du symbole indiqué"""
         AI.__init__(self, symbole)
-        self.num_tirages_MC = num_tirages_mc
+        self.num_tirages_MC = num_tirages_m_c
 
     def simuler_monte_carlo(self, grille, symbole_dont_c_est_le_tour):
         """Evaluer une grille par des simulations Monte-Carlo de la fin de la partie"""
@@ -22,7 +23,7 @@ class MC(AI):
             num_parties_avec_vainqueur += int(il_y_a_un_vainqueur)
             num_victoires_du_joueur1 += int(le_joueur1_gagne)
         try:
-            score  = (2.0*num_victoires_du_joueur1 - num_parties_avec_vainqueur)/num_parties_avec_vainqueur
+            score = (2.0 * num_victoires_du_joueur1 - num_parties_avec_vainqueur) / num_parties_avec_vainqueur
         except ZeroDivisionError:
             score = 0.5
         return score
@@ -41,22 +42,23 @@ class MC(AI):
             # Nous prenons l'opposé de la valeur simulée, car nous nous intéressons au joueur A.
             evaluation = - self.simuler_monte_carlo(grille_simulee, symbole_dont_c_est_le_tour)
             if evaluation > meilleure_evaluation:
-                    meilleure_evaluation = evaluation
-                    meilleure_action = action
+                meilleure_evaluation = evaluation
+                meilleure_action = action
         return meilleure_action
 
     def ai(self, grille):
         """Jouer en fonction des résultats des simulations Monte-Carlo"""
         mon_coup_urgent = self.look_for_obvious_steps(grille)
         if mon_coup_urgent == -1:
-                mon_coup = self.ai_monte_carlo(grille)
-                return mon_coup
+            mon_coup = self.ai_monte_carlo(grille)
+            return mon_coup
         else:
-                return mon_coup_urgent
+            return mon_coup_urgent
+
 
 def get_other_symbol(symbole):
     """Passer du symbole d'un joueur au symbole de son adversaire"""
     if symbole == 'X':
-            return 'O'
+        return 'O'
     else:
-            return 'X'
+        return 'X'
