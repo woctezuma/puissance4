@@ -13,7 +13,7 @@ class Grille:
         self.heigth = 6
         self.sep_ligne = '\n'
         self.sep_colonne = ';'
-        self.grid = [['.'] * self.width for i in range(self.heigth)]
+        self.grid = [['.'] * self.width for _ in range(self.heigth)]
         if grille_initiale is not None:
             self.set(grille_initiale.get_name())
 

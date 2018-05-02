@@ -26,7 +26,8 @@ def menu():
     user_input = []
     while user_input not in ['q']:
         user_input = input(
-            "0) No player game.\n1) Single player game.\n2) Player vs player game.\n3) Statistiques.\nq) Quit.\nChoix : ")
+            "0) No player game.\n" + "1) Single player game.\n" + "2) Player vs player game.\n" +
+            "3) Statistiques.\n" + "q) Quit.\n" + "Choix : ")
         if user_input == '0':
             np(choix_ai_joueur, choix_ai_adversaire, num_tirages__m_c, num_descentes_dans_arbre, facteur_uct)
             print("\n\n")
