@@ -1,14 +1,12 @@
-﻿Utilisation de la recherche arborescente Monte-Carlo au Puissance 4
-===================================================================
+﻿# Utilisation de la recherche arborescente Monte-Carlo au Puissance 4
 
-	Résumé
-	======
+## Résumé
+
 Ce projet consiste à développer une intelligence artificielle 
 pour le jeu "Puissance 4" ("Connect 4" en anglais). Nous 
 présentons une application de la recherche arborescente Monte-Carlo.
 
-1. Introduction
-===============
+## Introduction
 
 Le jeu de Puissance 4 est un jeu de stratégie à deux joueurs 
 dans lequel le plateau est composé de sept colonnes (verticales), 
@@ -18,26 +16,22 @@ un pion de leur couleur dans l'une des colonnes. La partie s'arrête
 dès que l'un des joueurs a réussi à aligner (horizontalement, verticalement 
 ou en diagonale) quatre pions de sa couleur, ce joueur est alors le gagnant.
 
-2. Recherche Monte-Carlo
-========================
+## Recherche Monte-Carlo
 
 Nous présentons trois types de « joueur » par ordre croissant de complexité.
 
-	2.1 Aléatoire biaisé
-	====================
+###	Aléatoire biaisé
 
 Le joueur « aléatoire » tire selon une loi uniforme son prochain coup
 parmi l'ensemble des coups admissibles (toutes les colonnes qui ne sont pas complètes).
 
 Nous améliorons le joueur « aléatoire » en utilisant une connaissance propre au jeu du Puissance 4 : si trois jetons d'une même couleur sont alignés et s'il existe dans l'alignement une case vide dont la case inférieure est occupée, c'est-à-dire permettant d'obtenir un alignement de quatre jetons, alors ce coup est joué. Cela permet ou bien de gagner par cet alignement (si les jetons sont de la couleur du joueur), ou bien d'empêcher l'adversaire de gagner au coup suivant en réalisant cet alignement-ci (si les jetons sont de la couleur de l'adversaire). Nous jouons de même s'il existe une case vide sur l'alignement de deux jetons et d'un troisième de couleur identique, et que la case inférieure à la case vide est occupée. Cela permet d'accélérer les fins de partie lors de l'affrontement de deux joueurs faisant des choix aléatoires.
 
-	2.2 Monte-Carlo biaisé
-	======================
+###	Monte-Carlo biaisé
 
 Le joueur « Monte-Carlo biaisé » repose sur l'utilisation de simulations Monte-Carlo utilisant le joueur « aléatoire biaisé » : une grille étant donnée, le joueur répertorie l'ensemble des coups admissibles, puis, après avoir virtuellement joué chacun de ces coups possibles, simule un nombre fixé de fins de partie obtenues par l'affrontement de deux joueurs de type « aléatoire biaisé ». Le score associé à chacun des coups admissibles correspond au nombre de victoires suivant ce coup lors des simulations. Le joueur choisit alors le coup qui rend maximal ce score. C'est donc un joueur qui évalue un couple (position, action)
 
-	2.3 Upper Confidence bounds for Trees
-	=====================================
+###	Upper Confidence bounds for Trees
 
 L'algorithme « Upper Confidence bounds for Trees » (UCT) est une adaptation de l'algorithme « Upper Confidence Bound » (UCB) aux problèmes faisant intervenir des arbres, comme c'est le cas du jeu de Puissance 4.
 
@@ -57,8 +51,7 @@ Nous aboutissons donc à une position non encore explorée en suivant un chemin 
 
 Le noeud de départ correspond à la position actuelle, nous mettons donc à jour, pour chaque descente, évaluation et remontée dans l'arbre, la valeur UCT des fils de la racine. Au terme d'un nombre fixé de descentes dans l'arbre, nous effectuons l'action qui conduit au fils de la racine qui a la meilleure valeur UCT.
 
-Bibliographie
-=============
+## Bibliographie
 
 [1] T. Cazenave, A. Saffidine,
 	Utilisation de la recherche arborescente Monte-Carlo au Hex,
