@@ -41,7 +41,7 @@ class MC(AI):
             symbole_dont_c_est_le_tour = get_other_symbol(self.player)
             # Nous prenons l'opposé de la valeur simulée, car nous nous intéressons au joueur A.
             evaluation = - self.simuler_monte_carlo(grille_simulee, symbole_dont_c_est_le_tour)
-            if evaluation > meilleure_evaluation:
+            if meilleure_evaluation is None or evaluation > meilleure_evaluation:
                 meilleure_evaluation = evaluation
                 meilleure_action = action
         return meilleure_action

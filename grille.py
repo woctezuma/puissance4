@@ -34,10 +34,10 @@ class Grille:
         """Afficher la grille"""
         for row in self.grid:
             for node in row:
-                print(node + "  ")
+                print(node + "  ", end='')
             print('\n')
         for i in range(self.width):
-            print(str(i + 1) + "  ")
+            print(str(i + 1) + "  ", end='')
         print('\n\n')
 
     def drop(self, disc, col):

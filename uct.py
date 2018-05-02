@@ -149,7 +149,7 @@ class UCT(MC):
             num_etat_action = self.compteur_choix_action_dans_etat[(etat, action)]
             num_etat = self.compteur_visite_etat[etat]
             evaluation = recompense_moyenne + self.facteur_uct * sqrt(1.0 * log(num_etat) / num_etat_action)
-            if evaluation > meilleure_evaluation:
+            if meilleure_evaluation is None or  evaluation > meilleure_evaluation:
                 meilleure_evaluation = evaluation
                 meilleure_action = action
         if meilleure_action is None:
