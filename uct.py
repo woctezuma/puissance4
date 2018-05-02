@@ -15,16 +15,16 @@ from node import Node
 #     Advances in Computer Games 12, in Pamplona, Spain, 2009.
 
 class UCT(MC):
-	'''Intelligence artificielle reposant sur l'algorithme Upper-Confidence-Tree'''
+    """Intelligence artificielle reposant sur l'algorithme Upper-Confidence-Tree"""
 
 	def __init__(self, symbole = 'O', num_tirages_MC = 3, num_descentes_dans_arbre = 7, facteur_uct = 0.0):
-		'''Créer un joueur du symbole indiqué'''
+        """Créer un joueur du symbole indiqué"""
 		MC.__init__(self, symbole, num_tirages_MC)
 		self.num_descentes_dans_arbre = num_descentes_dans_arbre
 		self.facteur_uct = facteur_uct
 
 	def aiUCT(self, grille):
-		'''Déterminer la meilleure action en fonction des résultats de l'exploration UCT'''
+        """Déterminer la meilleure action en fonction des résultats de l'exploration UCT"""
 		# recevoir une position p
 		etat_initial = grille.getName()
 		symbole_dont_c_est_le_tour = self.player
@@ -32,7 +32,7 @@ class UCT(MC):
 		self.tree = Node(etat_initial)
 		self.compteur_visite_etat = {}
 		self.score_choix_action_dans_etat = {}
-		self.compteur_choix_action_dans_etat = {}
+        self.compteur_choix_action_dans_etat = {}
 		# boucle : plusieurs descentes dans l'arbre
 		for i in range(self.num_descentes_dans_arbre):
 			# soit p' une copie de p
@@ -52,7 +52,7 @@ class UCT(MC):
 		return meilleure_action
 
 	def ai(self, grille):
-		'''Jouer en fonction des résultats de l'exploration UCT'''
+        """Jouer en fonction des résultats de l'exploration UCT"""
 		mon_coup_urgent = self.lookForObviousSteps(grille)
 		if mon_coup_urgent == -1:
 			mon_coup = self.aiUCT(grille)
@@ -61,7 +61,7 @@ class UCT(MC):
 			return mon_coup_urgent
 
 	def TreeDown(self, position_courante, symbole_dont_c_est_le_tour):
-		'''Descendre dans l'arbre UCT'''
+        """Descendre dans l'arbre UCT"""
 		# soit N la racine de l'arbre
 		N = self.tree
 		joueur = symbole_dont_c_est_le_tour
@@ -71,7 +71,7 @@ class UCT(MC):
 		mes_coups_possibles = grille.lookForAllowedSteps()
 		while all([self.compteur_choix_action_dans_etat.has_key((N.name, i)) for i in mes_coups_possibles]):
 			# soit F le fils de N ayant la plus grande valeur UCT
-			if(len(mes_coups_possibles)>0):
+			if len(mes_coups_possibles)>0:
 				action = self.choisirActionUCT(grille)
 				nouvel_etat = changerEtatApresTransition(N.name, action, joueur)
 				F = Node(nouvel_etat, N)
@@ -85,7 +85,7 @@ class UCT(MC):
 		# soir F un fils de N tiré au hasard parmi les fils non explorés
 		grille.set(N.name)
 		mes_coups_possibles = grille.lookForAllowedSteps()
-		if(len(mes_coups_possibles)>0):
+		if len(mes_coups_possibles)>0:
 			actions_inexplorees = [i for i in mes_coups_possibles if not self.compteur_choix_action_dans_etat.has_key((N.name, i))]
 			tirage = randint(0, len(actions_inexplorees)-1)
 			action = actions_inexplorees[tirage]
@@ -95,12 +95,12 @@ class UCT(MC):
 			joueur = getOtherSymbol(joueur)
 		else:
 			F = N
-		return (F, joueur)
+		return F, joueur
 
 	def TreeUp(self, noeud_N, evaluation_R, symbole_racine, symbole_noeud_N):
-		'''Remonter dans l'arbre UCT'''
+        """Remonter dans l'arbre UCT"""
 		symbole_courant = symbole_noeud_N
-		while(noeud_N is not self.tree):
+		while noeud_N is not self.tree:
 			nom_N = noeud_N.name
 			nom_parent_N = noeud_N.parent.name
 			action_pour_arriver_en_N = noeud_N.code
@@ -134,7 +134,7 @@ class UCT(MC):
 		return
 
 	def choisirActionUCT(self, grille):
-		'''Choisir une action en utilisant le critère UCB'''
+        """Choisir une action en utilisant le critère UCB"""
 		etat = grille.getName()
 		mes_coups_possibles = grille.lookForAllowedSteps()
 		meilleure_action = None
@@ -144,17 +144,17 @@ class UCT(MC):
 				continue
 			recompense_moyenne = self.score_choix_action_dans_etat[(etat, action)]
 			num_etat_action = self.compteur_choix_action_dans_etat[(etat, action)]
-			num_etat = self.compteur_visite_etat[(etat)]
+			num_etat = self.compteur_visite_etat[etat]
 			evaluation = recompense_moyenne+self.facteur_uct*sqrt(1.0*log(num_etat)/num_etat_action)
-			if(evaluation > meilleure_evaluation):
+			if evaluation > meilleure_evaluation:
 				meilleure_evaluation = evaluation
 				meilleure_action = action
-		if meilleure_action == None:
+		if meilleure_action is None:
 			print("Aucun coup admissible.")
 		return meilleure_action
 
 def changerEtatApresTransition(etat, action, joueur):
-	'''Déterminer l'état obtenu lorsque le joueur effectue l'action dans l'état donné'''
+    """Déterminer l'état obtenu lorsque le joueur effectue l'action dans l'état donné"""
 	grille_copiee = Grille()
 	grille_copiee.set(etat)
 	grille_copiee.drop(joueur, action)

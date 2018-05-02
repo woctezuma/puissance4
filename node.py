@@ -4,12 +4,12 @@
 # http://stackoverflow.com/questions/3753665/python-tree-structure-and-numerical-codes/3753796#3753796
 
 class Node(object):
-    '''Structure d'arbre'''
+    """Structure d'arbre"""
 
     byname = {}
 
     def __init__(self, name, parent = None):
-        '''Créer un noeud, en spécifiant son parent s'il existe'''
+        """Créer un noeud, en spécifiant son parent s'il existe"""
         self.name = name
         self.parent = parent
         self.children = []

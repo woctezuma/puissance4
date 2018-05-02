@@ -4,15 +4,15 @@ from ai import AI
 from grille import Grille
 
 class MC(AI):
-    '''Intelligence artificielle reposant sur des simulations Monte-Carlo'''
+    """Intelligence artificielle reposant sur des simulations Monte-Carlo"""
 
     def __init__(self, symbole = 'O', num_tirages_MC = 3):
-        '''Créer un joueur du symbole indiqué'''
+        """Créer un joueur du symbole indiqué"""
         AI.__init__(self, symbole)
         self.num_tirages_MC = num_tirages_MC
 
     def simulerMonteCarlo(self, grille, symbole_dont_c_est_le_tour):
-        '''Evaluer une grille par des simulations Monte-Carlo de la fin de la partie'''
+        """Evaluer une grille par des simulations Monte-Carlo de la fin de la partie"""
         ai = AI(symbole_dont_c_est_le_tour)
         num_parties_avec_vainqueur = 0
         num_victoires_du_joueur1 = 0
@@ -28,7 +28,7 @@ class MC(AI):
         return score
 
     def aiMonteCarlo(self, grille):
-        '''Déterminer la meilleure action en fonction des résultats des simulations Monte-Carlo'''
+        """Déterminer la meilleure action en fonction des résultats des simulations Monte-Carlo"""
         mes_coups_possibles = grille.lookForAllowedSteps()
         meilleure_action = None
         meilleure_evaluation = None
@@ -40,13 +40,13 @@ class MC(AI):
             symbole_dont_c_est_le_tour = getOtherSymbol(self.player)
             # Nous prenons l'opposé de la valeur simulée, car nous nous intéressons au joueur A.
             evaluation = - self.simulerMonteCarlo(grille_simulee, symbole_dont_c_est_le_tour)
-            if(evaluation > meilleure_evaluation):
+            if evaluation > meilleure_evaluation:
                     meilleure_evaluation = evaluation
                     meilleure_action = action
         return meilleure_action
 
     def ai(self, grille):
-        '''Jouer en fonction des résultats des simulations Monte-Carlo'''
+        """Jouer en fonction des résultats des simulations Monte-Carlo"""
         mon_coup_urgent = self.lookForObviousSteps(grille)
         if mon_coup_urgent == -1:
                 mon_coup = self.aiMonteCarlo(grille)
@@ -55,7 +55,7 @@ class MC(AI):
                 return mon_coup_urgent
 
 def getOtherSymbol(symbole):
-    '''Passer du symbole d'un joueur au symbole de son adversaire'''
+    """Passer du symbole d'un joueur au symbole de son adversaire"""
     if symbole == 'X':
             return 'O'
     else:
