@@ -29,7 +29,7 @@ class MC(AI):
 
     def ai_monte_carlo(self, grille):
         """Déterminer la meilleure action en fonction des résultats des simulations Monte-Carlo"""
-        mes_coups_possibles = grille.lookForAllowedSteps()
+        mes_coups_possibles = grille.look_for_allowed_steps()
         meilleure_action = None
         meilleure_evaluation = None
         for action in mes_coups_possibles:

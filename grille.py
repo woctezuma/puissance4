@@ -49,7 +49,7 @@ class Grille:
 				break
 		return ce_coup_est_possible
 
-	def checkVictory(self):
+	def check_victory(self):
 		"""Vérifier si quatre jetons consécutifs du même joueur sont alignés"""
 		for y in range (0,len(self.grid)):
 			for x in range (0,len(self.grid[y])):
@@ -72,6 +72,6 @@ class Grille:
 							return True
 		return False
 
-	def lookForAllowedSteps(self):
+	def look_for_allowed_steps(self):
 		"""Renvoyer la liste des coups autorisés"""
 		return [(x+1) for x in range(self.width) if self.grid[0][x]=='.']

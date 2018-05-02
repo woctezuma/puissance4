@@ -23,7 +23,7 @@ class UCT(MC):
 		self.num_descentes_dans_arbre = num_descentes_dans_arbre
 		self.facteur_uct = facteur_uct
 
-	def aiUCT(self, grille):
+	def ai_uct(self, grille):
 		"""Déterminer la meilleure action en fonction des résultats de l'exploration UCT"""
 		# recevoir une position p
 		etat_initial = grille.get_name()
@@ -55,7 +55,7 @@ class UCT(MC):
 		"""Jouer en fonction des résultats de l'exploration UCT"""
 		mon_coup_urgent = self.look_for_obvious_steps(grille)
 		if mon_coup_urgent == -1:
-			mon_coup = self.aiUCT(grille)
+			mon_coup = self.ai_uct(grille)
 			return mon_coup
 		else:
 			return mon_coup_urgent
@@ -68,7 +68,7 @@ class UCT(MC):
 		# boucle : fils non explorés de N
 		grille = Grille()
 		grille.set(N.name)
-		mes_coups_possibles = grille.lookForAllowedSteps()
+		mes_coups_possibles = grille.look_for_allowed_steps()
 		while all([self.compteur_choix_action_dans_etat.has_key((N.name, i)) for i in mes_coups_possibles]):
 			# soit F le fils de N ayant la plus grande valeur UCT
 			if len(mes_coups_possibles)>0:
@@ -79,12 +79,12 @@ class UCT(MC):
 				N = F
 				joueur = get_other_symbol(joueur)
 				grille.set(N.name)
-				mes_coups_possibles = grille.lookForAllowedSteps()
+				mes_coups_possibles = grille.look_for_allowed_steps()
 			else:
 				break
 		# soir F un fils de N tiré au hasard parmi les fils non explorés
 		grille.set(N.name)
-		mes_coups_possibles = grille.lookForAllowedSteps()
+		mes_coups_possibles = grille.look_for_allowed_steps()
 		if len(mes_coups_possibles)>0:
 			actions_inexplorees = [i for i in mes_coups_possibles if not self.compteur_choix_action_dans_etat.has_key((N.name, i))]
 			tirage = randint(0, len(actions_inexplorees)-1)
@@ -136,7 +136,7 @@ class UCT(MC):
 	def choisirActionUCT(self, grille):
 		"""Choisir une action en utilisant le critère UCB"""
 		etat = grille.get_name()
-		mes_coups_possibles = grille.lookForAllowedSteps()
+		mes_coups_possibles = grille.look_for_allowed_steps()
 		meilleure_action = None
 		meilleure_evaluation = None
 		for action in mes_coups_possibles:

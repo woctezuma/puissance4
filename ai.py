@@ -110,7 +110,7 @@ class AI:
         """Jouer de façon aléatoire biaisée : un coups urgent sous réserve d'existence, sinon un coup possible au hasard"""
         mon_coup_urgent = self.look_for_obvious_steps(grille)
         if mon_coup_urgent == -1:
-            mes_coups_possibles = grille.lookForAllowedSteps()
+            mes_coups_possibles = grille.look_for_allowed_steps()
             tirage_aleatoire = randint(0, len(mes_coups_possibles)-1)
             return mes_coups_possibles[tirage_aleatoire]
         else:
@@ -122,16 +122,16 @@ class AI:
         if self.player == 'X':
             adversaire = 'O'
         le_joueur1_gagne = False
-        mes_coups_possibles = grille.lookForAllowedSteps()
-        while grille.checkVictory() is False and len(mes_coups_possibles)>0:
+        mes_coups_possibles = grille.look_for_allowed_steps()
+        while grille.check_victory() is False and len(mes_coups_possibles)>0:
             mon_coup = self.ai(grille)
             grille.drop(self.player, mon_coup)
             le_joueur1_gagne = True
-            mes_coups_possibles = grille.lookForAllowedSteps()
-            if grille.checkVictory() is False and len(mes_coups_possibles)>0:
+            mes_coups_possibles = grille.look_for_allowed_steps()
+            if grille.check_victory() is False and len(mes_coups_possibles)>0:
                 votre_coup = self.ai(grille)
                 grille.drop(adversaire, votre_coup)
                 le_joueur1_gagne = False
-                mes_coups_possibles = grille.lookForAllowedSteps()
-        il_y_a_un_vainqueur = grille.checkVictory()
+                mes_coups_possibles = grille.look_for_allowed_steps()
+        il_y_a_un_vainqueur = grille.check_victory()
         return il_y_a_un_vainqueur, le_joueur1_gagne

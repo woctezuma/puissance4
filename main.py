@@ -21,19 +21,19 @@ def menu():
     num_descentes_dans_arbre = 7
     facteur_uct = 0.0
     num_parties_jouees = 50 # pour les statistiques de victoires
-    input = []
-    while input not in ['q']:
-        input = raw_input("0) No player game.\n1) Single player game.\n2) Player vs player game.\n3) Statistiques.\nq) Quit.\nChoix : ")
-        if input == '0':
+    user_input = []
+    while user_input not in ['q']:
+        user_input = raw_input("0) No player game.\n1) Single player game.\n2) Player vs player game.\n3) Statistiques.\nq) Quit.\nChoix : ")
+        if user_input == '0':
             np(choix_ai_joueur, choix_ai_adversaire, num_tirages_MC, num_descentes_dans_arbre, facteur_uct)
             print("\n\n")
-        if input == '1':
+        if user_input == '1':
             sp(choix_ai_adversaire, num_tirages_MC, num_descentes_dans_arbre, facteur_uct)
             print("\n\n")
-        if input == '2':
+        if user_input == '2':
             pvp()
             print("\n\n")
-        if input == '3':
+        if user_input == '3':
             ratio_victoires = obtenirStatistiquesDeVictoires(num_parties_jouees, choix_ai_joueur, choix_ai_adversaire, num_tirages_MC, num_descentes_dans_arbre, facteur_uct)
             print("Choix AI du joueur 1 ?"),
             print(choix_ai_joueur)
@@ -65,23 +65,23 @@ def np(choix_ai_joueur, choix_ai_adversaire, num_tirages_MC = 3, num_descentes_d
     elif choix_ai_adversaire == 3:
         ai2 = UCT('O') # paramètres par défaut
     le_joueur1_gagne = False
-    mes_coups_possibles = grid.lookForAllowedSteps()
-    while grid.checkVictory() is False and len(mes_coups_possibles)>0:
+    mes_coups_possibles = grid.look_for_allowed_steps()
+    while grid.check_victory() is False and len(mes_coups_possibles)>0:
         MonCoup = ai1.ai(grid)
         grid.drop(ai1.player, MonCoup)
         le_joueur1_gagne = True
-        mes_coups_possibles = grid.lookForAllowedSteps()
+        mes_coups_possibles = grid.look_for_allowed_steps()
         if show_grid:
             grid.show_grid()
             sleep(1)
-        if grid.checkVictory() is False and len(mes_coups_possibles)>0:
+        if grid.check_victory() is False and len(mes_coups_possibles)>0:
             VotreCoup = ai2.ai(grid)
             grid.drop(ai2.player, VotreCoup)
             le_joueur1_gagne = False
-            mes_coups_possibles = grid.lookForAllowedSteps()
+            mes_coups_possibles = grid.look_for_allowed_steps()
             if show_grid:
                 grid.show_grid()
-    il_y_a_un_vainqueur = grid.checkVictory()
+    il_y_a_un_vainqueur = grid.check_victory()
     print("The game ended in the following state:")
     grid.show_grid()
     print("Y a-t-il un gagnant ?"),
@@ -99,23 +99,23 @@ def sp(choix_ai_adversaire, num_tirages_MC = 3, num_descentes_dans_arbre = 7, fa
     elif choix_ai_adversaire == 3:
         ai = UCT('O', num_tirages_MC, num_descentes_dans_arbre, facteur_uct)
     le_joueur1_gagne = False
-    mes_coups_possibles = grid.lookForAllowedSteps()
-    input = []
+    mes_coups_possibles = grid.look_for_allowed_steps()
+    user_input = []
     player = 'X'
-    while input != 'q' and grid.checkVictory() is False and len(mes_coups_possibles)>0:
+    while user_input != 'q' and grid.check_victory() is False and len(mes_coups_possibles)>0:
         grid.show_grid()
-        input = raw_input("Number 1 through 7  = drop disc, q = quit. \nYour move:")
-        if input in ['1', '2', '3', '4', '5', '6', '7']:
-            MonCoup = int(input)
+        user_input = raw_input("Number 1 through 7  = drop disc, q = quit. \nYour move:")
+        if user_input in ['1', '2', '3', '4', '5', '6', '7']:
+            MonCoup = int(user_input)
             if grid.drop(player, MonCoup):
                 le_joueur1_gagne = True
-                mes_coups_possibles = grid.lookForAllowedSteps()
-                if grid.checkVictory() is False and len(mes_coups_possibles)>0:
+                mes_coups_possibles = grid.look_for_allowed_steps()
+                if grid.check_victory() is False and len(mes_coups_possibles)>0:
                     VotreCoup = ai.ai(grid)
                     grid.drop(ai.player, VotreCoup)
                     le_joueur1_gagne = False
-                    mes_coups_possibles = grid.lookForAllowedSteps()
-    il_y_a_un_vainqueur = grid.checkVictory()
+                    mes_coups_possibles = grid.look_for_allowed_steps()
+    il_y_a_un_vainqueur = grid.check_victory()
     print("The game ended in the following state:")
     grid.show_grid()
     print("Y a-t-il un gagnant ?"),
@@ -126,13 +126,13 @@ def sp(choix_ai_adversaire, num_tirages_MC = 3, num_descentes_dans_arbre = 7, fa
 def pvp():
     """Une partie entre joueurs humains"""
     grid = Grille()
-    input = []
+    user_input = []
     player = 'X'
-    while input != 'q' and grid.checkVictory() is False:
+    while user_input != 'q' and grid.check_victory() is False:
         grid.show_grid()
-        input = raw_input("1 2 3 4 5 6 7  = drop disc, q = quit. \nPlayer " +player+" to move:")
-        if input in ['1', '2', '3', '4', '5', '6', '7']:
-            if grid.drop(player, int(input)):
+        user_input = raw_input("1 2 3 4 5 6 7  = drop disc, q = quit. \nPlayer " +player+" to move:")
+        if user_input in ['1', '2', '3', '4', '5', '6', '7']:
+            if grid.drop(player, int(user_input)):
                 if player == 'X':
                     player = 'O'
                 else:
