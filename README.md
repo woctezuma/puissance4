@@ -1,4 +1,4 @@
-﻿# Utilisation de la recherche arborescente Monte-Carlo au Puissance 4
+﻿# Recherche arborescente Monte-Carlo pour le Puissance 4
 
 ## Résumé
 
