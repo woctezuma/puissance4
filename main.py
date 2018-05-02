@@ -23,7 +23,7 @@ def menu():
     num_parties_jouees = 50 # pour les statistiques de victoires
     user_input = []
     while user_input not in ['q']:
-        user_input = raw_input("0) No player game.\n1) Single player game.\n2) Player vs player game.\n3) Statistiques.\nq) Quit.\nChoix : ")
+        user_input = input("0) No player game.\n1) Single player game.\n2) Player vs player game.\n3) Statistiques.\nq) Quit.\nChoix : ")
         if user_input == '0':
             np(choix_ai_joueur, choix_ai_adversaire, num_tirages_MC, num_descentes_dans_arbre, facteur_uct)
             print("\n\n")
@@ -104,7 +104,7 @@ def sp(choix_ai_adversaire, num_tirages_MC = 3, num_descentes_dans_arbre = 7, fa
     player = 'X'
     while user_input != 'q' and grid.check_victory() is False and len(mes_coups_possibles)>0:
         grid.show_grid()
-        user_input = raw_input("Number 1 through 7  = drop disc, q = quit. \nYour move:")
+        user_input = input("Number 1 through 7  = drop disc, q = quit. \nYour move:")
         if user_input in ['1', '2', '3', '4', '5', '6', '7']:
             MonCoup = int(user_input)
             if grid.drop(player, MonCoup):
@@ -130,7 +130,7 @@ def pvp():
     player = 'X'
     while user_input != 'q' and grid.check_victory() is False:
         grid.show_grid()
-        user_input = raw_input("1 2 3 4 5 6 7  = drop disc, q = quit. \nPlayer " +player+" to move:")
+        user_input = input("1 2 3 4 5 6 7  = drop disc, q = quit. \nPlayer " +player+" to move:")
         if user_input in ['1', '2', '3', '4', '5', '6', '7']:
             if grid.drop(player, int(user_input)):
                 if player == 'X':
