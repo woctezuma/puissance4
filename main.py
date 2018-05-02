@@ -11,7 +11,7 @@ from mc import MC
 from uct import UCT
 
 
-def menu():
+def menu(default_user_action=None):
     """Menu principal"""
     # Intelligences artificielles disponibles :
     # 1 : jeu aléatoire biaisé
@@ -25,9 +25,17 @@ def menu():
     num_parties_jouees = 50  # pour les statistiques de victoires
     user_input = []
     while user_input not in ['q']:
-        user_input = input(
-            "0) No player game.\n" + "1) Single player game.\n" + "2) Player vs player game.\n" +
-            "3) Statistiques.\n" + "q) Quit.\n" + "Choix : ")
+        if default_user_action is not None:
+            user_input = default_user_action
+        else:
+            user_input = input(
+                "0) No player game.\n" +
+                "1) Single player game.\n" +
+                "2) Player vs player game.\n" +
+                "3) Statistiques.\n" +
+                "q) Quit.\n" +
+                "Choix : ")
+
         if user_input == '0':
             np(choix_ai_joueur, choix_ai_adversaire, num_tirages__m_c, num_descentes_dans_arbre, facteur_uct)
             print("\n\n")
@@ -56,6 +64,8 @@ def menu():
             print("Pourcentage de victoires ?"),
             print(ratio_victoires)
             print("\n\n")
+        if default_user_action is not None:
+            user_input = 'q'
 
 
 def np(choix_ai_joueur, choix_ai_adversaire, num_tirages_m_c=3, num_descentes_dans_arbre=7, facteur_uct=0.0,
@@ -168,4 +178,12 @@ def obtenir_statistiques_de_victoires(num_parties_jouees, choix_ai_joueur, choix
 
 
 if __name__ == "__main__":
-    menu()
+    test_user_action = '0'
+    # Set to None if you want to decide at run-time which kind of play you prefer (AI self-play, human vs. AI, etc.)
+    # Set to '0' to let AI vs. AI self-play (useful for Travis integration on Github)
+    # Set to '1' to play one game against biased Monte-Carlo AI.
+    # NB: This should not be the best AI. Modify the code if you want to play against UCT AI.
+    # Set to '2' to allow with no AI, i.e. human vs. human.
+    # Set to '3' to compute AI self-play 50 games: UCT AI vs. biased Monte-Carlo AI.
+
+    menu(test_user_action)
