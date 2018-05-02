@@ -1,5 +1,10 @@
 ﻿# Recherche arborescente Monte-Carlo pour le Puissance 4
 
+ [![Build status][Build image]][Build]
+
+  [Build]: https://travis-ci.org/woctezuma/puissance4
+  [Build image]: https://travis-ci.org/woctezuma/puissance4.svg?branch=master
+
 ## Résumé
 
 Ce projet consiste à développer une intelligence artificielle 
