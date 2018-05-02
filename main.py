@@ -72,7 +72,7 @@ def np(choix_ai_joueur, choix_ai_adversaire, num_tirages_MC = 3, num_descentes_d
         le_joueur1_gagne = True
         mes_coups_possibles = grid.lookForAllowedSteps()
         if show_grid:
-            grid.showGrid()
+            grid.show_grid()
             sleep(1)
         if grid.checkVictory() is False and len(mes_coups_possibles)>0:
             VotreCoup = ai2.ai(grid)
@@ -80,10 +80,10 @@ def np(choix_ai_joueur, choix_ai_adversaire, num_tirages_MC = 3, num_descentes_d
             le_joueur1_gagne = False
             mes_coups_possibles = grid.lookForAllowedSteps()
             if show_grid:
-                grid.showGrid()
+                grid.show_grid()
     il_y_a_un_vainqueur = grid.checkVictory()
     print("The game ended in the following state:")
-    grid.showGrid()
+    grid.show_grid()
     print("Y a-t-il un gagnant ?"),
     print(il_y_a_un_vainqueur)
     print("Si oui, est-ce le joueur 1 (X) ?"),
@@ -103,7 +103,7 @@ def sp(choix_ai_adversaire, num_tirages_MC = 3, num_descentes_dans_arbre = 7, fa
     input = []
     player = 'X'
     while input != 'q' and grid.checkVictory() is False and len(mes_coups_possibles)>0:
-        grid.showGrid()
+        grid.show_grid()
         input = raw_input("Number 1 through 7  = drop disc, q = quit. \nYour move:")
         if input in ['1', '2', '3', '4', '5', '6', '7']:
             MonCoup = int(input)
@@ -117,7 +117,7 @@ def sp(choix_ai_adversaire, num_tirages_MC = 3, num_descentes_dans_arbre = 7, fa
                     mes_coups_possibles = grid.lookForAllowedSteps()
     il_y_a_un_vainqueur = grid.checkVictory()
     print("The game ended in the following state:")
-    grid.showGrid()
+    grid.show_grid()
     print("Y a-t-il un gagnant ?"),
     print(il_y_a_un_vainqueur)
     print("Si oui, est-ce le joueur n 1 (X) ?"),
@@ -129,7 +129,7 @@ def pvp():
     input = []
     player = 'X'
     while input != 'q' and grid.checkVictory() is False:
-        grid.showGrid()
+        grid.show_grid()
         input = raw_input("1 2 3 4 5 6 7  = drop disc, q = quit. \nPlayer " +player+" to move:")
         if input in ['1', '2', '3', '4', '5', '6', '7']:
             if grid.drop(player, int(input)):
@@ -138,7 +138,7 @@ def pvp():
                 else:
                     player = 'X'
     print("The game ended in the following state:")
-    grid.showGrid()
+    grid.show_grid()
 
 def obtenirStatistiquesDeVictoires(num_parties_jouees, choix_ai_joueur, choix_ai_adversaire, num_tirages_MC = 3, num_descentes_dans_arbre = 7, facteur_uct = 0.0):
     num_parties_avec_vainqueur = 0

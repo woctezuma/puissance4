@@ -14,9 +14,9 @@ class Grille:
 		self.sep_colonne = ';'
 		self.grid = [['.'] * self.width for i in range(self.heigth)]
 		if grille_initiale is not None:
-			self.set(grille_initiale.getName())
+			self.set(grille_initiale.get_name())
 
-	def getName(self):
+	def get_name(self):
 		"""Renvoyer un texte représentant la grille de façon unique"""
 		return self.sep_ligne.join([self.sep_colonne.join(liste) for liste in self.grid])
 
@@ -29,7 +29,7 @@ class Grille:
 		"""Effacer la grille"""
 		self.__init__()
 
-	def showGrid(self):
+	def show_grid(self):
 		"""Afficher la grille"""
 		for row in self.grid:
 			for node in row:

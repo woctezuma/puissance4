@@ -13,7 +13,7 @@ class AI:
         self.player = symbole
         pass
 
-    def lookForObviousSteps(self, grille):
+    def look_for_obvious_steps(self, grille):
         """Vérifier s'il est possible de gagner pour l'un ou l'autre joueur. Si oui, renvoyer le numéro de la colonne à jouer, sinon -1"""
         for y in range (0,len(grille.grid)):
             for x in range (0,len(grille.grid[y])):
@@ -108,7 +108,7 @@ class AI:
 
     def ai(self, grille):
         """Jouer de façon aléatoire biaisée : un coups urgent sous réserve d'existence, sinon un coup possible au hasard"""
-        mon_coup_urgent = self.lookForObviousSteps(grille)
+        mon_coup_urgent = self.look_for_obvious_steps(grille)
         if mon_coup_urgent == -1:
             mes_coups_possibles = grille.lookForAllowedSteps()
             tirage_aleatoire = randint(0, len(mes_coups_possibles)-1)
@@ -116,7 +116,7 @@ class AI:
         else:
             return mon_coup_urgent
 
-    def autoComplete(self, grille):
+    def auto_complete(self, grille):
         """Simuler une fin de partie à partir de la grille initiale fournie : méthode Monte-Carlo avec un jeu aléatoire biaisé pour les joueurs"""
         adversaire = 'X'
         if self.player == 'X':
@@ -124,13 +124,13 @@ class AI:
         le_joueur1_gagne = False
         mes_coups_possibles = grille.lookForAllowedSteps()
         while grille.checkVictory() is False and len(mes_coups_possibles)>0:
-            MonCoup = self.ai(grille)
-            grille.drop(self.player, MonCoup)
+            mon_coup = self.ai(grille)
+            grille.drop(self.player, mon_coup)
             le_joueur1_gagne = True
             mes_coups_possibles = grille.lookForAllowedSteps()
             if grille.checkVictory() is False and len(mes_coups_possibles)>0:
-                VotreCoup = self.ai(grille)
-                grille.drop(adversaire, VotreCoup)
+                votre_coup = self.ai(grille)
+                grille.drop(adversaire, votre_coup)
                 le_joueur1_gagne = False
                 mes_coups_possibles = grille.lookForAllowedSteps()
         il_y_a_un_vainqueur = grille.checkVictory()
