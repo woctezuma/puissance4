@@ -9,8 +9,8 @@
   [Dependency image]: https://pyup.io/repos/github/woctezuma/puissance4/shield.svg
   [Python3 image]: https://pyup.io/repos/github/woctezuma/puissance4/python-3-shield.svg
 
-  [Codecov]: https://codecov.io/gh/woctezuma/download-steam-reviews
-  [Codecov image]: https://codecov.io/gh/woctezuma/download-steam-reviews/branch/master/graph/badge.svg
+  [Codecov]: https://codecov.io/gh/woctezuma/puissance4
+  [Codecov image]: https://codecov.io/gh/woctezuma/puissance4/branch/master/graph/badge.svg
 
 ## Résumé
 
