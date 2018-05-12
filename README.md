@@ -1,6 +1,6 @@
 ﻿# Recherche arborescente Monte-Carlo pour le Puissance 4
 
- [![Build status][Build image]][Build] [![Updates][Dependency image]][PyUp] [![Python 3][Python3 image]][PyUp]
+ [![Build status][Build image]][Build] [![Updates][Dependency image]][PyUp] [![Python 3][Python3 image]][PyUp] [![Code coverage][Codecov image]][Codecov]
 
   [Build]: https://travis-ci.org/woctezuma/puissance4
   [Build image]: https://travis-ci.org/woctezuma/puissance4.svg?branch=master
@@ -8,6 +8,9 @@
   [PyUp]: https://pyup.io/repos/github/woctezuma/puissance4/
   [Dependency image]: https://pyup.io/repos/github/woctezuma/puissance4/shield.svg
   [Python3 image]: https://pyup.io/repos/github/woctezuma/puissance4/python-3-shield.svg
+
+  [Codecov]: https://codecov.io/gh/woctezuma/download-steam-reviews
+  [Codecov image]: https://codecov.io/gh/woctezuma/download-steam-reviews/branch/master/graph/badge.svg
 
 ## Résumé
 
