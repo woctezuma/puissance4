@@ -67,6 +67,7 @@ def menu(default_user_action=None):
         if default_user_action is not None:
             user_input = 'q'
 
+    return True
 
 def np(choix_ai_joueur, choix_ai_adversaire, num_tirages_m_c=3, num_descentes_dans_arbre=7, facteur_uct=0.0,
        show_grid=False):
