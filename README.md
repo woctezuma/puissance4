@@ -49,6 +49,7 @@ L'algorithme « Upper Confidence bounds for Trees » (UCT) est une adaptation de
 
 Une position étant donnée, nous effectuons le choix entre exploration et exploitation à l'aide de la formule intervenant dans UCB. Pour un noeud (hors racine) donné :
 > $$\mu+C\sqrt{\frac{\log\left(n\right)}{s}}$$
+
 avec :
 - $\mu$ : moyenne des scores obtenus
 - C : constante UCT, d'autant plus grande que l'on est prêt à explorer plutôt qu'exploiter.
