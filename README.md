@@ -48,16 +48,16 @@ Le joueur « Monte-Carlo biaisé » repose sur l'utilisation de simulations Mont
 L'algorithme « Upper Confidence bounds for Trees » (UCT) est une adaptation de l'algorithme « Upper Confidence Bound » (UCB) aux problèmes faisant intervenir des arbres, comme c'est le cas du jeu de Puissance 4.
 
 Une position étant donnée, nous effectuons le choix entre exploration et exploitation à l'aide de la formule intervenant dans UCB. Pour un noeud (hors racine) donné :
-$$\mu+C\sqrt{\frac{\log\left(n\right)}{s}}$$
+> $$\mu+C\sqrt{\frac{\log\left(n\right)}{s}}$$
 avec :
-• $\mu$ : moyenne des scores obtenus
-• C : constante UCT, d'autant plus grande que l'on est prêt à explorer plutôt qu'exploiter.
-• n : nombre de simulations effectuées dans le père du noeud
-• s : nombre de simulations passant par ce noeud
+- $\mu$ : moyenne des scores obtenus
+- C : constante UCT, d'autant plus grande que l'on est prêt à explorer plutôt qu'exploiter.
+- n : nombre de simulations effectuées dans le père du noeud
+- s : nombre de simulations passant par ce noeud
 
 En pratique, pour un noeud donné :
-• si l'un des fils du noeud considéré n'est pas exploré, alors nous l'évaluons.
-• sinon, nous considérons un nouveau noeud : le fils de plus grande valeur UCT.
+- si l'un des fils du noeud considéré n'est pas exploré, alors nous l'évaluons.
+- sinon, nous considérons un nouveau noeud : le fils de plus grande valeur UCT.
 
 Nous aboutissons donc à une position non encore explorée en suivant un chemin qui rend la valeur de l'UCT maximale. Nous évaluons cette position par un nombre fixé de simulations Monte-Carlo biaisées. Nous mettons enfin à jour le score de chacun des noeuds par lesquels nous sommes passés en suivant le chemin qui rend la valeur de l'UCT maximale.
 
