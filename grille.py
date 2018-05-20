@@ -57,25 +57,19 @@ class Grille:
                 if self.grid[y][x] != '.':
                     '''Alignement horizontal, le noeud (x,y) étant le plus à gauche'''
                     if x < self.width - 3:
-                        if self.grid[y][x] == self.grid[y][x + 1] and self.grid[y][x] == self.grid[y][x + 2] and \
-                                self.grid[y][x] == self.grid[y][x + 3]:
+                        if all(self.grid[y][x] == self.grid[y][x + i + 1] for i in range(3)):
                             return True
                     '''Alignement vertical, le noeud (x,y) étant le plus haut'''
                     if y < self.heigth - 3:
-                        if self.grid[y][x] == self.grid[y + 1][x] and self.grid[y][x] == self.grid[y + 2][x] and \
-                                self.grid[y][x] == self.grid[y + 3][x]:
+                        if all(self.grid[y][x] == self.grid[y + i + 1][x] for i in range(3)):
                             return True
                     '''Alignement diagonal, le noeud (x,y) étant le plus haut et à gauche'''
                     if y < self.heigth - 3 and x < self.width - 3:
-                        if self.grid[y][x] == self.grid[y + 1][x + 1] and \
-                                self.grid[y][x] == self.grid[y + 2][x + 2] and \
-                                self.grid[y][x] == self.grid[y + 3][x + 3]:
+                        if all(self.grid[y][x] == self.grid[y + i + 1][x + i + 1] for i in range(3)):
                             return True
                     '''Alignement diagonal, le noeud (x,y) étant le plus haut et à droite'''
                     if y < self.heigth - 3 and x > 2:
-                        if self.grid[y][x] == self.grid[y + 1][x - 1] and \
-                                self.grid[y][x] == self.grid[y + 2][x - 2] and \
-                                self.grid[y][x] == self.grid[y + 3][x - 3]:
+                        if all(self.grid[y][x] == self.grid[y + i + 1][x - i - 1] for i in range(3)):
                             return True
         return False
 
