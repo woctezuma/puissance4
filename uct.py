@@ -3,6 +3,7 @@
 from math import sqrt, log
 from random import randint
 
+from ai import look_for_obvious_steps
 from grille import Grille
 from mc import MC, get_other_symbol
 from node import Node
@@ -55,7 +56,7 @@ class UCT(MC):
 
     def ai(self, grille):
         """Jouer en fonction des résultats de l'exploration UCT"""
-        mon_coup_urgent = self.look_for_obvious_steps(grille)
+        mon_coup_urgent = look_for_obvious_steps(grille)
         if mon_coup_urgent == -1:
             mon_coup = self.ai_uct(grille)
             return mon_coup

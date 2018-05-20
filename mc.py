@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from ai import AI
+from ai import AI, look_for_obvious_steps
 from grille import Grille
 
 
@@ -48,7 +48,7 @@ class MC(AI):
 
     def ai(self, grille):
         """Jouer en fonction des résultats des simulations Monte-Carlo"""
-        mon_coup_urgent = self.look_for_obvious_steps(grille)
+        mon_coup_urgent = look_for_obvious_steps(grille)
         if mon_coup_urgent == -1:
             mon_coup = self.ai_monte_carlo(grille)
             return mon_coup
