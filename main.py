@@ -38,34 +38,25 @@ def menu(default_user_action=None):
 
         if user_input == '0':
             np(choix_ai_joueur, choix_ai_adversaire, num_tirages__m_c, num_descentes_dans_arbre, facteur_uct)
-            print("\n\n")
         if user_input == '1':
             sp(choix_ai_adversaire, num_tirages__m_c, num_descentes_dans_arbre, facteur_uct)
-            print("\n\n")
         if user_input == '2':
             pvp()
-            print("\n\n")
         if user_input == '3':
             ratio_victoires = obtenir_statistiques_de_victoires(num_parties_jouees, choix_ai_joueur,
                                                                 choix_ai_adversaire, num_tirages__m_c,
                                                                 num_descentes_dans_arbre, facteur_uct)
-            print("Choix AI du joueur 1 ?"),
-            print(choix_ai_joueur)
-            print("Choix AI du joueur 2 ?"),
-            print(choix_ai_adversaire)
+            print("[Player #1] AI = {}".format(choix_ai_joueur))
+            print("[Player #2] AI = {}".format(choix_ai_adversaire))
             if choix_ai_joueur != 1:
-                print("Nombre de tirages MC ?"),
-                print(num_tirages__m_c)
+                print("[Monte Carlo] num_samples = {}".format(num_tirages__m_c))
             if choix_ai_joueur == 3:
-                print("Nombre de descentes dans l'arbre UCT ?"),
-                print(num_descentes_dans_arbre)
-                print("Facteur UCT ?"),
-                print(facteur_uct)
-            print("Pourcentage de victoires ?"),
-            print(ratio_victoires)
-            print("\n\n")
+                print("[Upper Confidence Tree] num_tree_descents = {}".format(num_descentes_dans_arbre))
+                print("[Upper Confidence Tree] paramter = {}".format(facteur_uct))
+            print("[Player #1 vs. Player #2] winrate = {.2f}".format(ratio_victoires))
         if default_user_action is not None:
             user_input = 'q'
+        print("\n\n")
 
     return True
 
@@ -104,10 +95,8 @@ def np(choix_ai_joueur, choix_ai_adversaire, num_tirages_m_c=3, num_descentes_da
     il_y_a_un_vainqueur = grid.check_victory()
     print("The game ended in the following state:")
     grid.show_grid()
-    print("Y a-t-il un gagnant ?"),
-    print(il_y_a_un_vainqueur)
-    print("Si oui, est-ce le joueur 1 (X) ?"),
-    print(le_joueur1_gagne)
+    print("Y a-t-il un gagnant ? {}".format(il_y_a_un_vainqueur))
+    print("Si oui, est-ce le joueur 1 (X) ? {}".format(le_joueur1_gagne))
     return il_y_a_un_vainqueur, le_joueur1_gagne
 
 
@@ -139,10 +128,9 @@ def sp(choix_ai_adversaire, num_tirages_m_c=3, num_descentes_dans_arbre=7, facte
     il_y_a_un_vainqueur = grid.check_victory()
     print("The game ended in the following state:")
     grid.show_grid()
-    print("Y a-t-il un gagnant ?"),
-    print(il_y_a_un_vainqueur)
-    print("Si oui, est-ce le joueur n 1 (X) ?"),
-    print(le_joueur1_gagne)
+    print("Y a-t-il un gagnant ? {}".format(il_y_a_un_vainqueur))
+    print("Si oui, est-ce le joueur 1 (X) ? {}".format(le_joueur1_gagne))
+    return
 
 
 def pvp():
@@ -161,19 +149,20 @@ def pvp():
                     player = 'X'
     print("The game ended in the following state:")
     grid.show_grid()
+    return
 
 
 def obtenir_statistiques_de_victoires(num_parties_jouees, choix_ai_joueur, choix_ai_adversaire, num_tirages_m_c=3,
                                       num_descentes_dans_arbre=7, facteur_uct=0.0):
     num_parties_avec_vainqueur = 0
     num_victoires_du_joueur1 = 0
-    for i in range(num_parties_jouees):
+    for _ in range(num_parties_jouees):
         (il_y_a_un_vainqueur, le_joueur1_gagne) = np(choix_ai_joueur, choix_ai_adversaire, num_tirages_m_c,
                                                      num_descentes_dans_arbre, facteur_uct)
         num_parties_avec_vainqueur += int(il_y_a_un_vainqueur)
         num_victoires_du_joueur1 += int(le_joueur1_gagne)
     try:
-        ratio_victoires = round(100.0 * num_victoires_du_joueur1 / num_parties_avec_vainqueur) / 100.0
+        ratio_victoires = num_victoires_du_joueur1 / num_parties_avec_vainqueur
     except ZeroDivisionError:
         ratio_victoires = 0.5
     return ratio_victoires
