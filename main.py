@@ -53,7 +53,7 @@ def menu(default_user_action=None):
             if choix_ai_joueur == 3:
                 print("[Upper Confidence Tree] num_tree_descents = {}".format(num_descentes_dans_arbre))
                 print("[Upper Confidence Tree] paramter = {}".format(facteur_uct))
-            print("[Player #1 vs. Player #2] winrate = {.2f}".format(ratio_victoires))
+            print("[Player #1 vs. Player #2] winrate = {:.2f}".format(ratio_victoires))
         if default_user_action is not None:
             user_input = 'q'
         print("\n\n")
@@ -62,7 +62,7 @@ def menu(default_user_action=None):
 
 
 def np(choix_ai_joueur, choix_ai_adversaire, num_tirages_m_c=3, num_descentes_dans_arbre=7, facteur_uct=0.0,
-       show_grid=False):
+       show_grid=False, verbose=True):
     """Une partie entre intelligences artificielles"""
     grid = Grille()
     ai1 = AI('X')
@@ -93,10 +93,11 @@ def np(choix_ai_joueur, choix_ai_adversaire, num_tirages_m_c=3, num_descentes_da
             if show_grid:
                 grid.show_grid()
     il_y_a_un_vainqueur = grid.check_victory()
-    print("The game ended in the following state:")
-    grid.show_grid()
-    print("Y a-t-il un gagnant ? {}".format(il_y_a_un_vainqueur))
-    print("Si oui, est-ce le joueur 1 (X) ? {}".format(le_joueur1_gagne))
+    if verbose:
+        print("The game ended in the following state:")
+        grid.show_grid()
+        print("Y a-t-il un gagnant ? {}".format(il_y_a_un_vainqueur))
+        print("Si oui, est-ce le joueur 1 (X) ? {}".format(le_joueur1_gagne))
     return il_y_a_un_vainqueur, le_joueur1_gagne
 
 
@@ -156,9 +157,10 @@ def obtenir_statistiques_de_victoires(num_parties_jouees, choix_ai_joueur, choix
                                       num_descentes_dans_arbre=7, facteur_uct=0.0):
     num_parties_avec_vainqueur = 0
     num_victoires_du_joueur1 = 0
-    for _ in range(num_parties_jouees):
+    for game_no in range(num_parties_jouees):
+        print('Game n°{}'.format(game_no + 1))
         (il_y_a_un_vainqueur, le_joueur1_gagne) = np(choix_ai_joueur, choix_ai_adversaire, num_tirages_m_c,
-                                                     num_descentes_dans_arbre, facteur_uct)
+                                                     num_descentes_dans_arbre, facteur_uct, verbose=False)
         num_parties_avec_vainqueur += int(il_y_a_un_vainqueur)
         num_victoires_du_joueur1 += int(le_joueur1_gagne)
     try:
