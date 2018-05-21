@@ -11,6 +11,18 @@ from mc import MC
 from uct import UCT
 
 
+def get_conversion_offset():
+    return 97
+
+
+def get_possible_player_inputs(width):
+    return [chr(i + get_conversion_offset()) for i in range(width)]
+
+
+def convert_player_input(player_input):
+    return ord(player_input) - get_conversion_offset() + 1
+
+
 def menu(default_user_action=None):
     """Menu principal"""
     # Intelligences artificielles disponibles :
@@ -115,9 +127,9 @@ def sp(choix_ai_adversaire, num_tirages_m_c=3, num_descentes_dans_arbre=7, facte
     player = 'X'
     while user_input != 'q' and grid.check_victory() is False and len(mes_coups_possibles) > 0:
         grid.show_grid()
-        user_input = input("Number 1 through 7  = drop disc, q = quit. \nYour move:")
-        if user_input in ['1', '2', '3', '4', '5', '6', '7']:
-            mon_coup = int(user_input)
+        user_input = input("Letter a through g  = drop disc, q = quit. \nYour move:")
+        if user_input in get_possible_player_inputs(grid.width):
+            mon_coup = convert_player_input(user_input)
             if grid.drop(player, mon_coup):
                 le_joueur1_gagne = True
                 mes_coups_possibles = grid.look_for_allowed_steps()
@@ -141,9 +153,10 @@ def pvp():
     player = 'X'
     while user_input != 'q' and grid.check_victory() is False:
         grid.show_grid()
-        user_input = input("1 2 3 4 5 6 7  = drop disc, q = quit. \nPlayer " + player + " to move:")
-        if user_input in ['1', '2', '3', '4', '5', '6', '7']:
-            if grid.drop(player, int(user_input)):
+        user_input = input("Letter a through g = drop disc, q = quit. \nPlayer " + player + " to move:")
+        if user_input in get_possible_player_inputs(grid.width):
+            mon_coup = convert_player_input(user_input)
+            if grid.drop(player, mon_coup):
                 if player == 'X':
                     player = 'O'
                 else:
