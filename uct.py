@@ -28,6 +28,10 @@ class UCT(MC):
         self.compteur_choix_action_dans_etat = {}
         self.num_descentes_dans_arbre = num_descentes_dans_arbre
         self.facteur_uct = facteur_uct
+        self.tree = None
+
+    def set_tree(self, input_tree):
+        self.tree = input_tree
 
     def ai_uct(self, grille):
         """Déterminer la meilleure action en fonction des résultats de l'exploration UCT"""
@@ -35,7 +39,7 @@ class UCT(MC):
         etat_initial = grille.get_name()
         symbole_dont_c_est_le_tour = self.player
         # soit A l'arbre UCT vide à la racine près
-        self.tree = Node(etat_initial)
+        self.set_tree(Node(etat_initial))
         # boucle : plusieurs descentes dans l'arbre
         for i in range(self.num_descentes_dans_arbre):
             # soit p' une copie de p
