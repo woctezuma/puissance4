@@ -1,7 +1,8 @@
 # Objective: check whether win conditions can be achieved in one step
 
+
 def check_horizontale(grille, x, y):
-    '''Alignement horizontal de trois jetons consécutifs, le noeud (x,y) étant le plus à gauche'''
+    """Alignement horizontal de trois jetons consécutifs, le noeud (x,y) étant le plus à gauche"""
     if x < grille.width - 3:
         if all(grille.grid[y][x] == grille.grid[y][x + i + 1] for i in range(2)):
             if y < grille.heigth - 1:
@@ -38,7 +39,7 @@ def check_horizontale(grille, x, y):
 
 
 def check_verticale(grille, x, y):
-    '''Alignement vertical de trois jetons consécutifs, le noeud (x,y) étant le plus haut'''
+    """Alignement vertical de trois jetons consécutifs, le noeud (x,y) étant le plus haut"""
     if grille.heigth - 2 > y >= 1:
         if all(grille.grid[y][x] == grille.grid[y + i + 1][x] for i in range(2)):
             if grille.grid[y - 1][x] == '.':
@@ -47,7 +48,7 @@ def check_verticale(grille, x, y):
 
 
 def check_oblique_montante(grille, x, y):
-    '''Alignement diagonal montant : allant du coin bas gauche au coin haut droit'''
+    """Alignement diagonal montant : allant du coin bas gauche au coin haut droit"""
     if y < grille.heigth - 3 and x > 2:
         if grille.grid[y][x] == grille.grid[y + 3][x - 3]:
             '''Alignement diagonal de la forme X.XX'''
@@ -75,7 +76,7 @@ def check_oblique_montante(grille, x, y):
 
 
 def check_oblique_descendante(grille, x, y):
-    '''Alignement diagonal descendant : allant du coin haut gauche au coin bas droit'''
+    """Alignement diagonal descendant : allant du coin haut gauche au coin bas droit"""
     if y < grille.heigth - 3 and x < grille.width - 3:
         if grille.grid[y][x] == grille.grid[y + 3][x + 3]:
             '''Alignement diagonal de la forme X.XX'''
