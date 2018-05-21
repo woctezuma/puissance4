@@ -32,13 +32,14 @@ class Grille:
 
     def show_grid(self):
         """Afficher la grille"""
-        for row in self.grid:
-            for node in row:
-                print(node + "  ", end='')
-            print('\n')
-        for i in range(self.width):
-            print(str(i + 1) + "  ", end='')
-        print('\n\n')
+        sep = ' '
+        print()
+        for row_no, row in enumerate(self.grid):
+            print(str(self.heigth - row_no) + '|' + sep.join(row))
+        print('  ' + sep.join('-' for i in range(self.width)))
+        print('  ' + sep.join(chr(i + 65) for i in range(self.width)))
+        print()
+        return
 
     def drop(self, disc, col):
         """Placer un jeton dans la colonne"""
