@@ -52,7 +52,7 @@ def menu(default_user_action=None):
                 print("[Monte Carlo] num_samples = {}".format(num_tirages__m_c))
             if choix_ai_joueur == 3:
                 print("[Upper Confidence Tree] num_tree_descents = {}".format(num_descentes_dans_arbre))
-                print("[Upper Confidence Tree] paramter = {}".format(facteur_uct))
+                print("[Upper Confidence Tree] factor = {}".format(facteur_uct))
             print("[Player #1 vs. Player #2] winrate = {:.2f}".format(ratio_victoires))
         if default_user_action is not None:
             user_input = 'q'
