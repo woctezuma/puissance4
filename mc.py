@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from ai import AI, look_for_obvious_steps
+from ai import AI
 from grille import Grille
+from win_conditions import look_for_obvious_steps
 
 
 class MC(AI):

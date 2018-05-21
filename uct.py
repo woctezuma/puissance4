@@ -3,10 +3,10 @@
 from math import sqrt, log
 from random import randint
 
-from ai import look_for_obvious_steps
 from grille import Grille
 from mc import MC, get_other_symbol
 from node import Node
+from win_conditions import look_for_obvious_steps
 
 
 # Articles de référence :
