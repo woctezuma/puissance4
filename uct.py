@@ -2,7 +2,7 @@ from math import sqrt, log
 from random import choice
 
 from grille import Grille
-from mc import MC, get_other_symbol
+from mc import MC
 from node import Node
 
 
@@ -64,7 +64,7 @@ class UCT(MC):
                 f = Node(nouvel_etat, n)
                 f.code = action
                 n = f
-                joueur = get_other_symbol(joueur)
+                joueur = self.get_other_symbol(joueur)
                 grille.set(n.name)
                 mes_coups_possibles = grille.look_for_allowed_steps()
             else:
@@ -79,7 +79,7 @@ class UCT(MC):
             etat_inexplore = changer_etat_apres_transition(n.name, action, joueur)
             f = Node(etat_inexplore, n)
             f.code = action
-            joueur = get_other_symbol(joueur)
+            joueur = self.get_other_symbol(joueur)
         else:
             f = n
         return f, joueur
@@ -112,7 +112,7 @@ class UCT(MC):
             mu = mu_avant + (1.0 / n) * (q - mu_avant)
             self.score_choix_action_dans_etat[(nom_parent__n, action_pour_arriver_en__n)] = mu
             noeud__n = noeud__n.parent
-            symbole_courant = get_other_symbol(symbole_courant)
+            symbole_courant = self.get_other_symbol(symbole_courant)
         # Enfin, visite de la racine.
         try:
             self.compteur_visite_etat[noeud__n.name] += 1

@@ -10,44 +10,35 @@ class MC(AI):
         AI.__init__(self, symbole)
         self.num_tirages_MC = num_tirages_m_c
 
-    def simuler_monte_carlo(self, grille, symbole_dont_c_est_le_tour):
+    def simuler_monte_carlo(self, grille, current_player):
         """Evaluer une grille par des simulations Monte-Carlo de la fin de la partie"""
-        ai = AI(symbole_dont_c_est_le_tour)
-        num_parties_avec_vainqueur = 0
-        num_victoires_du_joueur1 = 0
+        num_victoires = {'O': 0, 'X': 0, 'draw': 0}
+
+        ai = AI(current_player)
         for _ in range(self.num_tirages_MC):
             grille_simulee = Grille(grille)
-            (il_y_a_un_vainqueur, le_joueur1_gagne) = ai.auto_complete(grille_simulee)
-            num_parties_avec_vainqueur += int(il_y_a_un_vainqueur)
-            num_victoires_du_joueur1 += int(le_joueur1_gagne)
+            winner_symbol = ai.simulate_end_game(grille_simulee)
+            num_victoires[winner_symbol] += 1
+
         try:
-            score = (2.0 * num_victoires_du_joueur1 - num_parties_avec_vainqueur) / num_parties_avec_vainqueur
+            score = (num_victoires[self.get_player_symbol()] - num_victoires[self.get_opponent_symbol()]) \
+                    / (num_victoires[self.get_player_symbol()] + num_victoires[self.get_opponent_symbol()])
         except ZeroDivisionError:
             score = 0.5
         return score
 
     def play_witout_bias(self, grille):
         """Déterminer la meilleure action en fonction des résultats des simulations Monte-Carlo"""
-        mes_coups_possibles = grille.look_for_allowed_steps()
         meilleure_action = None
         meilleure_evaluation = None
-        for action in mes_coups_possibles:
+        for action in grille.look_for_allowed_steps():
             grille_simulee = Grille(grille)
             # Le joueur (A) joue un coup.
             grille_simulee.drop(self.player, action)
-            # C'est au tour de l'autre joueur (B).
-            symbole_dont_c_est_le_tour = get_other_symbol(self.player)
+            # C'est maintenant au tour de l'autre joueur (B).
             # Nous prenons l'opposé de la valeur simulée, car nous nous intéressons au joueur A.
-            evaluation = - self.simuler_monte_carlo(grille_simulee, symbole_dont_c_est_le_tour)
+            evaluation = - self.simuler_monte_carlo(grille_simulee, self.get_opponent_symbol())
             if meilleure_evaluation is None or evaluation > meilleure_evaluation:
                 meilleure_evaluation = evaluation
                 meilleure_action = action
         return meilleure_action
-
-
-def get_other_symbol(symbole):
-    """Passer du symbole d'un joueur au symbole de son adversaire"""
-    if symbole == 'X':
-        return 'O'
-    else:
-        return 'X'

@@ -20,23 +20,33 @@ class AI:
         else:
             return mon_coup_urgent
 
-    def auto_complete(self, grille):
-        """Simuler une fin de partie à partir de la grille initiale fournie :
-        méthode Monte-Carlo avec un jeu aléatoire biaisé pour les joueurs"""
-        adversaire = 'X'
-        if self.player == 'X':
-            adversaire = 'O'
-        le_joueur1_gagne = False
-        mes_coups_possibles = grille.look_for_allowed_steps()
-        while grille.check_victory() is False and len(mes_coups_possibles) > 0:
-            mon_coup = self.play_with_bias(grille)
-            grille.drop(self.player, mon_coup)
-            le_joueur1_gagne = True
-            mes_coups_possibles = grille.look_for_allowed_steps()
-            if grille.check_victory() is False and len(mes_coups_possibles) > 0:
-                votre_coup = self.play_with_bias(grille)
-                grille.drop(adversaire, votre_coup)
-                le_joueur1_gagne = False
-                mes_coups_possibles = grille.look_for_allowed_steps()
-        il_y_a_un_vainqueur = grille.check_victory()
-        return il_y_a_un_vainqueur, le_joueur1_gagne
+    def get_player_symbol(self):
+        return self.player
+
+    def get_opponent_symbol(self):
+        return self.get_other_symbol(self.player)
+
+    @staticmethod
+    def get_other_symbol(symbole):
+        """Passer du symbole d'un joueur au symbole de son adversaire"""
+        if symbole == 'X':
+            return 'O'
+        else:
+            return 'X'
+
+    def simulate_end_game(self, grille):
+        """Simuler une fin de partie à partir de la grille initiale fournie"""
+
+        player_who_last_played = self.get_opponent_symbol()
+
+        while not (grille.check_victory()) and len(grille.look_for_allowed_steps()) > 0:
+            current_player = self.get_other_symbol(player_who_last_played)
+            grille.drop(current_player, self.play_with_bias(grille))
+            player_who_last_played = current_player
+
+        if grille.check_victory():
+            winner_symbol = player_who_last_played
+        else:
+            winner_symbol = 'draw'
+
+        return winner_symbol
