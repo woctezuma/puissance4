@@ -63,8 +63,13 @@ class Grille:
 
     def drop(self, disc, col):
         """Placer un jeton dans la colonne"""
-        available_row = self.column_levels[col]
-        ce_coup_est_possible = bool(available_row >= 0)
+        try:
+            available_row = self.column_levels[col]
+            ce_coup_est_possible = bool(available_row >= 0)
+        except IndexError:
+            available_row = -1
+            ce_coup_est_possible = False
+
         if ce_coup_est_possible:
             self.grid[available_row][col] = disc
             self.column_levels[col] -= 1
