@@ -117,7 +117,7 @@ class Grille:
         return self.is_far_from_bottom(y, cushion=1)
 
     @staticmethod
-    def is_far_from_top(self, y):
+    def is_far_from_top(y):
         return bool(y > 2)
 
     def is_far_from_right(self, x):
