@@ -198,4 +198,4 @@ if __name__ == "__main__":
     # Set to '2' to allow with no AI, i.e. human vs. human.
     # Set to '3' to compute AI self-play 50 games: UCT AI vs. biased Monte-Carlo AI.
 
-    menu(default_user_action='3', num_parties_jouees=5)
+    menu(default_user_action='3', num_parties_jouees=50)
