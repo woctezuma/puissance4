@@ -65,9 +65,9 @@ class Grille:
         """Placer un jeton dans la colonne"""
         ce_coup_est_possible = False
         for row in reversed(self.grid):
-            if row[col - 1] == self.empty_space:
-                row[col - 1] = disc
-                self.column_levels[col - 1] -= 1
+            if row[col] == self.empty_space:
+                row[col] = disc
+                self.column_levels[col] -= 1
                 ce_coup_est_possible = True
                 break
         return ce_coup_est_possible
@@ -99,7 +99,7 @@ class Grille:
 
     def look_for_allowed_steps(self):
         """Renvoyer la liste des coups autorisés"""
-        return [(x + 1) for x in range(self.width) if self.grid[self.top_row_no][x] == self.empty_space]
+        return [x for x in range(self.width) if self.grid[self.top_row_no][x] == self.empty_space]
 
     def get_random_allowed_step(self):
         """Renvoyer un coups au hasard parmi ceux autorisés"""
@@ -120,7 +120,7 @@ class Grille:
     def play_if_possible(self, x, y):
         my_play = None
         if self.is_playable(x, y):
-            my_play = x + 1
+            my_play = x
         return my_play
 
     def is_at_bottom(self, y):

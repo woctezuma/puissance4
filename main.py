@@ -15,7 +15,7 @@ def get_possible_player_inputs(width):
 
 
 def convert_player_input(player_input):
-    return ord(player_input) - get_conversion_offset() + 1
+    return ord(player_input) - get_conversion_offset()
 
 
 def menu(default_user_action=None):
