@@ -13,19 +13,41 @@ class Grille:
         self.sep_ligne = '\n'
         self.sep_colonne = ';'
         self.grid = [[self.empty_space] * self.width for _ in range(self.height)]
+        # Column levels track the row which a disc would reach if it were dropped in a column
+        self.column_levels = self.get_default_column_levels()
         if grille_initiale is not None:
             self.set(grille_initiale.get_name())
+            self.set_column_levels(self.compute_column_levels())
 
     def get_name(self):
         """Renvoyer un texte représentant la grille de façon unique"""
         return self.sep_ligne.join([self.sep_colonne.join(liste) for liste in self.grid])
+
+    def get_default_column_levels(self):
+        return [self.height - 1 for _ in range(self.width)]
+
+    def get_column_levels(self):
+        return self.column_levels
+
+    def set_column_levels(self, column_levels):
+        self.column_levels = column_levels
+
+    def compute_column_levels(self):
+        column_levels = self.get_default_column_levels()
+        columns_to_check = list(range(self.width))
+        for row_no, row in enumerate(self.grid):
+            for col in columns_to_check:
+                if row[col] != self.empty_space:
+                    column_levels[col] = row_no
+                    columns_to_check.remove(col)
+        self.set_column_levels(column_levels)
 
     def set(self, name):
         """Créer la grille représentée par le texte"""
         listes = name.split(self.sep_ligne)
         self.grid = [l.split(self.sep_colonne) for l in listes]
 
-    def show_grid(self, reverse_displayed_row_no=True):
+    def show_grid(self, reverse_displayed_row_no=False):
         """Afficher la grille"""
         sep = ' '
         print()
@@ -45,6 +67,7 @@ class Grille:
         for row in reversed(self.grid):
             if row[col - 1] == self.empty_space:
                 row[col - 1] = disc
+                self.column_levels[col - 1] -= 1
                 ce_coup_est_possible = True
                 break
         return ce_coup_est_possible
