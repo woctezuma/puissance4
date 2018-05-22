@@ -84,3 +84,42 @@ class Grille:
 
     def get_num_steps(self):
         return sum([self.grid[y][x] != self.empty_space for y in range(self.height) for x in range(self.width)])
+
+    def is_empty_space(self, x, y):
+        return bool(self.grid[y][x] == self.empty_space)
+
+    def is_above_occupied_space(self, x, y):
+        return self.is_at_bottom(y) or self.is_empty_space(x, y + 1)
+
+    def is_playable(self, x, y):
+        return self.is_empty_space(x, y) and self.is_above_occupied_space(x, y)
+
+    def play_if_possible(self, x, y):
+        my_play = None
+        if self.is_playable(x, y):
+            my_play = x + 1
+        return my_play
+
+    def is_at_bottom(self, y):
+        return bool(y == self.height - 1)
+
+    def is_at_top(self, y):
+        return bool(y == 0)
+
+    def is_not_at_bottom(self, y):
+        return bool(y < self.height - 1)
+
+    def is_very_far_from_bottom(self, y):
+        return bool(y < self.height - 4)
+
+    def is_far_from_bottom(self, y):
+        return bool(y < self.height - 3)
+
+    def is_far_from_top(self, y):
+        return bool(y > 2)
+
+    def is_far_from_right(self, x):
+        return bool(x < self.width - 3)
+
+    def is_far_from_left(self, x):
+        return bool(x > 2)
