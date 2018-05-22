@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Source d'inspiration :
-# http://www.cs.helsinki.fi/u/vpeltoni/
-
 from time import sleep
 
 from ai import AI

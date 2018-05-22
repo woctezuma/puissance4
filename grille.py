@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Source d'inspiration :
-# http://www.cs.helsinki.fi/u/vpeltoni/
-
-
 class Grille:
     """Représentation du plateau de jeu"""
 

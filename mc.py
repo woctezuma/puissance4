@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 from ai import AI
 from grille import Grille

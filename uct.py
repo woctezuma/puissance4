@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from math import sqrt, log
 from random import randint
 
@@ -8,14 +6,6 @@ from mc import MC, get_other_symbol
 from node import Node
 from win_conditions import look_for_obvious_steps
 
-
-# Articles de référence :
-# [1] T. Cazenave, A. Saffidine,
-#     Utilisation de la recherche arborescente Monte-Carlo au Hex,
-#     Revue d'Intelligence Artificielle, vol. 23, no. 2-3, pp. 183-202, 2009.
-# [2] F. Teytaud, O. Teytaud,
-#     Creating an Upper-Condence-Tree program for Havannah,
-#     Advances in Computer Games 12, in Pamplona, Spain, 2009.
 
 class UCT(MC):
     """Intelligence artificielle reposant sur l'algorithme Upper-Confidence-Tree"""

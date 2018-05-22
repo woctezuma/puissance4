@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Source d'inspiration :
-# http://www.cs.helsinki.fi/u/vpeltoni/
 
 from random import randint
 
