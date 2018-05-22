@@ -100,12 +100,13 @@ def np(choix_ai_joueur, choix_ai_adversaire, num_tirages_m_c=3, num_descentes_da
             if show_grid:
                 grid.show_grid()
     il_y_a_un_vainqueur = grid.check_victory()
+    num_steps = grid.get_num_steps()
     if verbose:
         print("The game ended in the following state:")
         grid.show_grid()
         print("Y a-t-il un gagnant ? {}".format(il_y_a_un_vainqueur))
         print("Si oui, est-ce le joueur 1 (X) ? {}".format(le_joueur1_gagne))
-    return il_y_a_un_vainqueur, le_joueur1_gagne
+    return il_y_a_un_vainqueur, le_joueur1_gagne, num_steps
 
 
 def sp(choix_ai_adversaire, num_tirages_m_c=3, num_descentes_dans_arbre=7, facteur_uct=0.0):
@@ -166,11 +167,11 @@ def obtenir_statistiques_de_victoires(num_parties_jouees, choix_ai_joueur, choix
     num_parties_avec_vainqueur = 0
     num_victoires_du_joueur1 = 0
     for game_no in range(num_parties_jouees):
-        print('Game n°{}'.format(game_no + 1))
-        (il_y_a_un_vainqueur, le_joueur1_gagne) = np(choix_ai_joueur, choix_ai_adversaire, num_tirages_m_c,
-                                                     num_descentes_dans_arbre, facteur_uct, verbose=False)
+        (il_y_a_un_vainqueur, le_joueur1_gagne, num_steps) = np(choix_ai_joueur, choix_ai_adversaire, num_tirages_m_c,
+                                                                num_descentes_dans_arbre, facteur_uct, verbose=False)
         num_parties_avec_vainqueur += int(il_y_a_un_vainqueur)
         num_victoires_du_joueur1 += int(le_joueur1_gagne)
+        print('Game n°{}\tnum_steps={}'.format(game_no + 1, num_steps))
     try:
         ratio_victoires = num_victoires_du_joueur1 / num_parties_avec_vainqueur
     except ZeroDivisionError:

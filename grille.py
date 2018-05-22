@@ -81,3 +81,6 @@ class Grille:
         mes_coups_possibles = self.look_for_allowed_steps()
         tirage_aleatoire = randint(0, len(mes_coups_possibles) - 1)
         return mes_coups_possibles[tirage_aleatoire]
+
+    def get_num_steps(self):
+        return sum([self.grid[y][x] != self.empty_space for y in range(self.heigth) for x in range(self.width)])
