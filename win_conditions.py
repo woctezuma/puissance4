@@ -5,7 +5,7 @@ def check_horizontale(grille, x, y):
     # Alignement horizontal de trois jetons consécutifs, le noeud (x,y) étant le plus à gauche
     if x < grille.width - 3:
         if all(grille.grid[y][x] == grille.grid[y][x + i + 1] for i in range(2)):
-            if y < grille.heigth - 1:
+            if y < grille.height - 1:
                 if grille.grid[y + 1][x + 3] != grille.empty_spsace and grille.grid[y][x + 3] == grille.empty_spsace:
                     return x + 4
             elif grille.grid[y][x + 3] == grille.empty_spsace:
@@ -15,7 +15,7 @@ def check_horizontale(grille, x, y):
         if grille.grid[y][x] == grille.grid[y][x + 3]:
             # Alignement horizontal de la forme X.XX
             if grille.grid[y][x] == grille.grid[y][x + 2]:
-                if y < grille.heigth - 1:
+                if y < grille.height - 1:
                     if grille.grid[y + 1][x + 1] != grille.empty_spsace and grille.grid[y][
                         x + 1] == grille.empty_spsace:
                         return x + 2
@@ -23,7 +23,7 @@ def check_horizontale(grille, x, y):
                     return x + 2
             # Alignement horizontal de la forme XX.X
             if grille.grid[y][x] == grille.grid[y][x + 1]:
-                if y < grille.heigth - 1:
+                if y < grille.height - 1:
                     if grille.grid[y + 1][x + 2] != grille.empty_spsace and grille.grid[y][
                         x + 2] == grille.empty_spsace:
                         return x + 3
@@ -32,7 +32,7 @@ def check_horizontale(grille, x, y):
     # Alignement horizontal de trois jetons consécutifs, le noeud (x,y) étant le plus à droite
     if x > 2:
         if all(grille.grid[y][x] == grille.grid[y][x - i - 1] for i in range(2)):
-            if y < grille.heigth - 1:
+            if y < grille.height - 1:
                 if grille.grid[y + 1][x - 3] != grille.empty_spsace and grille.grid[y][x - 3] == grille.empty_spsace:
                     return x - 2
             elif grille.grid[y][x - 3] == grille.empty_spsace:
@@ -42,7 +42,7 @@ def check_horizontale(grille, x, y):
 
 def check_verticale(grille, x, y):
     # Alignement vertical de trois jetons consécutifs, le noeud (x,y) étant le plus haut
-    if grille.heigth - 2 > y >= 1:
+    if grille.height - 2 > y >= 1:
         if all(grille.grid[y][x] == grille.grid[y + i + 1][x] for i in range(2)):
             if grille.grid[y - 1][x] == grille.empty_spsace:
                 return x + 1
@@ -51,7 +51,7 @@ def check_verticale(grille, x, y):
 
 def check_oblique_montante(grille, x, y):
     # Alignement diagonal montant : allant du coin bas gauche au coin haut droit
-    if y < grille.heigth - 3 and x > 2:
+    if y < grille.height - 3 and x > 2:
         if grille.grid[y][x] == grille.grid[y + 3][x - 3]:
             # Alignement diagonal de la forme X.XX
             if grille.grid[y][x] == grille.grid[y + 2][x - 2]:
@@ -65,7 +65,7 @@ def check_oblique_montante(grille, x, y):
                     return x - 1
         # Alignement diagonal, le noeud (x,y) étant le plus haut et à droite
         if all(grille.grid[y][x] == grille.grid[y + i + 1][x - i - 1] for i in range(2)):
-            if y < grille.heigth - 4:
+            if y < grille.height - 4:
                 if grille.grid[y + 4][x - 3] != grille.empty_spsace and grille.grid[y + 3][
                     x - 3] == grille.empty_spsace:
                     return x - 2
@@ -82,7 +82,7 @@ def check_oblique_montante(grille, x, y):
 
 def check_oblique_descendante(grille, x, y):
     """Alignement diagonal descendant : allant du coin haut gauche au coin bas droit"""
-    if y < grille.heigth - 3 and x < grille.width - 3:
+    if y < grille.height - 3 and x < grille.width - 3:
         if grille.grid[y][x] == grille.grid[y + 3][x + 3]:
             # Alignement diagonal de la forme X.XX
             if grille.grid[y][x] == grille.grid[y + 2][x + 2]:
@@ -96,7 +96,7 @@ def check_oblique_descendante(grille, x, y):
                     return x + 3
         # Alignement diagonal, le noeud (x,y) étant le plus haut et à gauche
         if all(grille.grid[y][x] == grille.grid[y + i + 1][x + i + 1] for i in range(2)):
-            if y < grille.heigth - 4:
+            if y < grille.height - 4:
                 if grille.grid[y + 4][x + 3] != grille.empty_spsace and grille.grid[y + 3][
                     x + 3] == grille.empty_spsace:
                     return x + 4

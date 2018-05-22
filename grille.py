@@ -7,11 +7,11 @@ class Grille:
     def __init__(self, grille_initiale=None):
         """Créer une grille vide, ou copier une grille existante"""
         self.width = 7
-        self.heigth = 6
+        self.height = 6
         self.empty_space = '.'
         self.sep_ligne = '\n'
         self.sep_colonne = ';'
-        self.grid = [[self.empty_space] * self.width for _ in range(self.heigth)]
+        self.grid = [[self.empty_space] * self.width for _ in range(self.height)]
         if grille_initiale is not None:
             self.set(grille_initiale.get_name())
 
@@ -33,7 +33,7 @@ class Grille:
         sep = ' '
         print()
         for row_no, row in enumerate(self.grid):
-            print(str(self.heigth - row_no) + '|' + sep.join(row))
+            print(str(self.height - row_no) + '|' + sep.join(row))
         print('  ' + sep.join('-' for _ in range(self.width)))
         print('  ' + sep.join(chr(i + 65) for i in range(self.width)))
         print()
@@ -59,15 +59,15 @@ class Grille:
                         if all(self.grid[y][x] == self.grid[y][x + i + 1] for i in range(3)):
                             return True
                     # Alignement vertical, le noeud (x,y) étant le plus haut
-                    if y < self.heigth - 3:
+                    if y < self.height - 3:
                         if all(self.grid[y][x] == self.grid[y + i + 1][x] for i in range(3)):
                             return True
                     # Alignement diagonal, le noeud (x,y) étant le plus haut et à gauche
-                    if y < self.heigth - 3 and x < self.width - 3:
+                    if y < self.height - 3 and x < self.width - 3:
                         if all(self.grid[y][x] == self.grid[y + i + 1][x + i + 1] for i in range(3)):
                             return True
                     # Alignement diagonal, le noeud (x,y) étant le plus haut et à droite
-                    if y < self.heigth - 3 and x > 2:
+                    if y < self.height - 3 and x > 2:
                         if all(self.grid[y][x] == self.grid[y + i + 1][x - i - 1] for i in range(3)):
                             return True
         return False
@@ -83,4 +83,4 @@ class Grille:
         return mes_coups_possibles[tirage_aleatoire]
 
     def get_num_steps(self):
-        return sum([self.grid[y][x] != self.empty_space for y in range(self.heigth) for x in range(self.width)])
+        return sum([self.grid[y][x] != self.empty_space for y in range(self.height) for x in range(self.width)])
