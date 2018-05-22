@@ -1,4 +1,4 @@
-from random import randint
+from random import choice
 
 
 class Grille:
@@ -9,6 +9,7 @@ class Grille:
         self.width = 7
         self.height = 6
         self.empty_space = '.'
+        self.top_row_no = 0
         self.sep_ligne = '\n'
         self.sep_colonne = ';'
         self.grid = [[self.empty_space] * self.width for _ in range(self.height)]
@@ -24,22 +25,21 @@ class Grille:
         listes = name.split(self.sep_ligne)
         self.grid = [l.split(self.sep_colonne) for l in listes]
 
-    def wipe(self):
-        """Effacer la grille"""
-        self.__init__()
-
-    def show_grid(self):
+    def show_grid(self, reverse_displayed_row_no=True):
         """Afficher la grille"""
         sep = ' '
         print()
         for row_no, row in enumerate(self.grid):
-            print(str(self.height - row_no) + '|' + sep.join(row))
+            displayed_row_no = row_no
+            if reverse_displayed_row_no:
+                displayed_row_no = self.height - row_no
+            print(str(displayed_row_no) + '|' + sep.join(row))
         print('  ' + sep.join('-' for _ in range(self.width)))
         print('  ' + sep.join(chr(i + 65) for i in range(self.width)))
         print()
         return
 
-    def drop(self, disc, col):
+    def drop(self, disc, col):  # TODO
         """Placer un jeton dans la colonne"""
         ce_coup_est_possible = False
         for row in reversed(self.grid):
@@ -49,7 +49,7 @@ class Grille:
                 break
         return ce_coup_est_possible
 
-    def check_victory(self):
+    def check_victory(self):  # TODO
         """Vérifier si quatre jetons consécutifs du même joueur sont alignés"""
         for y in range(0, len(self.grid)):
             for x in range(0, len(self.grid[y])):
@@ -74,13 +74,11 @@ class Grille:
 
     def look_for_allowed_steps(self):
         """Renvoyer la liste des coups autorisés"""
-        return [(x + 1) for x in range(self.width) if self.grid[0][x] == self.empty_space]
+        return [(x + 1) for x in range(self.width) if self.grid[self.top_row_no][x] == self.empty_space]
 
     def get_random_allowed_step(self):
         """Renvoyer un coups au hasard parmi ceux autorisés"""
-        mes_coups_possibles = self.look_for_allowed_steps()
-        tirage_aleatoire = randint(0, len(mes_coups_possibles) - 1)
-        return mes_coups_possibles[tirage_aleatoire]
+        return choice(self.look_for_allowed_steps())
 
     def get_num_steps(self):
         return sum([self.grid[y][x] != self.empty_space for y in range(self.height) for x in range(self.width)])
@@ -103,7 +101,8 @@ class Grille:
     def is_at_bottom(self, y):
         return bool(y == self.height - 1)
 
-    def is_at_top(self, y):
+    @staticmethod
+    def is_at_top(y):
         return bool(y == 0)
 
     def is_very_far_from_bottom(self, y):
@@ -115,11 +114,13 @@ class Grille:
     def is_quite_far_from_bottom(self, y):
         return self.is_far_from_bottom(y, cushion=1)
 
+    @staticmethod
     def is_far_from_top(self, y):
         return bool(y > 2)
 
     def is_far_from_right(self, x):
         return bool(x < self.width - 3)
 
-    def is_far_from_left(self, x):
+    @staticmethod
+    def is_far_from_left(x):
         return bool(x > 2)
