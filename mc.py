@@ -17,7 +17,7 @@ class MC(AI):
         ai = AI(symbole_dont_c_est_le_tour)
         num_parties_avec_vainqueur = 0
         num_victoires_du_joueur1 = 0
-        for i in range(self.num_tirages_MC):
+        for _ in range(self.num_tirages_MC):
             grille_simulee = Grille(grille)
             (il_y_a_un_vainqueur, le_joueur1_gagne) = ai.auto_complete(grille_simulee)
             num_parties_avec_vainqueur += int(il_y_a_un_vainqueur)

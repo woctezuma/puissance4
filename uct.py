@@ -31,7 +31,7 @@ class UCT(MC):
         # soit A l'arbre UCT vide à la racine près
         self.set_tree(Node(etat_initial))
         # boucle : plusieurs descentes dans l'arbre
-        for i in range(self.num_descentes_dans_arbre):
+        for _ in range(self.num_descentes_dans_arbre):
             # soit p' une copie de p
             grille_copiee = Grille()
             grille_copiee.set(etat_initial)
