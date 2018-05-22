@@ -49,27 +49,29 @@ class Grille:
                 break
         return ce_coup_est_possible
 
-    def check_victory(self):  # TODO
+    def check_victory(self):
         """Vérifier si quatre jetons consécutifs du même joueur sont alignés"""
         for y in range(len(self.grid)):
             for x in range(len(self.grid[y])):
                 if self.grid[y][x] != self.empty_space:
-                    # Alignement horizontal, le noeud (x,y) étant le plus à gauche
+                    # Alignement indépendant de y
                     if self.is_far_from_right(x):
+                        # Alignement horizontal, le noeud (x,y) étant le plus à gauche
                         if all(self.grid[y][x] == self.grid[y][x + i + 1] for i in range(3)):
                             return True
-                    # Alignement vertical, le noeud (x,y) étant le plus haut
+                    # Alignements qui dépendent de y
                     if self.is_far_from_bottom(y):
+                        # Alignement vertical, le noeud (x,y) étant le plus haut
                         if all(self.grid[y][x] == self.grid[y + i + 1][x] for i in range(3)):
                             return True
-                    # Alignement diagonal, le noeud (x,y) étant le plus haut et à gauche
-                    if self.is_far_from_bottom(y) and self.is_far_from_right(x):
-                        if all(self.grid[y][x] == self.grid[y + i + 1][x + i + 1] for i in range(3)):
-                            return True
-                    # Alignement diagonal, le noeud (x,y) étant le plus haut et à droite
-                    if self.is_far_from_bottom(y) and self.is_far_from_left(x):
-                        if all(self.grid[y][x] == self.grid[y + i + 1][x - i - 1] for i in range(3)):
-                            return True
+                        # Alignement diagonal, le noeud (x,y) étant le plus haut et à gauche
+                        if self.is_far_from_right(x):
+                            if all(self.grid[y][x] == self.grid[y + i + 1][x + i + 1] for i in range(3)):
+                                return True
+                        # Alignement diagonal, le noeud (x,y) étant le plus haut et à droite
+                        if self.is_far_from_left(x):
+                            if all(self.grid[y][x] == self.grid[y + i + 1][x - i - 1] for i in range(3)):
+                                return True
         return False
 
     def look_for_allowed_steps(self):
