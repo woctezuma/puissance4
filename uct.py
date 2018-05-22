@@ -4,7 +4,6 @@ from random import randint
 from grille import Grille
 from mc import MC, get_other_symbol
 from node import Node
-from win_conditions import look_for_obvious_steps
 
 
 class UCT(MC):
@@ -23,7 +22,7 @@ class UCT(MC):
     def set_tree(self, input_tree):
         self.tree = input_tree
 
-    def ai_uct(self, grille):
+    def play_witout_bias(self, grille):
         """Déterminer la meilleure action en fonction des résultats de l'exploration UCT"""
         # recevoir une position p
         etat_initial = grille.get_name()
@@ -47,15 +46,6 @@ class UCT(MC):
         # renvoyer le coup fils (de la racine de A) qui a la meilleure valeur UCT
         meilleure_action = self.choisir_action_uct(grille)
         return meilleure_action
-
-    def ai(self, grille):
-        """Jouer en fonction des résultats de l'exploration UCT"""
-        mon_coup_urgent = look_for_obvious_steps(grille)
-        if mon_coup_urgent == -1:
-            mon_coup = self.ai_uct(grille)
-            return mon_coup
-        else:
-            return mon_coup_urgent
 
     def tree_down(self, position_courante, symbole_dont_c_est_le_tour):
         """Descendre dans l'arbre UCT"""

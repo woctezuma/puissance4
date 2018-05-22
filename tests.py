@@ -11,5 +11,6 @@ class TestMainMethods(unittest.TestCase):
     def test_no_player_for_many_games(self):
         self.assertTrue(main.menu('3'))
 
+
 if __name__ == '__main__':
     unittest.main()

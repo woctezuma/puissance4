@@ -1,3 +1,6 @@
+from random import randint
+
+
 class Grille:
     """Représentation du plateau de jeu"""
 
@@ -30,7 +33,7 @@ class Grille:
         print()
         for row_no, row in enumerate(self.grid):
             print(str(self.heigth - row_no) + '|' + sep.join(row))
-        print('  ' + sep.join('-' for i in range(self.width)))
+        print('  ' + sep.join('-' for _ in range(self.width)))
         print('  ' + sep.join(chr(i + 65) for i in range(self.width)))
         print()
         return
@@ -50,19 +53,19 @@ class Grille:
         for y in range(0, len(self.grid)):
             for x in range(0, len(self.grid[y])):
                 if self.grid[y][x] != '.':
-                    '''Alignement horizontal, le noeud (x,y) étant le plus à gauche'''
+                    # Alignement horizontal, le noeud (x,y) étant le plus à gauche
                     if x < self.width - 3:
                         if all(self.grid[y][x] == self.grid[y][x + i + 1] for i in range(3)):
                             return True
-                    '''Alignement vertical, le noeud (x,y) étant le plus haut'''
+                    # Alignement vertical, le noeud (x,y) étant le plus haut
                     if y < self.heigth - 3:
                         if all(self.grid[y][x] == self.grid[y + i + 1][x] for i in range(3)):
                             return True
-                    '''Alignement diagonal, le noeud (x,y) étant le plus haut et à gauche'''
+                    # Alignement diagonal, le noeud (x,y) étant le plus haut et à gauche
                     if y < self.heigth - 3 and x < self.width - 3:
                         if all(self.grid[y][x] == self.grid[y + i + 1][x + i + 1] for i in range(3)):
                             return True
-                    '''Alignement diagonal, le noeud (x,y) étant le plus haut et à droite'''
+                    # Alignement diagonal, le noeud (x,y) étant le plus haut et à droite
                     if y < self.heigth - 3 and x > 2:
                         if all(self.grid[y][x] == self.grid[y + i + 1][x - i - 1] for i in range(3)):
                             return True
@@ -71,3 +74,9 @@ class Grille:
     def look_for_allowed_steps(self):
         """Renvoyer la liste des coups autorisés"""
         return [(x + 1) for x in range(self.width) if self.grid[0][x] == '.']
+
+    def get_random_allowed_step(self):
+        """Renvoyer un coups au hasard parmi ceux autorisés"""
+        mes_coups_possibles = self.look_for_allowed_steps()
+        tirage_aleatoire = randint(0, len(mes_coups_possibles) - 1)
+        return mes_coups_possibles[tirage_aleatoire]

@@ -1,7 +1,5 @@
-
 from ai import AI
 from grille import Grille
-from win_conditions import look_for_obvious_steps
 
 
 class MC(AI):
@@ -28,7 +26,7 @@ class MC(AI):
             score = 0.5
         return score
 
-    def ai_monte_carlo(self, grille):
+    def play_witout_bias(self, grille):
         """Déterminer la meilleure action en fonction des résultats des simulations Monte-Carlo"""
         mes_coups_possibles = grille.look_for_allowed_steps()
         meilleure_action = None
@@ -45,15 +43,6 @@ class MC(AI):
                 meilleure_evaluation = evaluation
                 meilleure_action = action
         return meilleure_action
-
-    def ai(self, grille):
-        """Jouer en fonction des résultats des simulations Monte-Carlo"""
-        mon_coup_urgent = look_for_obvious_steps(grille)
-        if mon_coup_urgent == -1:
-            mon_coup = self.ai_monte_carlo(grille)
-            return mon_coup
-        else:
-            return mon_coup_urgent
 
 
 def get_other_symbol(symbole):

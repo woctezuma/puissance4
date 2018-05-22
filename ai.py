@@ -1,6 +1,3 @@
-
-from random import randint
-
 from win_conditions import look_for_obvious_steps
 
 
@@ -10,16 +7,16 @@ class AI:
     def __init__(self, symbole='O'):
         """Créer un joueur du symbole indiqué"""
         self.player = symbole
-        pass
 
-    def ai(self, grille):
-        """Jouer de façon aléatoire biaisée : un coups urgent sous réserve d'existence,
-        sinon un coup possible au hasard"""
+    def play_witout_bias(self, grille):
+        """Jouer de façon non biaisée : renvoyer au hasard un coup possible"""
+        return grille.get_random_allowed_step()
+
+    def play_with_bias(self, grille):
+        """Jouer de façon biaisée : vérifier s'il est possible de gagner en un coup avant toute réflexion"""
         mon_coup_urgent = look_for_obvious_steps(grille)
-        if mon_coup_urgent == -1:
-            mes_coups_possibles = grille.look_for_allowed_steps()
-            tirage_aleatoire = randint(0, len(mes_coups_possibles) - 1)
-            return mes_coups_possibles[tirage_aleatoire]
+        if mon_coup_urgent is None:
+            return self.play_witout_bias(grille)
         else:
             return mon_coup_urgent
 
@@ -32,12 +29,12 @@ class AI:
         le_joueur1_gagne = False
         mes_coups_possibles = grille.look_for_allowed_steps()
         while grille.check_victory() is False and len(mes_coups_possibles) > 0:
-            mon_coup = self.ai(grille)
+            mon_coup = self.play_with_bias(grille)
             grille.drop(self.player, mon_coup)
             le_joueur1_gagne = True
             mes_coups_possibles = grille.look_for_allowed_steps()
             if grille.check_victory() is False and len(mes_coups_possibles) > 0:
-                votre_coup = self.ai(grille)
+                votre_coup = self.play_with_bias(grille)
                 grille.drop(adversaire, votre_coup)
                 le_joueur1_gagne = False
                 mes_coups_possibles = grille.look_for_allowed_steps()

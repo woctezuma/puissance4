@@ -85,7 +85,7 @@ def np(choix_ai_joueur, choix_ai_adversaire, num_tirages_m_c=3, num_descentes_da
     le_joueur1_gagne = False
     mes_coups_possibles = grid.look_for_allowed_steps()
     while grid.check_victory() is False and len(mes_coups_possibles) > 0:
-        mon_coup = ai1.ai(grid)
+        mon_coup = ai1.play_with_bias(grid)
         grid.drop(ai1.player, mon_coup)
         le_joueur1_gagne = True
         mes_coups_possibles = grid.look_for_allowed_steps()
@@ -93,7 +93,7 @@ def np(choix_ai_joueur, choix_ai_adversaire, num_tirages_m_c=3, num_descentes_da
             grid.show_grid()
             sleep(1)
         if grid.check_victory() is False and len(mes_coups_possibles) > 0:
-            votre_coup = ai2.ai(grid)
+            votre_coup = ai2.play_with_bias(grid)
             grid.drop(ai2.player, votre_coup)
             le_joueur1_gagne = False
             mes_coups_possibles = grid.look_for_allowed_steps()
@@ -129,7 +129,7 @@ def sp(choix_ai_adversaire, num_tirages_m_c=3, num_descentes_dans_arbre=7, facte
                 le_joueur1_gagne = True
                 mes_coups_possibles = grid.look_for_allowed_steps()
                 if grid.check_victory() is False and len(mes_coups_possibles) > 0:
-                    votre_coup = ai.ai(grid)
+                    votre_coup = ai.play_with_bias(grid)
                     grid.drop(ai.player, votre_coup)
                     le_joueur1_gagne = False
                     mes_coups_possibles = grid.look_for_allowed_steps()

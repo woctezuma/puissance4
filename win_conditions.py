@@ -105,7 +105,7 @@ def check_oblique_descendante(grille, x, y):
 
 def look_for_obvious_steps(grille):
     """Vérifier s'il est possible de gagner pour l'un ou l'autre joueur.
-    Si oui, renvoyer le numéro de la colonne à jouer, sinon -1"""
+    Si oui, renvoyer le numéro de la colonne à jouer, sinon None"""
     for y in range(0, len(grille.grid)):
         for x in range(0, len(grille.grid[y])):
             # Rechercher un coup qui permette ou empêche un alignement de quatre jetons
@@ -128,4 +128,4 @@ def look_for_obvious_steps(grille):
                     return pos
 
     # Aucun coup urgent, alors renvoyer -1
-    return -1
+    return None
