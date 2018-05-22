@@ -24,7 +24,7 @@ class MC(AI):
             score = (num_victoires[self.get_player_symbol()] - num_victoires[self.get_opponent_symbol()]) \
                     / (num_victoires[self.get_player_symbol()] + num_victoires[self.get_opponent_symbol()])
         except ZeroDivisionError:
-            score = 0.5
+            score = 0
         return score
 
     def play_witout_bias(self, grille):
