@@ -17,7 +17,6 @@ class Grille:
         self.column_levels = self.get_default_column_levels()
         if grille_initiale is not None:
             self.set(grille_initiale.get_name())
-            self.set_column_levels(self.compute_column_levels())
 
     def get_name(self):
         """Renvoyer un texte représentant la grille de façon unique"""
@@ -46,6 +45,7 @@ class Grille:
         """Créer la grille représentée par le texte"""
         listes = name.split(self.sep_ligne)
         self.grid = [l.split(self.sep_colonne) for l in listes]
+        self.compute_column_levels()
 
     def show_grid(self, reverse_displayed_row_no=False):
         """Afficher la grille"""
