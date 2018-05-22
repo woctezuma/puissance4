@@ -51,23 +51,23 @@ class Grille:
 
     def check_victory(self):  # TODO
         """Vérifier si quatre jetons consécutifs du même joueur sont alignés"""
-        for y in range(0, len(self.grid)):
-            for x in range(0, len(self.grid[y])):
+        for y in range(len(self.grid)):
+            for x in range(len(self.grid[y])):
                 if self.grid[y][x] != self.empty_space:
                     # Alignement horizontal, le noeud (x,y) étant le plus à gauche
-                    if x < self.width - 3:
+                    if self.is_far_from_right(x):
                         if all(self.grid[y][x] == self.grid[y][x + i + 1] for i in range(3)):
                             return True
                     # Alignement vertical, le noeud (x,y) étant le plus haut
-                    if y < self.height - 3:
+                    if self.is_far_from_bottom(y):
                         if all(self.grid[y][x] == self.grid[y + i + 1][x] for i in range(3)):
                             return True
                     # Alignement diagonal, le noeud (x,y) étant le plus haut et à gauche
-                    if y < self.height - 3 and x < self.width - 3:
+                    if self.is_far_from_bottom(y) and self.is_far_from_right(x):
                         if all(self.grid[y][x] == self.grid[y + i + 1][x + i + 1] for i in range(3)):
                             return True
                     # Alignement diagonal, le noeud (x,y) étant le plus haut et à droite
-                    if y < self.height - 3 and x > 2:
+                    if self.is_far_from_bottom(y) and self.is_far_from_left(x):
                         if all(self.grid[y][x] == self.grid[y + i + 1][x - i - 1] for i in range(3)):
                             return True
         return False
