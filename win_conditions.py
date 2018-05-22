@@ -6,7 +6,8 @@ def check_horizontale(grille, x, y):
     if x < grille.width - 3:
         if all(grille.grid[y][x] == grille.grid[y][x + i + 1] for i in range(2)):
             if y < grille.height - 1:
-                if grille.grid[y + 1][x + 3] != grille.empty_spsace and grille.grid[y][x + 3] == grille.empty_spsace:
+                if grille.grid[y + 1][x + 3] != grille.empty_spsace \
+                        and grille.grid[y][x + 3] == grille.empty_spsace:
                     return x + 4
             elif grille.grid[y][x + 3] == grille.empty_spsace:
                 return x + 4
@@ -16,16 +17,16 @@ def check_horizontale(grille, x, y):
             # Alignement horizontal de la forme X.XX
             if grille.grid[y][x] == grille.grid[y][x + 2]:
                 if y < grille.height - 1:
-                    if grille.grid[y + 1][x + 1] != grille.empty_spsace and grille.grid[y][
-                        x + 1] == grille.empty_spsace:
+                    if grille.grid[y + 1][x + 1] != grille.empty_spsace \
+                            and grille.grid[y][x + 1] == grille.empty_spsace:
                         return x + 2
                 elif grille.grid[y][x + 1] == grille.empty_spsace:
                     return x + 2
             # Alignement horizontal de la forme XX.X
             if grille.grid[y][x] == grille.grid[y][x + 1]:
                 if y < grille.height - 1:
-                    if grille.grid[y + 1][x + 2] != grille.empty_spsace and grille.grid[y][
-                        x + 2] == grille.empty_spsace:
+                    if grille.grid[y + 1][x + 2] != grille.empty_spsace \
+                            and grille.grid[y][x + 2] == grille.empty_spsace:
                         return x + 3
                 elif grille.grid[y][x + 2] == grille.empty_spsace:
                     return x + 3
@@ -33,7 +34,8 @@ def check_horizontale(grille, x, y):
     if x > 2:
         if all(grille.grid[y][x] == grille.grid[y][x - i - 1] for i in range(2)):
             if y < grille.height - 1:
-                if grille.grid[y + 1][x - 3] != grille.empty_spsace and grille.grid[y][x - 3] == grille.empty_spsace:
+                if grille.grid[y + 1][x - 3] != grille.empty_spsace \
+                        and grille.grid[y][x - 3] == grille.empty_spsace:
                     return x - 2
             elif grille.grid[y][x - 3] == grille.empty_spsace:
                 return x - 2
@@ -55,26 +57,27 @@ def check_oblique_montante(grille, x, y):
         if grille.grid[y][x] == grille.grid[y + 3][x - 3]:
             # Alignement diagonal de la forme X.XX
             if grille.grid[y][x] == grille.grid[y + 2][x - 2]:
-                if grille.grid[y + 2][x - 1] != grille.empty_spsace and grille.grid[y + 1][
-                    x - 1] == grille.empty_spsace:
+                if grille.grid[y + 2][x - 1] != grille.empty_spsace \
+                        and grille.grid[y + 1][x - 1] == grille.empty_spsace:
                     return x
             # Alignement diagonal de la forme XX.X
             if grille.grid[y][x] == grille.grid[y + 1][x - 1]:
-                if grille.grid[y + 3][x - 2] != grille.empty_spsace and grille.grid[y + 2][
-                    x - 2] == grille.empty_spsace:
+                if grille.grid[y + 3][x - 2] != grille.empty_spsace \
+                        and grille.grid[y + 2][x - 2] == grille.empty_spsace:
                     return x - 1
         # Alignement diagonal, le noeud (x,y) étant le plus haut et à droite
         if all(grille.grid[y][x] == grille.grid[y + i + 1][x - i - 1] for i in range(2)):
             if y < grille.height - 4:
-                if grille.grid[y + 4][x - 3] != grille.empty_spsace and grille.grid[y + 3][
-                    x - 3] == grille.empty_spsace:
+                if grille.grid[y + 4][x - 3] != grille.empty_spsace \
+                        and grille.grid[y + 3][x - 3] == grille.empty_spsace:
                     return x - 2
             elif grille.grid[y + 3][x - 3] == grille.empty_spsace:
                 return x - 2
     # Alignement diagonal montant de la forme XXX., le noeud (x,y) étant le plus bas et à gauche
     if y > 3 and x < grille.width - 3:
         if all(grille.grid[y][x] == grille.grid[y - i - 1][x + i + 1] for i in range(2)):
-            if grille.grid[y - 2][x + 3] != grille.empty_spsace and grille.grid[y - 3][x + 3] == grille.empty_spsace:
+            if grille.grid[y - 2][x + 3] != grille.empty_spsace \
+                    and grille.grid[y - 3][x + 3] == grille.empty_spsace:
                 return x + 4
 
     return None
@@ -86,26 +89,27 @@ def check_oblique_descendante(grille, x, y):
         if grille.grid[y][x] == grille.grid[y + 3][x + 3]:
             # Alignement diagonal de la forme X.XX
             if grille.grid[y][x] == grille.grid[y + 2][x + 2]:
-                if grille.grid[y + 2][x + 1] != grille.empty_spsace and grille.grid[y + 1][
-                    x + 1] == grille.empty_spsace:
+                if grille.grid[y + 2][x + 1] != grille.empty_spsace \
+                        and grille.grid[y + 1][x + 1] == grille.empty_spsace:
                     return x + 2
             # Alignement diagonal de la forme XX.X
             if grille.grid[y][x] == grille.grid[y + 1][x + 1]:
-                if grille.grid[y + 3][x + 2] != grille.empty_spsace and grille.grid[y + 2][
-                    x + 2] == grille.empty_spsace:
+                if grille.grid[y + 3][x + 2] != grille.empty_spsace \
+                        and grille.grid[y + 2][x + 2] == grille.empty_spsace:
                     return x + 3
         # Alignement diagonal, le noeud (x,y) étant le plus haut et à gauche
         if all(grille.grid[y][x] == grille.grid[y + i + 1][x + i + 1] for i in range(2)):
             if y < grille.height - 4:
-                if grille.grid[y + 4][x + 3] != grille.empty_spsace and grille.grid[y + 3][
-                    x + 3] == grille.empty_spsace:
+                if grille.grid[y + 4][x + 3] != grille.empty_spsace \
+                        and grille.grid[y + 3][x + 3] == grille.empty_spsace:
                     return x + 4
             elif grille.grid[y + 3][x + 3] == grille.empty_spsace:
                 return x + 4
     # Alignement diagonal descendant de la forme .XXX, le noeud (x,y) étant le plus bas et à droite
     if y > 3 and x > 2:
         if all(grille.grid[y][x] == grille.grid[y - i - 1][x - i - 1] for i in range(2)):
-            if grille.grid[y - 2][x - 3] != grille.empty_spsace and grille.grid[y - 3][x - 3] == grille.empty_spsace:
+            if grille.grid[y - 2][x - 3] != grille.empty_spsace \
+                    and grille.grid[y - 3][x - 3] == grille.empty_spsace:
                 return x - 2
 
     return None
