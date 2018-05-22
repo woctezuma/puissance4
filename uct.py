@@ -4,7 +4,7 @@ from random import choice
 from grille import Grille
 from mc import MC
 from node import Node
-from utils import get_default_UCT_params
+from utils import get_default_uct_params
 
 
 class UCT(MC):
@@ -20,8 +20,9 @@ class UCT(MC):
         self.facteur_uct = facteur_uct
         self.tree = None
 
-    def get_default_params(self):
-        return get_default_UCT_params()
+    @staticmethod
+    def get_default_params():
+        return get_default_uct_params()
 
     def print(self):
         print()

@@ -20,9 +20,11 @@ def menu(default_user_action=None, num_parties_jouees=50):
                 "Choix : ")
 
         if user_input == '0':
+            # noinspection PyPep8Naming
             player_X = UCT('X')
             player_X.set_params(player_X.get_default_params())
 
+            # noinspection PyPep8Naming
             player_O = MC('O')
             player_O.set_params(player_O.get_default_params())
 
@@ -32,6 +34,7 @@ def menu(default_user_action=None, num_parties_jouees=50):
             player_O.print()
 
         if user_input == '1':
+            # noinspection PyPep8Naming
             player_O = UCT('O')
             player_O.set_params(player_O.get_default_params())
 
@@ -41,13 +44,15 @@ def menu(default_user_action=None, num_parties_jouees=50):
             pvp()
 
         if user_input == '3':
+            # noinspection PyPep8Naming
             player_X = UCT('X')
             player_X.set_params(player_X.get_default_params())
 
+            # noinspection PyPep8Naming
             player_O = MC('O')
             player_O.set_params(player_O.get_default_params())
 
-            ratio_victoires = analyze_AI_self_plays(player_X, player_O, num_parties_jouees)
+            ratio_victoires = analyze_ai_self_plays(player_X, player_O, num_parties_jouees)
 
             print("\n[Players X vs. O] winrate = {:.2f} (over {} games)".format(ratio_victoires, num_parties_jouees))
 
@@ -60,6 +65,7 @@ def menu(default_user_action=None, num_parties_jouees=50):
     return True
 
 
+# noinspection PyPep8Naming
 def np(ai_player_X, ai_player_O, verbose=True):
     """Une partie entre intelligences artificielles"""
     grille = Grille()
@@ -170,12 +176,13 @@ def print_victory_screen(grid, winner_symbol='draw'):
         if winner_symbol != 'draw':
             print("Player {} wins. ".format(winner_symbol))
         else:
-            print("This ends with a draw. ".format(winner_symbol))
+            print("This ends with a draw.")
 
     return
 
 
-def analyze_AI_self_plays(ai_player_X, ai_player_O, num_parties_jouees):
+# noinspection PyPep8Naming
+def analyze_ai_self_plays(ai_player_X, ai_player_O, num_parties_jouees):
     num_victoires = {'O': 0, 'X': 0, 'draw': 0}
 
     for game_no in range(num_parties_jouees):

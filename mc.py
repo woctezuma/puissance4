@@ -1,7 +1,8 @@
 from ai import AI
 from grille import Grille
 
-from utils import get_default_MC_params
+from utils import get_default_mc_params
+
 
 class MC(AI):
     """Intelligence artificielle reposant sur des simulations Monte-Carlo"""
@@ -11,8 +12,9 @@ class MC(AI):
         AI.__init__(self, symbole)
         self.num_tirages_MC = num_tirages_m_c
 
-    def get_default_params(self):
-        return get_default_MC_params()
+    @staticmethod
+    def get_default_params():
+        return get_default_mc_params()
 
     def print(self):
         print()
