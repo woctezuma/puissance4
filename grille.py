@@ -13,39 +13,28 @@ class Grille:
         self.sep_ligne = '\n'
         self.sep_colonne = ';'
         self.grid = [[self.empty_space] * self.width for _ in range(self.height)]
-        # Column levels track the row which a disc would reach if it were dropped in a column
-        self.column_levels = self.get_default_column_levels()
+
         if grille_initiale is not None:
-            self.set(grille_initiale.get_name())
+            self.copy_name(grille_initiale.get_name())
 
     def get_name(self):
         """Renvoyer un texte représentant la grille de façon unique"""
         return self.sep_ligne.join([self.sep_colonne.join(liste) for liste in self.grid])
 
-    def get_default_column_levels(self):
-        return [self.height - 1 for _ in range(self.width)]
+    def get_grid(self):
+        return self.grid
 
-    def get_column_levels(self):
-        return self.column_levels
+    def set_grid(self, grid):
+        self.grid = grid
 
-    def set_column_levels(self, column_levels):
-        self.column_levels = column_levels
-
-    def compute_column_levels(self):
-        column_levels = self.get_default_column_levels()
-        columns_to_check = list(range(self.width))
-        for row_no, row in enumerate(self.grid):
-            for col in columns_to_check:
-                if row[col] != self.empty_space:
-                    column_levels[col] = row_no
-                    columns_to_check.remove(col)
-        self.set_column_levels(column_levels)
-
-    def set(self, name):
+    def copy_name(self, name):
         """Créer la grille représentée par le texte"""
         listes = name.split(self.sep_ligne)
         self.grid = [l.split(self.sep_colonne) for l in listes]
-        self.compute_column_levels()
+
+    def copy(self, grille):
+        # TODO
+        self.set_grid(grille.get_grid())
 
     def show_grid(self, reverse_displayed_row_no=False):
         """Afficher la grille"""
@@ -63,16 +52,12 @@ class Grille:
 
     def drop(self, disc, col):
         """Placer un jeton dans la colonne"""
-        try:
-            available_row = self.column_levels[col]
-            ce_coup_est_possible = bool(available_row >= 0)
-        except IndexError:
-            available_row = -1
-            ce_coup_est_possible = False
-
-        if ce_coup_est_possible:
-            self.grid[available_row][col] = disc
-            self.column_levels[col] -= 1
+        ce_coup_est_possible = False
+        for row in reversed(self.grid):
+            if row[col] == self.empty_space:
+                row[col] = disc
+                ce_coup_est_possible = True
+                break
         return ce_coup_est_possible
 
     def check_victory(self):

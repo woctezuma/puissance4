@@ -46,13 +46,13 @@ class UCT(MC):
         for _ in range(self.num_descentes_dans_arbre):
             # soit p' une copie de p
             grille_copiee = Grille()
-            grille_copiee.set(etat_initial)
+            grille_copiee.copy_name(etat_initial)
             # soit N le noeud résultat d'une descente dans l'arbre (A, p')
             (N, symbole_dont_c_est_le_tour_pour_N) = self.tree_down(grille_copiee, symbole_dont_c_est_le_tour)
             # soit R l'évaluation de p'
             grille_pour__n = N.name
             grille_simulee = Grille()
-            grille_simulee.set(grille_pour__n)
+            grille_simulee.copy_name(grille_pour__n)
             r = self.simuler_monte_carlo(grille_simulee, symbole_dont_c_est_le_tour_pour_N)
             # nous effectuons une remontée de l'arbre (A, N, R)
             self.tree_up(N, r, symbole_dont_c_est_le_tour, symbole_dont_c_est_le_tour_pour_N)
@@ -67,7 +67,7 @@ class UCT(MC):
         joueur = symbole_dont_c_est_le_tour
         # boucle : fils non explorés de N
         grille = Grille()
-        grille.set(n.name)
+        grille.copy_name(n.name)
         mes_coups_possibles = grille.look_for_allowed_steps()
         while all([(n.name, i) in self.compteur_choix_action_dans_etat for i in mes_coups_possibles]):
             # soit F le fils de N ayant la plus grande valeur UCT
@@ -78,12 +78,12 @@ class UCT(MC):
                 f.code = action
                 n = f
                 joueur = self.get_other_symbol(joueur)
-                grille.set(n.name)
+                grille.copy_name(n.name)
                 mes_coups_possibles = grille.look_for_allowed_steps()
             else:
                 break
         # soir F un fils de N tiré au hasard parmi les fils non explorés
-        grille.set(n.name)
+        grille.copy_name(n.name)
         mes_coups_possibles = grille.look_for_allowed_steps()
         if len(mes_coups_possibles) > 0:
             actions_inexplorees = [i for i in mes_coups_possibles if
@@ -157,7 +157,7 @@ class UCT(MC):
 def changer_etat_apres_transition(etat, action, joueur):
     """Déterminer l'état obtenu lorsque le joueur effectue l'action dans l'état donné"""
     grille_copiee = Grille()
-    grille_copiee.set(etat)
+    grille_copiee.copy_name(etat)
     grille_copiee.drop(joueur, action)
     nouvel_etat = grille_copiee.get_name()
     return nouvel_etat

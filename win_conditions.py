@@ -117,30 +117,27 @@ def check_oblique_descendante(grille, x, y):
 def look_for_obvious_steps(grille):
     """Vérifier s'il est possible de gagner pour l'un ou l'autre joueur.
     Si oui, renvoyer le numéro de la colonne à jouer, sinon None"""
-    for x in range(grille.width):
 
-        # Rechercher parmi les cases non vides
-        search_start = 1 + grille.column_levels[x]
-
-        if search_start < grille.height:
-            my_play = check_verticale(grille, x, search_start)
-            if my_play is not None:
-                return my_play
-
-        for y in range(search_start, grille.height):
+    for y in range(len(grille.grid)):
+        for x in range(len(grille.grid[y])):
             # Rechercher un coup qui permette ou empêche un alignement de quatre jetons
+            if grille.grid[y][x] != grille.empty_space:
 
-            my_play = check_horizontale(grille, x, y)
-            if my_play is not None:
-                return my_play
+                my_play = check_horizontale(grille, x, y)
+                if my_play is not None:
+                    return my_play
 
-            my_play = check_oblique_montante(grille, x, y)
-            if my_play is not None:
-                return my_play
+                my_play = check_verticale(grille, x, y)
+                if my_play is not None:
+                    return my_play
 
-            my_play = check_oblique_descendante(grille, x, y)
-            if my_play is not None:
-                return my_play
+                my_play = check_oblique_montante(grille, x, y)
+                if my_play is not None:
+                    return my_play
+
+                my_play = check_oblique_descendante(grille, x, y)
+                if my_play is not None:
+                    return my_play
 
     # Aucun coup urgent, alors renvoyer -1
     return None
