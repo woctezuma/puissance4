@@ -61,15 +61,13 @@ class Grille:
         print()
         return
 
-    def drop(self, disc, col):  # TODO
+    def drop(self, disc, col):
         """Placer un jeton dans la colonne"""
-        ce_coup_est_possible = False
-        for row in reversed(self.grid):
-            if row[col] == self.empty_space:
-                row[col] = disc
-                self.column_levels[col] -= 1
-                ce_coup_est_possible = True
-                break
+        available_row = self.column_levels[col]
+        ce_coup_est_possible = bool(available_row >= 0)
+        if ce_coup_est_possible:
+            self.grid[available_row][col] = disc
+            self.column_levels[col] -= 1
         return ce_coup_est_possible
 
     def check_victory(self):

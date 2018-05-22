@@ -1,5 +1,5 @@
 from math import sqrt, log
-from random import randint
+from random import choice
 
 from grille import Grille
 from mc import MC, get_other_symbol
@@ -75,8 +75,7 @@ class UCT(MC):
         if len(mes_coups_possibles) > 0:
             actions_inexplorees = [i for i in mes_coups_possibles if
                                    not ((n.name, i) in self.compteur_choix_action_dans_etat)]
-            tirage = randint(0, len(actions_inexplorees) - 1)
-            action = actions_inexplorees[tirage]
+            action = choice(actions_inexplorees)
             etat_inexplore = changer_etat_apres_transition(n.name, action, joueur)
             f = Node(etat_inexplore, n)
             f.code = action
