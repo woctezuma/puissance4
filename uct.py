@@ -4,6 +4,7 @@ from random import choice
 from grille import Grille
 from mc import MC
 from node import Node
+from utils import get_default_UCT_params
 
 
 class UCT(MC):
@@ -18,6 +19,17 @@ class UCT(MC):
         self.num_descentes_dans_arbre = num_descentes_dans_arbre
         self.facteur_uct = facteur_uct
         self.tree = None
+
+    def get_default_params(self):
+        return get_default_UCT_params()
+
+    def print(self):
+        print()
+        print('[Upper Confidence Tree] symbol = {}'.format(self.player))
+        print("[Upper Confidence Tree] num_samples = {}".format(self.num_tirages_MC))
+        print("[Upper Confidence Tree] num_tree_descents = {}".format(self.num_descentes_dans_arbre))
+        print("[Upper Confidence Tree] factor = {}".format(self.facteur_uct))
+        return
 
     def set_tree(self, input_tree):
         self.tree = input_tree

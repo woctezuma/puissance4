@@ -1,6 +1,7 @@
 from ai import AI
 from grille import Grille
 
+from utils import get_default_MC_params
 
 class MC(AI):
     """Intelligence artificielle reposant sur des simulations Monte-Carlo"""
@@ -9,6 +10,15 @@ class MC(AI):
         """Créer un joueur du symbole indiqué"""
         AI.__init__(self, symbole)
         self.num_tirages_MC = num_tirages_m_c
+
+    def get_default_params(self):
+        return get_default_MC_params()
+
+    def print(self):
+        print()
+        print('[Monte Carlo] symbol = {}'.format(self.player))
+        print("[Monte Carlo] num_samples = {}".format(self.num_tirages_MC))
+        return
 
     def simuler_monte_carlo(self, grille, current_player):
         """Evaluer une grille par des simulations Monte-Carlo de la fin de la partie"""

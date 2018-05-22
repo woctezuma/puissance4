@@ -8,6 +8,16 @@ class AI:
         """Créer un joueur du symbole indiqué"""
         self.player = symbole
 
+    def print(self):
+        print()
+        print('[Random AI] symbol = {}'.format(self.player))
+        return
+
+    def set_params(self, dico):
+        for elem in dico:
+            setattr(self, elem, dico[elem])
+        return
+
     def play_witout_bias(self, grille):
         """Jouer de façon non biaisée : renvoyer au hasard un coup possible"""
         return grille.get_random_allowed_step()
