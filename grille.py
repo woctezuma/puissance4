@@ -8,9 +8,10 @@ class Grille:
         """Créer une grille vide, ou copier une grille existante"""
         self.width = 7
         self.heigth = 6
+        self.empty_space = '.'
         self.sep_ligne = '\n'
         self.sep_colonne = ';'
-        self.grid = [['.'] * self.width for _ in range(self.heigth)]
+        self.grid = [[self.empty_space] * self.width for _ in range(self.heigth)]
         if grille_initiale is not None:
             self.set(grille_initiale.get_name())
 
@@ -42,7 +43,7 @@ class Grille:
         """Placer un jeton dans la colonne"""
         ce_coup_est_possible = False
         for row in reversed(self.grid):
-            if row[col - 1] == '.':
+            if row[col - 1] == self.empty_space:
                 row[col - 1] = disc
                 ce_coup_est_possible = True
                 break
@@ -52,7 +53,7 @@ class Grille:
         """Vérifier si quatre jetons consécutifs du même joueur sont alignés"""
         for y in range(0, len(self.grid)):
             for x in range(0, len(self.grid[y])):
-                if self.grid[y][x] != '.':
+                if self.grid[y][x] != self.empty_space:
                     # Alignement horizontal, le noeud (x,y) étant le plus à gauche
                     if x < self.width - 3:
                         if all(self.grid[y][x] == self.grid[y][x + i + 1] for i in range(3)):
@@ -73,7 +74,7 @@ class Grille:
 
     def look_for_allowed_steps(self):
         """Renvoyer la liste des coups autorisés"""
-        return [(x + 1) for x in range(self.width) if self.grid[0][x] == '.']
+        return [(x + 1) for x in range(self.width) if self.grid[0][x] == self.empty_space]
 
     def get_random_allowed_step(self):
         """Renvoyer un coups au hasard parmi ceux autorisés"""
