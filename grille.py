@@ -106,14 +106,14 @@ class Grille:
     def is_at_top(self, y):
         return bool(y == 0)
 
-    def is_not_at_bottom(self, y):
-        return bool(y < self.height - 1)
-
     def is_very_far_from_bottom(self, y):
-        return bool(y < self.height - 4)
+        return self.is_far_from_bottom(y, cushion=-1)
 
-    def is_far_from_bottom(self, y):
-        return bool(y < self.height - 3)
+    def is_far_from_bottom(self, y, cushion=0):
+        return bool(y < self.height - 3 + cushion)
+
+    def is_quite_far_from_bottom(self, y):
+        return self.is_far_from_bottom(y, cushion=1)
 
     def is_far_from_top(self, y):
         return bool(y > 2)

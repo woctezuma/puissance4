@@ -3,14 +3,13 @@
 
 def check_horizontale(grille, x, y):
     symbole = grille.grid[y][x]
-    # Alignement horizontal de trois jetons consécutifs, le noeud (x,y) étant le plus à gauche
     if grille.is_far_from_right(x):
+        # Alignement horizontal de trois jetons consécutifs, le noeud (x,y) étant le plus à gauche
         if all(symbole == grille.grid[y][x + i + 1] for i in range(2)):
             my_play = grille.play_if_possible(x + 3, y)
             if my_play is not None:
                 return my_play
-    # Alignement horizontal de trois jetons non consécutifs, le noeud (x,y) étant le plus à gauche
-    if grille.is_far_from_right(x):
+        # Alignement horizontal de trois jetons non consécutifs, le noeud (x,y) étant le plus à gauche
         if symbole == grille.grid[y][x + 3]:
             # Alignement horizontal de la forme X.XX
             if symbole == grille.grid[y][x + 2]:
@@ -35,10 +34,11 @@ def check_horizontale(grille, x, y):
 def check_verticale(grille, x, y):
     symbole = grille.grid[y][x]
     # Alignement vertical de trois jetons consécutifs, le noeud (x,y) étant le plus haut
-    if grille.height - 2 > y >= 1:
+    if grille.is_quite_far_from_bottom(y) and not (grille.is_at_top(y)):
         if all(symbole == grille.grid[y + i + 1][x] for i in range(2)):
-            if grille.grid[y - 1][x] == grille.empty_space:
-                return x + 1
+            my_play = grille.play_if_possible(x, y - 1)
+            if my_play is not None:
+                return my_play
     return None
 
 
@@ -110,8 +110,8 @@ def check_oblique_descendante(grille, x, y):
 def look_for_obvious_steps(grille):
     """Vérifier s'il est possible de gagner pour l'un ou l'autre joueur.
     Si oui, renvoyer le numéro de la colonne à jouer, sinon None"""
-    for y in range(0, len(grille.grid)):
-        for x in range(0, len(grille.grid[y])):
+    for y in range(len(grille.grid)):
+        for x in range(len(grille.grid[y])):
             # Rechercher un coup qui permette ou empêche un alignement de quatre jetons
             if grille.grid[y][x] != grille.empty_space:
 
