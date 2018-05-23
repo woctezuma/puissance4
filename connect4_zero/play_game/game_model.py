@@ -12,19 +12,13 @@ class PlayWithHuman:
         self.config = config
         self.human_color = None
         self.observers = []
-        self.model = self._load_model()
         self.ai = None  # type: Connect4Player
         self.last_evaluation = None
         self.last_history = None  # type: HistoryItem
 
     def start_game(self, human_is_black):
         self.human_color = Player.black if human_is_black else Player.white
-        self.ai = Connect4Player(self.config, self.model)
-
-    def _load_model(self):
-        from connect4_zero.agent.model_connect4 import Connect4Model
-        model = Connect4Model(self.config)
-        return model
+        self.ai = Connect4Player(self.config)
 
     def move_by_ai(self, env):
         action = self.ai.action(env.board)

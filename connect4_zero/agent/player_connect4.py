@@ -18,12 +18,11 @@ logger = getLogger(__name__)
 
 
 class Connect4Player:
-    def __init__(self, config: Config, model, play_config=None):
+    def __init__(self, config: Config, play_config=None):
 
         self.config = config
-        self.model = model
         self.play_config = play_config or self.config.play
-        self.api = Connect4ModelAPI(self.config, self.model)
+        self.api = Connect4ModelAPI(self.config)
 
         self.labels_n = config.n_labels
         self.var_n = defaultdict(lambda: np.zeros((self.labels_n,)))
