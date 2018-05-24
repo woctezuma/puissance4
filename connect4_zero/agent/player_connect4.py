@@ -1,30 +1,25 @@
 import asyncio
 from _asyncio import Future
 from asyncio.queues import Queue
-from collections import defaultdict, namedtuple
+from collections import defaultdict
 from logging import getLogger
 
-import numpy as np
-
 from connect4_zero.agent.api_connect4 import Connect4ModelAPI
-from connect4_zero.config import Config
-from connect4_zero.env.connect4_env import Connect4Env, Winner, Player
-
-CounterKey = namedtuple("CounterKey", "board next_player")
-QueueItem = namedtuple("QueueItem", "state future")
-HistoryItem = namedtuple("HistoryItem", "action policy values visit")
+from connect4_zero.env.connect4_env import Winner, Player
 
 logger = getLogger(__name__)
 
+from connect4_zero.agent.player_interface import *
 
-class Connect4Player:
+
+class Connect4Player(BasePlayer):
     def __init__(self, config: Config, play_config=None):
 
+        super().__init__()
         self.config = config
         self.play_config = play_config or self.config.play
         self.api = Connect4ModelAPI(self.config)
 
-        self.labels_n = config.n_labels
         self.var_n = defaultdict(lambda: np.zeros((self.labels_n,)))
         self.var_w = defaultdict(lambda: np.zeros((self.labels_n,)))
         self.var_q = defaultdict(lambda: np.zeros((self.labels_n,)))
@@ -38,8 +33,6 @@ class Connect4Player:
         self.moves = []
         self.loop = asyncio.get_event_loop()
         self.running_simulation_num = 0
-
-        self.thinking_history = {}  # for fun
 
     def action(self, board):
 
@@ -63,9 +56,6 @@ class Connect4Player:
 
         self.moves.append([env.observation, list(policy)])
         return action
-
-    def ask_thought_about(self, board) -> HistoryItem:
-        return self.thinking_history.get(board)
 
     def search_moves(self, board):
         loop = self.loop
@@ -204,10 +194,6 @@ class Connect4Player:
             ret = np.zeros(self.labels_n)
             ret[action] = 1
             return ret
-
-    @staticmethod
-    def counter_key(env: Connect4Env):
-        return CounterKey(env.observation, env.turn)
 
     def select_action_q_and_u(self, env, is_root_node):
         key = self.counter_key(env)
