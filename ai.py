@@ -27,10 +27,7 @@ class AI:
 
     def play_with_bias(self, grille):
         """Jouer de façon biaisée : vérifier s'il est possible de gagner en un coup avant toute réflexion"""
-        mon_coup_urgent = None
-
-        if self.bias_to_obvious_steps:
-            mon_coup_urgent = look_for_obvious_steps(grille)
+        mon_coup_urgent = look_for_obvious_steps(grille)
 
         if mon_coup_urgent is None:
             return self.play_witout_bias(grille)
@@ -60,7 +57,12 @@ class AI:
 
         while not (grille.check_victory()) and len(grille.look_for_allowed_steps()) > 0:
             current_player = self.get_other_symbol(player_who_last_played)
-            grille.drop(current_player, self.play_with_bias(grille))
+
+            if self.bias_to_obvious_steps:
+                grille.drop(current_player, self.play_with_bias(grille))
+            else:
+                grille.drop(current_player, self.play_witout_bias(grille))
+
             player_who_last_played = current_player
 
             step_counter += 1
