@@ -7,6 +7,7 @@ class AI:
     def __init__(self, symbole='O'):
         """Créer un joueur du symbole indiqué"""
         self.player = symbole
+        self.bias_to_obvious_steps = True
         self.max_num_steps_to_explore = None
 
     def print(self):
@@ -26,7 +27,11 @@ class AI:
 
     def play_with_bias(self, grille):
         """Jouer de façon biaisée : vérifier s'il est possible de gagner en un coup avant toute réflexion"""
-        mon_coup_urgent = look_for_obvious_steps(grille)
+        mon_coup_urgent = None
+
+        if self.bias_to_obvious_steps:
+            mon_coup_urgent = look_for_obvious_steps(grille)
+
         if mon_coup_urgent is None:
             return self.play_witout_bias(grille)
         else:
