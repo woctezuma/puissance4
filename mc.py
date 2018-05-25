@@ -30,20 +30,36 @@ class MC(AI):
         """Déterminer la meilleure action en fonction des résultats des simulations Monte-Carlo"""
         meilleure_action = None
         meilleure_evaluation = None
-        for action in grille.look_for_allowed_steps():
+
+        allowed_steps = grille.look_for_allowed_steps()
+        if len(allowed_steps) > 0:
+            num_end_game_simulations = 1 + (self.num_tirages_MC // len(allowed_steps))
+        else:
+            num_end_game_simulations = None
+
+        for action in allowed_steps:
             grille_simulee = Grille(grille)
             # Le joueur (A) joue un coup.
             grille_simulee.drop(self.player, action)
             # C'est maintenant au tour de l'autre joueur (B).
             # Nous prenons l'opposé de la valeur simulée, car nous nous intéressons au joueur A.
-            evaluation = - self.simuler_monte_carlo(grille_simulee, self.get_opponent_symbol())
+            evaluation = - self.simuler_monte_carlo(grille_simulee, self.get_opponent_symbol(),
+                                                    num_end_game_simulations)
             if meilleure_evaluation is None or evaluation > meilleure_evaluation:
                 meilleure_evaluation = evaluation
                 meilleure_action = action
         return meilleure_action
 
-    def simuler_monte_carlo(self, grille, current_player):
-        """Evaluer une grille par des simulations Monte-Carlo de la fin de la partie"""
+    def simuler_monte_carlo(self, grille, current_player, num_end_game_simulations=None):
+        """
+        Evaluer une grille par des simulations Monte-Carlo de la fin de la partie
+
+        Attention! La valeur renvoyée correspond à l'estimation pour "current_player", et pas nécessairement pour "self.player" !
+        """
+
+        if num_end_game_simulations is None:
+            num_end_game_simulations = self.num_tirages_MC
+
         num_victoires = {'O': 0, 'X': 0, 'draw': 0}
 
         # Warning: this is a random AI, so you might want to use values different from the defaults used by MC for:
@@ -51,7 +67,7 @@ class MC(AI):
         # - self.max_num_steps_to_explore
         ai = AI(current_player, self.bias_to_obvious_steps, self.max_num_steps_to_explore)
 
-        for _ in range(self.num_tirages_MC):
+        for _ in range(num_end_game_simulations):
             grille_simulee = Grille(grille)
             winner_symbol = ai.simulate_end_game(grille_simulee)
             num_victoires[winner_symbol] += 1
