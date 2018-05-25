@@ -7,6 +7,12 @@ def get_default_player_symbol():
 def get_default_check_obvious_plays():
     """
     Parameter regarding obvious plays during games (not during end-game simulations)
+
+    If you AI is not very good, it might help it. Otherwise, it could be better to set this setting to False and try to
+    build a better AI with an increase number of Monte Carlo samples. Typically, in UCT vs. MC games, MC benefits from
+    this setting, but UCT does not (because UCT's Tree Down algorithm with num_descentes_dans_arbre > num_columns(=7)
+    leads to actually checking all the children of the current position, which includes all possible obvious win-steps.
+
     """
     check_obvious_plays = False
     return check_obvious_plays
