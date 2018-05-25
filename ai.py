@@ -7,6 +7,7 @@ class AI:
     def __init__(self, symbole='O'):
         """Créer un joueur du symbole indiqué"""
         self.player = symbole
+        self.max_num_steps_to_explore = None
 
     def print(self):
         print()
@@ -50,10 +51,16 @@ class AI:
 
         player_who_last_played = self.get_opponent_symbol()
 
+        step_counter = 0
+
         while not (grille.check_victory()) and len(grille.look_for_allowed_steps()) > 0:
             current_player = self.get_other_symbol(player_who_last_played)
             grille.drop(current_player, self.play_with_bias(grille))
             player_who_last_played = current_player
+
+            step_counter += 1
+            if self.max_num_steps_to_explore is not None and step_counter >= self.max_num_steps_to_explore:
+                break
 
         if grille.check_victory():
             winner_symbol = player_who_last_played
