@@ -7,8 +7,8 @@ from uct import UCT
 
 
 def main():
-    trainer_choice = 'MC'  # One of the following texts: 'Random', 'MC', 'UCT'
-    num_parties_jouees = 3
+    trainer_choice = 'Random'  # One of the following texts: 'Random', 'MC', 'UCT'
+    num_parties_jouees = 200
 
     is_consistent = prepare_and_train(trainer_choice, num_parties_jouees)
 
@@ -37,7 +37,7 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3):
 
     # Train
     learner, num_victories_per_symbol, num_victories_per_player = train(learner, trainer, num_parties_jouees,
-                                                                        verbose=True)
+                                                                        verbose=False)
 
     is_consistent = print_stats(num_victories_per_symbol, num_victories_per_player)
 
