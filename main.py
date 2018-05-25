@@ -42,6 +42,12 @@ def menu(default_user_action=None, num_parties_jouees=None):
             # noinspection PyPep8Naming
             player_O = UCT('O')
 
+            # Load
+            try:
+                player_O.load_model()
+            except AttributeError:
+                print('Learner cannot load a model.')
+
             sp(player_O)
 
         if user_input == '2':
