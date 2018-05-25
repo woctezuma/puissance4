@@ -1,6 +1,5 @@
 from ai import AI
 from grille import Grille
-
 from parameters import get_default_num_tirages_MC
 
 
@@ -67,4 +66,8 @@ class MC(AI):
     # noinspection PyPep8Naming
     def equalize_computing_resources(self, UCT_ai_instance):
         # Give the same computing resources to player X (UCT) and player O (MC):
-        self.num_tirages_MC = UCT_ai_instance.num_tirages_MC * UCT_ai_instance.num_descentes_dans_arbre
+        try:
+            self.num_tirages_MC = UCT_ai_instance.num_tirages_MC * UCT_ai_instance.num_descentes_dans_arbre
+        except AttributeError:
+            print(
+                'Equalization of computing resources failed: missing attributes from {}'.format(repr(UCT_ai_instance)))

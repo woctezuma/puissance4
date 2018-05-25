@@ -1,7 +1,6 @@
 from random import shuffle
 
 from ai import AI
-from ai_interface import InterfaceAI
 from grille import Grille
 from mc import MC
 from uct import UCT
@@ -31,7 +30,10 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3):
         trainer = UCT()
 
     # Load
-    learner.load_model()
+    try:
+        learner.load_model()
+    except AttributeError:
+        print('Learner cannot load a model.')
 
     # Train
     learner, num_victories_per_symbol, num_victories_per_player = train(learner, trainer, num_parties_jouees,
@@ -40,7 +42,10 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3):
     is_consistent = print_stats(num_victories_per_symbol, num_victories_per_player)
 
     # Save
-    learner.save_model()
+    try:
+        learner.save_model()
+    except AttributeError:
+        print('Learner cannot save a model.')
 
     return is_consistent
 
