@@ -107,40 +107,48 @@ class UCT(MC):
             f = N
         return f, current_player
 
-    def tree_up(self, noeud__n, evaluation_r, symbole_noeud_n):
+    def tree_up(self, node_N, value_R, current_player_at_N):
         """Remonter dans l'arbre UCT"""
-        symbole_courant = symbole_noeud_n
-        while noeud__n is not self.tree:
-            nom__n = noeud__n.name
-            nom_parent__n = noeud__n.parent.name
-            action_pour_arriver_en__n = noeud__n.code
+        current_player = current_player_at_N
+
+        while node_N is not self.tree:
+            parent_board_state = node_N.parent.name
+            action_to_reach_N = node_N.code
+
             try:
-                self.compteur_visite_etat[nom__n] += 1
+                self.compteur_visite_etat[node_N.name] += 1
             except KeyError:
-                self.compteur_visite_etat[nom__n] = 1
+                self.compteur_visite_etat[node_N.name] = 1
+
             try:
-                self.compteur_choix_action_dans_etat[(nom_parent__n, action_pour_arriver_en__n)] += 1
+                self.compteur_choix_action_dans_etat[(parent_board_state, action_to_reach_N)] += 1
             except KeyError:
-                self.compteur_choix_action_dans_etat[(nom_parent__n, action_pour_arriver_en__n)] = 1
-            q = evaluation_r
+                self.compteur_choix_action_dans_etat[(parent_board_state, action_to_reach_N)] = 1
+
+            q = value_R
             # Pour information, la ligne ci-dessous est juste, ne pas mettre de signe "!=" au lieu de "==".
-            if symbole_courant == symbole_noeud_n:  # <- La ligne qui m'a fait perdre beaucoup de temps.
+            if current_player == current_player_at_N:  # <- La ligne qui m'a fait perdre beaucoup de temps.
                 q *= -1.0
+
             try:
                 # En effet, nous nous intéressons au parent de N, et non à N lui-même.
-                mu_avant = self.score_choix_action_dans_etat[(nom_parent__n, action_pour_arriver_en__n)]
+                mu_avant = self.score_choix_action_dans_etat[(parent_board_state, action_to_reach_N)]
             except KeyError:
                 mu_avant = 0
-            n = self.compteur_choix_action_dans_etat[(nom_parent__n, action_pour_arriver_en__n)]
+
+            n = self.compteur_choix_action_dans_etat[(parent_board_state, action_to_reach_N)]
             mu = mu_avant + (1.0 / n) * (q - mu_avant)
-            self.score_choix_action_dans_etat[(nom_parent__n, action_pour_arriver_en__n)] = mu
-            noeud__n = noeud__n.parent
-            symbole_courant = self.get_other_symbol(symbole_courant)
+            self.score_choix_action_dans_etat[(parent_board_state, action_to_reach_N)] = mu
+
+            node_N = node_N.parent
+            current_player = self.get_other_symbol(current_player)
+
         # Enfin, visite de la racine.
         try:
-            self.compteur_visite_etat[noeud__n.name] += 1
+            self.compteur_visite_etat[node_N.name] += 1
         except KeyError:
-            self.compteur_visite_etat[noeud__n.name] = 1
+            self.compteur_visite_etat[node_N.name] = 1
+
         return
 
     def choisir_action_uct(self, grille):
