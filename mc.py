@@ -1,6 +1,8 @@
 from ai import AI
 from grille import Grille
 
+from parameters import get_default_num_tirages_MC
+
 
 class MC(AI):
     """Intelligence artificielle reposant sur des simulations Monte-Carlo"""
@@ -12,15 +14,11 @@ class MC(AI):
         if num_tirages_MC is not None:
             self.num_tirages_MC = num_tirages_MC
         else:
-            self.num_tirages_MC = self.get_default_num_tirages_MC()
-
-    @staticmethod
-    def get_default_num_tirages_MC():
-        return 3
+            self.num_tirages_MC = get_default_num_tirages_MC()
 
     def get_default_params(self):
         params = super().get_default_params()
-        params['num_tirages_MC'] = self.get_default_num_tirages_MC()
+        params['num_tirages_MC'] = get_default_num_tirages_MC()
 
         return params
 
@@ -33,7 +31,11 @@ class MC(AI):
         """Evaluer une grille par des simulations Monte-Carlo de la fin de la partie"""
         num_victoires = {'O': 0, 'X': 0, 'draw': 0}
 
-        ai = AI(current_player)
+        # Warning: you might want to use values different from the default for:
+        # - self.bias_to_obvious_steps
+        # - self.max_num_steps_to_explore
+        ai = AI(current_player, self.bias_to_obvious_steps, self.max_num_steps_to_explore)
+
         for _ in range(self.num_tirages_MC):
             grille_simulee = Grille(grille)
             winner_symbol = ai.simulate_end_game(grille_simulee)

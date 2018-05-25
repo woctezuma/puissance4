@@ -1,3 +1,4 @@
+from parameters import get_default_bias_to_obvious_steps, get_default_max_num_steps_to_explore
 from win_conditions import look_for_obvious_steps
 
 
@@ -11,25 +12,17 @@ class AI:
         if bias_to_obvious_steps is not None:
             self.bias_to_obvious_steps = bias_to_obvious_steps
         else:
-            self.bias_to_obvious_steps = self.get_default_bias_to_obvious_steps()
+            self.bias_to_obvious_steps = get_default_bias_to_obvious_steps()
 
         if max_num_steps_to_explore is not None:
             self.max_num_steps_to_explore = max_num_steps_to_explore
         else:
-            self.max_num_steps_to_explore = self.get_default_max_num_steps_to_explore()
-
-    @staticmethod
-    def get_default_bias_to_obvious_steps():
-        return True
-
-    @staticmethod
-    def get_default_max_num_steps_to_explore():
-        return None
+            self.max_num_steps_to_explore = get_default_max_num_steps_to_explore()
 
     def get_default_params(self):
         params = dict()
-        params['bias_to_obvious_steps'] = self.get_default_bias_to_obvious_steps()
-        params['max_num_steps_to_explore'] = self.get_default_max_num_steps_to_explore()
+        params['bias_to_obvious_steps'] = get_default_bias_to_obvious_steps()
+        params['max_num_steps_to_explore'] = get_default_max_num_steps_to_explore()
 
         return params
 

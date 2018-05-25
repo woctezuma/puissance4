@@ -4,6 +4,7 @@ from random import choice
 from grille import Grille
 from mc import MC
 from node import Node
+from parameters import get_default_num_descentes_dans_arbre, get_default_facteur_uct
 
 
 class UCT(MC):
@@ -16,30 +17,22 @@ class UCT(MC):
         if num_descentes_dans_arbre is not None:
             self.num_descentes_dans_arbre = num_descentes_dans_arbre
         else:
-            self.num_descentes_dans_arbre = self.get_default_num_descentes_dans_arbre()
+            self.num_descentes_dans_arbre = get_default_num_descentes_dans_arbre()
 
         if facteur_uct is not None:
             self.facteur_uct = facteur_uct
         else:
-            self.facteur_uct = self.get_default_facteur_uct()
+            self.facteur_uct = get_default_facteur_uct()
 
         self.compteur_visite_etat = {}
         self.score_choix_action_dans_etat = {}
         self.compteur_choix_action_dans_etat = {}
         self.tree = None
 
-    @staticmethod
-    def get_default_num_descentes_dans_arbre():
-        return 7
-
-    @staticmethod
-    def get_default_facteur_uct():
-        return 0.0
-
     def get_default_params(self):
         params = super().get_default_params()
-        params['num_descentes_dans_arbre'] = self.get_default_num_descentes_dans_arbre()
-        params['facteur_uct'] = self.get_default_facteur_uct()
+        params['num_descentes_dans_arbre'] = get_default_num_descentes_dans_arbre()
+        params['facteur_uct'] = get_default_facteur_uct()
 
         return params
 
