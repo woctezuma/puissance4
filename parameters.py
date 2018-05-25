@@ -2,7 +2,7 @@
 
 def get_default_check_obvious_plays():
     """
-    TODO
+    Parameter regarding obvious plays during games (not during end-game simulations)
     """
     check_obvious_plays = False
     return check_obvious_plays
@@ -12,17 +12,31 @@ def get_default_check_obvious_plays():
 
 
 def get_default_bias_to_obvious_steps():
-    # [Warning] Important advice: you might want to keep this boolean to False! Otherwise, there is a huge burden of
-    # computation. It might be worth it as the end-game evaluations will be more accurate.
-    #
-    # Your AI will play obvious steps, no matter this parameter.
-    # Only the end-game simulations rely on this parameter.
+    """
+    Parameter regarding obvious plays during end-game simulations (not during games)
+
+    [Warning] Important advice: you might want to keep this boolean to False! Otherwise, there is a huge burden of
+    computation, which hinders your ability to play with other parameters such as the number of Monte Carlo samples.
+
+    It might sound worth it as the end-game evaluations should be more accurate. However, AI spends most of its
+    computation power checking whether each *random* move might be a winning move during end-game simulations, which
+    is not a smart way to "think" for an AI. The result is an AI which is less good at the game than it could be.
+
+    AI plays "obvious steps" (one-step win, or one-step win-deny for the opponent), no matter this parameter.
+    Only the end-game simulations rely on this parameter.
+    """
 
     bias_to_obvious_steps = False
     return bias_to_obvious_steps
 
 
 def get_default_max_num_steps_to_explore():
+    """
+    [Warning] Important advice: you might want to keep this value small. Otherwise, AI will spend a lot of moves to
+    evaluate which player wins in each situation, and this will force you to decrease the number of Monte Carlo
+    samples. The result is that the value of each board state might be less accurate due to a low num_tirages_MC.
+    """
+
     max_num_steps_to_explore = 10
     return max_num_steps_to_explore
 
@@ -31,6 +45,10 @@ def get_default_max_num_steps_to_explore():
 
 # noinspection PyPep8Naming
 def get_default_num_tirages_MC():
+    """
+    Number of Monte Carlo samples used to estimate the value of a board state.
+    """
+
     # noinspection PyPep8Naming
     num_tirages_MC = 14
     return num_tirages_MC

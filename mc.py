@@ -47,7 +47,7 @@ class MC(AI):
         """Evaluer une grille par des simulations Monte-Carlo de la fin de la partie"""
         num_victoires = {'O': 0, 'X': 0, 'draw': 0}
 
-        # Warning: you might want to use values different from the default for:
+        # Warning: this is a random AI, so you might want to use values different from the defaults used by MC for:
         # - self.bias_to_obvious_steps
         # - self.max_num_steps_to_explore
         ai = AI(current_player, self.bias_to_obvious_steps, self.max_num_steps_to_explore)
