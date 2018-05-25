@@ -84,7 +84,7 @@ def np(ai_player_X, ai_player_O, verbose=True):
         else:
             current_player = ai_player_O
 
-        grille.drop(current_player.get_player_symbol(), current_player.play_with_bias(grille))
+        grille.drop(current_player.get_player_symbol(), current_player.play(grille))
         player_who_last_played = current_player.get_player_symbol()
 
         step_counter += 1
@@ -132,7 +132,7 @@ def sp(ai_player):
         else:
             current_player = ai_player
 
-            grille.drop(current_player.get_player_symbol(), current_player.play_with_bias(grille))
+            grille.drop(current_player.get_player_symbol(), current_player.play(grille))
 
             player_who_last_played = current_player.get_player_symbol()
 

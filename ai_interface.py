@@ -1,22 +1,36 @@
+from parameters import get_default_check_obvious_plays
 from win_conditions import look_for_obvious_steps
 
 
 class InterfaceAI:
-    def __init__(self, symbole='O'):
+    def __init__(self, symbole='O', check_obvious_plays=None):
         """Créer un joueur du symbole indiqué"""
         self.player = symbole
+
+        if check_obvious_plays is not None:
+            self.check_obvious_plays = check_obvious_plays
+        else:
+            self.check_obvious_plays = get_default_check_obvious_plays()
 
     def get_default_params(self):
         raise NotImplementedError
 
     def print(self):
-        raise NotImplementedError
+        print()
+        print('[AI] symbol = {}'.format(self.player))
+        print('[AI] bias to obvious steps = {}'.format(self.check_obvious_plays))
 
     def play_witout_bias(self, grille):
         raise NotImplementedError
 
     def simulate_end_game(self, grille):
         raise NotImplementedError
+
+    def play(self, grille):
+        if self.check_obvious_plays:
+            return self.play_with_bias(grille)
+        else:
+            return self.play_witout_bias(grille)
 
     def set_params(self, dico):
         for elem in dico:

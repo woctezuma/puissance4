@@ -1,3 +1,13 @@
+# For AI interface
+
+def get_default_check_obvious_plays():
+    """
+    TODO
+    """
+    check_obvious_plays = False
+    return check_obvious_plays
+
+
 # For random AI, which is used to simulate end games for every AI!
 
 
