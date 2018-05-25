@@ -10,7 +10,8 @@ class AI:
 
     def print(self):
         print()
-        print('[Random AI] symbol = {}'.format(self.player))
+        print('[AI] symbol = {}'.format(self.player))
+        print('[End-game simulations] maximal number of steps = {}'.format(self.player))
         return
 
     def set_params(self, dico):

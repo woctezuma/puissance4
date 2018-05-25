@@ -16,8 +16,10 @@ class UCT(MC):
         self.compteur_visite_etat = {}
         self.score_choix_action_dans_etat = {}
         self.compteur_choix_action_dans_etat = {}
+
         self.num_descentes_dans_arbre = num_descentes_dans_arbre
         self.facteur_uct = facteur_uct
+
         self.tree = None
 
     @staticmethod
@@ -25,11 +27,9 @@ class UCT(MC):
         return get_default_uct_params()
 
     def print(self):
-        print()
-        print('[Upper Confidence Tree] symbol = {}'.format(self.player))
-        print("[Upper Confidence Tree] num_samples = {}".format(self.num_tirages_MC))
-        print("[Upper Confidence Tree] num_tree_descents = {}".format(self.num_descentes_dans_arbre))
-        print("[Upper Confidence Tree] factor = {}".format(self.facteur_uct))
+        super().print()
+        print("[Upper Confidence Tree] number of tree descents = {}".format(self.num_descentes_dans_arbre))
+        print("[Upper Confidence Tree] UCT factor = {}".format(self.facteur_uct))
         return
 
     def set_tree(self, input_tree):

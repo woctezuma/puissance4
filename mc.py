@@ -17,9 +17,8 @@ class MC(AI):
         return get_default_mc_params()
 
     def print(self):
-        print()
-        print('[Monte Carlo] symbol = {}'.format(self.player))
-        print("[Monte Carlo] num_samples = {}".format(self.num_tirages_MC))
+        super().print()
+        print("[Monte Carlo] number of samples = {}".format(self.num_tirages_MC))
         return
 
     def simuler_monte_carlo(self, grille, current_player):
