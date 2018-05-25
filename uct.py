@@ -34,6 +34,7 @@ class UCT(MC):
         self.node_visit_filename = 'node_visit.pickle'
         self.action_score_filename = 'action_score.pickle'
         self.action_count_filename = 'action_count.pickle'
+        self.tree_filename = 'tree.pickle'
 
     def load_model(self):
 
@@ -47,6 +48,9 @@ class UCT(MC):
 
             with open(self.data_path + self.action_count_filename, 'rb') as f:
                 self.compteur_choix_action_dans_etat = pickle.load(f)
+
+            with open(self.data_path + self.tree_filename, 'rb') as f:
+                self.tree = pickle.load(f)
 
         except FileNotFoundError:
             print('Model files cound not be loaded.')
@@ -66,6 +70,9 @@ class UCT(MC):
 
         with open(self.data_path + self.action_count_filename, 'wb') as f:
             pickle.dump(self.compteur_choix_action_dans_etat, f, pickle.HIGHEST_PROTOCOL)
+
+        with open(self.data_path + self.tree_filename, 'wb') as f:
+            pickle.dump(self.tree, f, pickle.HIGHEST_PROTOCOL)
 
         return
 
