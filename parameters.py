@@ -1,6 +1,12 @@
 # For random AI, which is used to simulate end games for every AI!
 
 def get_default_bias_to_obvious_steps():
+    # [Warning] Important advice: you might want to keep this boolean to False! Otherwise, there is a huge burden of
+    # computation. It might be worth it as the end-game evaluations will be more accurate.
+    #
+    # Your AI will play obvious steps, no matter this parameter.
+    # Only the end-game simulations rely on this parameter.
+
     bias_to_obvious_steps = False
     return bias_to_obvious_steps
 
