@@ -57,5 +57,5 @@ def get_default_num_parties_jouees():
     """
     The number of AI self-play games to find out which of two AI is the best one.
     """
-    num_parties_jouees = 50
+    num_parties_jouees = 10
     return num_parties_jouees
