@@ -27,6 +27,9 @@ class Grille:
     def set_grid(self, grid):
         self.grid = grid
 
+    def wipe(self):
+        self.__init__()
+
     def copy_name(self, name):
         """Créer la grille représentée par le texte"""
         listes = name.split(self.sep_ligne)
