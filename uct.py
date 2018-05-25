@@ -1,3 +1,5 @@
+import pathlib
+import pickle
 from math import sqrt, log
 from random import choice
 
@@ -27,6 +29,45 @@ class UCT(MC):
         self.score_choix_action_dans_etat = {}
         self.compteur_choix_action_dans_etat = {}
         self.tree = None
+
+        self.data_path = 'data/'
+        self.node_visit_filename = 'node_visit.pickle'
+        self.action_score_filename = 'action_score.pickle'
+        self.action_count_filename = 'action_count.pickle'
+
+    def load_model(self):
+
+        try:
+
+            with open(self.data_path + self.node_visit_filename, 'rb') as f:
+                self.compteur_visite_etat = pickle.load(f)
+
+            with open(self.data_path + self.action_score_filename, 'rb') as f:
+                self.score_choix_action_dans_etat = pickle.load(f)
+
+            with open(self.data_path + self.action_count_filename, 'rb') as f:
+                self.compteur_choix_action_dans_etat = pickle.load(f)
+
+        except FileNotFoundError:
+            print('Model files cound not be loaded.')
+
+        return
+
+    def save_model(self):
+
+        # Reference of the following line: https://stackoverflow.com/a/14364249
+        pathlib.Path(self.data_path).mkdir(parents=True, exist_ok=True)
+
+        with open(self.data_path + self.node_visit_filename, 'wb') as f:
+            pickle.dump(self.compteur_visite_etat, f, pickle.HIGHEST_PROTOCOL)
+
+        with open(self.data_path + self.action_score_filename, 'wb') as f:
+            pickle.dump(self.score_choix_action_dans_etat, f, pickle.HIGHEST_PROTOCOL)
+
+        with open(self.data_path + self.action_count_filename, 'wb') as f:
+            pickle.dump(self.compteur_choix_action_dans_etat, f, pickle.HIGHEST_PROTOCOL)
+
+        return
 
     def get_default_params(self):
         params = super().get_default_params()

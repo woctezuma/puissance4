@@ -22,10 +22,16 @@ def prepare_and_train(num_parties_jouees):
     trainer = MC()
     trainer.equalize_computing_resources(learner)
 
+    # Load
+    learner.load_model()
+
     # Train
-    num_victories_per_symbol, num_victories_per_player = train(learner, trainer, num_parties_jouees)
+    learner, num_victories_per_symbol, num_victories_per_player = train(learner, trainer, num_parties_jouees)
 
     is_consistent = print_stats(num_victories_per_symbol, num_victories_per_player)
+
+    # Save
+    learner.save_model()
 
     return is_consistent
 
@@ -92,7 +98,7 @@ def train(learner, trainer, num_parties_jouees):
         learner.player = player_symbols[0]
         trainer.player = player_symbols[1]
 
-    return num_victories_per_symbol, num_victories_per_player
+    return learner, num_victories_per_symbol, num_victories_per_player
 
 
 def print_stats(num_victories_per_symbol, num_victories_per_player):
