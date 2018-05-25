@@ -1,11 +1,14 @@
-from parameters import get_default_check_obvious_plays
+from parameters import get_default_player_symbol, get_default_check_obvious_plays
 from win_conditions import look_for_obvious_steps
 
 
 class InterfaceAI:
-    def __init__(self, symbole='O', check_obvious_plays=None):
+    def __init__(self, symbole=None, check_obvious_plays=None):
         """Créer un joueur du symbole indiqué"""
-        self.player = symbole
+        if symbole is not None:
+            self.player = symbole
+        else:
+            self.player = get_default_player_symbol()
 
         if check_obvious_plays is not None:
             self.check_obvious_plays = check_obvious_plays
@@ -13,7 +16,11 @@ class InterfaceAI:
             self.check_obvious_plays = get_default_check_obvious_plays()
 
     def get_default_params(self):
-        raise NotImplementedError
+        params = dict()
+        params['player'] = get_default_player_symbol()
+        params['check_obvious_plays'] = get_default_check_obvious_plays()
+
+        return params
 
     def print(self):
         print()

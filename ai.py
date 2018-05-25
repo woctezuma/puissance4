@@ -19,7 +19,7 @@ class AI(InterfaceAI):
             self.max_num_steps_to_explore = get_default_max_num_steps_to_explore()
 
     def get_default_params(self):
-        params = dict()
+        params = super().get_default_params()
         params['bias_to_obvious_steps'] = get_default_bias_to_obvious_steps()
         params['max_num_steps_to_explore'] = get_default_max_num_steps_to_explore()
 

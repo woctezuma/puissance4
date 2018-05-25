@@ -1,5 +1,9 @@
 # For AI interface
 
+def get_default_player_symbol():
+    return 'O'
+
+
 def get_default_check_obvious_plays():
     """
     Parameter regarding obvious plays during games (not during end-game simulations)
