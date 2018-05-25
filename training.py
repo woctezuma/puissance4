@@ -1,6 +1,7 @@
 from random import shuffle
 
 from ai import AI
+from ai_interface import InterfaceAI
 from grille import Grille
 from mc import MC
 from uct import UCT
@@ -33,7 +34,8 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3):
     learner.load_model()
 
     # Train
-    learner, num_victories_per_symbol, num_victories_per_player = train(learner, trainer, num_parties_jouees)
+    learner, num_victories_per_symbol, num_victories_per_player = train(learner, trainer, num_parties_jouees,
+                                                                        verbose=True)
 
     is_consistent = print_stats(num_victories_per_symbol, num_victories_per_player)
 
@@ -43,7 +45,7 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3):
     return is_consistent
 
 
-def train(learner, trainer, num_parties_jouees):
+def train(learner, trainer, num_parties_jouees, verbose=False):
     num_victories_per_symbol = {'X': 0, 'O': 0, 'draw': 0}
     num_victories_per_player = {'learner': 0, 'trainer': 0, 'draw': 0}
 
@@ -84,6 +86,9 @@ def train(learner, trainer, num_parties_jouees):
 
             grille.drop(current_player.get_player_symbol(), current_player.play(grille))
             step_counter += 1
+
+            if verbose:
+                grille.show_grid()
 
         if grille.check_victory():
             winner_symbol = current_symbol
