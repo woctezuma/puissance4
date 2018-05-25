@@ -8,7 +8,7 @@ class MC(AI):
 
     # noinspection PyPep8Naming
     def __init__(self, symbole='O', num_tirages_MC=None):
-        AI.__init__(self, symbole)
+        super().__init__(symbole)
 
         if num_tirages_MC is not None:
             self.num_tirages_MC = num_tirages_MC

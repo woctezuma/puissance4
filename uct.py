@@ -13,7 +13,7 @@ class UCT(MC):
     """Intelligence artificielle reposant sur l'algorithme Upper-Confidence-Tree"""
 
     def __init__(self, symbole='O', num_descentes_dans_arbre=None, facteur_uct=None):
-        MC.__init__(self, symbole)
+        super().__init__(symbole)
 
         if num_descentes_dans_arbre is not None:
             self.num_descentes_dans_arbre = num_descentes_dans_arbre
