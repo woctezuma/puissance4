@@ -7,18 +7,14 @@ from parameters import get_default_num_tirages_MC
 class MC(AI):
     """Intelligence artificielle reposant sur des simulations Monte-Carlo"""
 
+    # noinspection PyPep8Naming
     def __init__(self, symbole='O', num_tirages_MC=None):
-        """Créer un joueur du symbole indiqué"""
         AI.__init__(self, symbole)
 
         if num_tirages_MC is not None:
             self.num_tirages_MC = num_tirages_MC
         else:
             self.num_tirages_MC = get_default_num_tirages_MC()
-
-    def equalize_computing_resources(self, UCT_ai_instance):
-        # Give the same computing resources to player X (UCT) and player O (MC):
-        self.num_tirages_MC = UCT_ai_instance.num_tirages_MC * UCT_ai_instance.num_descentes_dans_arbre
 
     def get_default_params(self):
         params = super().get_default_params()
@@ -30,6 +26,22 @@ class MC(AI):
         super().print()
         print("[Monte Carlo] number of samples = {}".format(self.num_tirages_MC))
         return
+
+    def play_witout_bias(self, grille):
+        """Déterminer la meilleure action en fonction des résultats des simulations Monte-Carlo"""
+        meilleure_action = None
+        meilleure_evaluation = None
+        for action in grille.look_for_allowed_steps():
+            grille_simulee = Grille(grille)
+            # Le joueur (A) joue un coup.
+            grille_simulee.drop(self.player, action)
+            # C'est maintenant au tour de l'autre joueur (B).
+            # Nous prenons l'opposé de la valeur simulée, car nous nous intéressons au joueur A.
+            evaluation = - self.simuler_monte_carlo(grille_simulee, self.get_opponent_symbol())
+            if meilleure_evaluation is None or evaluation > meilleure_evaluation:
+                meilleure_evaluation = evaluation
+                meilleure_action = action
+        return meilleure_action
 
     def simuler_monte_carlo(self, grille, current_player):
         """Evaluer une grille par des simulations Monte-Carlo de la fin de la partie"""
@@ -52,18 +64,7 @@ class MC(AI):
             score = 0
         return score
 
-    def play_witout_bias(self, grille):
-        """Déterminer la meilleure action en fonction des résultats des simulations Monte-Carlo"""
-        meilleure_action = None
-        meilleure_evaluation = None
-        for action in grille.look_for_allowed_steps():
-            grille_simulee = Grille(grille)
-            # Le joueur (A) joue un coup.
-            grille_simulee.drop(self.player, action)
-            # C'est maintenant au tour de l'autre joueur (B).
-            # Nous prenons l'opposé de la valeur simulée, car nous nous intéressons au joueur A.
-            evaluation = - self.simuler_monte_carlo(grille_simulee, self.get_opponent_symbol())
-            if meilleure_evaluation is None or evaluation > meilleure_evaluation:
-                meilleure_evaluation = evaluation
-                meilleure_action = action
-        return meilleure_action
+    # noinspection PyPep8Naming
+    def equalize_computing_resources(self, UCT_ai_instance):
+        # Give the same computing resources to player X (UCT) and player O (MC):
+        self.num_tirages_MC = UCT_ai_instance.num_tirages_MC * UCT_ai_instance.num_descentes_dans_arbre

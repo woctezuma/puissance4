@@ -1,5 +1,6 @@
 # For random AI, which is used to simulate end games for every AI!
 
+
 def get_default_bias_to_obvious_steps():
     # [Warning] Important advice: you might want to keep this boolean to False! Otherwise, there is a huge burden of
     # computation. It might be worth it as the end-game evaluations will be more accurate.
@@ -18,7 +19,9 @@ def get_default_max_num_steps_to_explore():
 
 # For both Monte Carlo AI and UCT AI
 
+# noinspection PyPep8Naming
 def get_default_num_tirages_MC():
+    # noinspection PyPep8Naming
     num_tirages_MC = 3
     return num_tirages_MC
 
