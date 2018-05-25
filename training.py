@@ -36,10 +36,12 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3):
         print('Learner cannot load a model.')
 
     # Train
-    learner, num_victories_per_symbol, num_victories_per_player = train(learner, trainer, num_parties_jouees,
-                                                                        verbose=False)
+    learner, num_victories, num_victories_per_symbol, num_victories_per_player = train(learner,
+                                                                                       trainer,
+                                                                                       num_parties_jouees,
+                                                                                       verbose=False)
 
-    is_consistent = print_stats(num_victories_per_symbol, num_victories_per_player)
+    is_consistent = print_stats(num_victories, num_victories_per_symbol, num_victories_per_player)
 
     # Save
     try:
@@ -56,6 +58,11 @@ def train(learner, trainer, num_parties_jouees, verbose=False):
 
     # X always starts.
     player_symbols = ['X', 'O']
+
+    num_victories = {'draw': 0}
+    for element in ['learner', 'trainer']:
+        for symbol in player_symbols:
+            num_victories[(element, symbol)] = 0
 
     # Decide which player is X and which is O.
     learner.player = player_symbols[0]
@@ -98,9 +105,11 @@ def train(learner, trainer, num_parties_jouees, verbose=False):
         if grille.check_victory():
             winner_symbol = current_symbol
             winner_name = current_player_name
+            num_victories[(winner_name, winner_symbol)] += 1
         else:
             winner_symbol = 'draw'
             winner_name = 'draw'
+            num_victories['draw'] += 1
 
         num_victories_per_symbol[winner_symbol] += 1
         num_victories_per_player[winner_name] += 1
@@ -115,10 +124,10 @@ def train(learner, trainer, num_parties_jouees, verbose=False):
         learner.player = player_symbols[0]
         trainer.player = player_symbols[1]
 
-    return learner, num_victories_per_symbol, num_victories_per_player
+    return learner, num_victories, num_victories_per_symbol, num_victories_per_player
 
 
-def print_stats(num_victories_per_symbol, num_victories_per_player):
+def print_stats(num_victories, num_victories_per_symbol, num_victories_per_player):
     # Symbols: X vs. O
 
     num_games_for_symbols = num_victories_per_symbol['X'] \
@@ -150,6 +159,12 @@ def print_stats(num_victories_per_symbol, num_victories_per_player):
                                                                             num_games_for_players))
 
     is_consistent = bool(num_games_for_symbols == num_games_for_players)
+
+    # Additional print, useful to check everything works as intended, e.g. that the learnt model works for both X and O.
+    print()
+    print(num_victories)
+    print(num_victories_per_symbol)
+    print(num_victories_per_player)
 
     return is_consistent
 
