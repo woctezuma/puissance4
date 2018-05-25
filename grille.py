@@ -103,7 +103,7 @@ class Grille:
         return bool(self.grid[y][x] == self.empty_space)
 
     def is_above_occupied_space(self, x, y):
-        return self.is_at_bottom(y) or self.is_empty_space(x, y + 1)
+        return self.is_at_bottom(y) or not (self.is_empty_space(x, y + 1))
 
     def is_playable(self, x, y):
         return self.is_empty_space(x, y) and self.is_above_occupied_space(x, y)
