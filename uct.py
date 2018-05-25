@@ -102,8 +102,11 @@ class UCT(MC):
             # soit R l'évaluation de p
             grille_copiee = Grille()
             grille_copiee.copy_name(N.name)
+
             # noinspection PyPep8Naming
             R = self.simuler_monte_carlo(grille_copiee, current_player_at_N)
+            # Attention! R est la valeur pour 'current_player_at_N', pas forcément pour 'self.player'!
+
             # nous effectuons une remontée de l'arbre (A, N, R)
             self.tree_up(N, R, current_player_at_N)
         # renvoyer le coup fils (de la racine de A) qui a la meilleure valeur UCT
@@ -174,10 +177,17 @@ class UCT(MC):
             except KeyError:
                 self.compteur_choix_action_dans_etat[(parent_board_state, action_to_reach_N)] = 1
 
-            q = value_R
-            # Pour information, la ligne ci-dessous est juste, ne pas mettre de signe "!=" au lieu de "==".
-            if current_player == current_player_at_N:  # <- La ligne qui m'a fait perdre beaucoup de temps.
-                q *= -1.0
+            symbol_for_parent_of_current_player = self.get_other_symbol(current_player)
+
+            # R is the valuation of Node N, in the best interest of 'current_player_at_N'.
+            # However, q is the valuation of the PARENT of 'current_player', which means that:
+            # q = R if the PARENT of current player shares its symbol with Node N,
+            # q = -R if the PARENT of current player does not share its symbol with Node N.
+            #
+            if current_player != current_player_at_N:  # <- La ligne qui m'a fait perdre beaucoup de temps.
+                q = value_R
+            else:
+                q = - value_R
 
             try:
                 # En effet, nous nous intéressons au parent de N, et non à N lui-même.
@@ -190,7 +200,7 @@ class UCT(MC):
             self.score_choix_action_dans_etat[(parent_board_state, action_to_reach_N)] = mu
 
             node_N = node_N.parent
-            current_player = self.get_other_symbol(current_player)
+            current_player = symbol_for_parent_of_current_player
 
         # Enfin, visite de la racine.
         try:
