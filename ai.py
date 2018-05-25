@@ -13,7 +13,8 @@ class AI:
     def print(self):
         print()
         print('[AI] symbol = {}'.format(self.player))
-        print('[End-game simulations] maximal number of steps = {}'.format(self.player))
+        print('[End-game simulations] bias to obvious steps = {}'.format(self.bias_to_obvious_steps))
+        print('[End-game simulations] maximal number of steps = {}'.format(self.max_num_steps_to_explore))
         return
 
     def set_params(self, dico):
