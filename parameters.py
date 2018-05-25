@@ -83,10 +83,9 @@ def get_default_num_descentes_dans_arbre():
 
 def get_default_facteur_uct():
     """
-    The following UCT parameter could be equal to 0.
-    However, to take full advantage of the UCT algorithm, use a positive (>0) value.
+    The following UCT parameter could be equal to 0. Make sure to use a very small value. Typically, between 0 and 0.3.
     """
-    facteur_uct = 0.1
+    facteur_uct = 0.03
     return facteur_uct
 
 
