@@ -57,8 +57,9 @@ class MC(AI):
             num_victoires[winner_symbol] += 1
 
         try:
-            score = (num_victoires[self.get_player_symbol()] - num_victoires[self.get_opponent_symbol()]) \
-                    / (num_victoires[self.get_player_symbol()] + num_victoires[self.get_opponent_symbol()])
+            score = (num_victoires[ai.get_player_symbol()] - num_victoires[ai.get_opponent_symbol()]) \
+                    / (num_victoires[ai.get_player_symbol()] + num_victoires[ai.get_opponent_symbol()]
+                       + num_victoires['draw'])
         except ZeroDivisionError:
             score = 0
         return score
