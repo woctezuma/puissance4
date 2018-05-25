@@ -97,3 +97,10 @@ def get_default_num_parties_jouees():
     """
     num_parties_jouees = 10
     return num_parties_jouees
+
+
+if __name__ == "__main__":
+    import timeit
+
+    duration = timeit.timeit("menu('3', 6)", setup="from main import menu", number=1)
+    print('Time elapsed = {:.2f} s'.format(duration))
