@@ -16,6 +16,10 @@ class MC(AI):
         else:
             self.num_tirages_MC = get_default_num_tirages_MC()
 
+    def equalize_computing_resources(self, UCT_ai_instance):
+        # Give the same computing resources to player X (UCT) and player O (MC):
+        self.num_tirages_MC = UCT_ai_instance.num_tirages_MC * UCT_ai_instance.num_descentes_dans_arbre
+
     def get_default_params(self):
         params = super().get_default_params()
         params['num_tirages_MC'] = get_default_num_tirages_MC()

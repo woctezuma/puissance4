@@ -25,6 +25,7 @@ def menu(default_user_action=None, num_parties_jouees=50):
 
             # noinspection PyPep8Naming
             player_O = MC('O')
+            player_O.equalize_computing_resources(player_X)
 
             np(player_X, player_O)
 
@@ -50,6 +51,7 @@ def menu(default_user_action=None, num_parties_jouees=50):
 
             # noinspection PyPep8Naming
             player_O = MC('O')
+            player_O.equalize_computing_resources(player_X)
 
             ratio_victoires = analyze_ai_self_plays(player_X, player_O, num_parties_jouees)
 
