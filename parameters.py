@@ -1,12 +1,12 @@
 # For random AI, which is used to simulate end games for every AI!
 
 def get_default_bias_to_obvious_steps():
-    bias_to_obvious_steps = True
+    bias_to_obvious_steps = False
     return bias_to_obvious_steps
 
 
 def get_default_max_num_steps_to_explore():
-    max_num_steps_to_explore = None
+    max_num_steps_to_explore = 10
     return max_num_steps_to_explore
 
 
