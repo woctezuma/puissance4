@@ -4,11 +4,38 @@ from win_conditions import look_for_obvious_steps
 class AI:
     """Intelligence artificielle"""
 
-    def __init__(self, symbole='O'):
+    def __init__(self, symbole='O', bias_to_obvious_steps=None, max_num_steps_to_explore=None):
         """Créer un joueur du symbole indiqué"""
         self.player = symbole
-        self.bias_to_obvious_steps = True
-        self.max_num_steps_to_explore = None
+
+        if bias_to_obvious_steps is not None:
+            self.bias_to_obvious_steps = bias_to_obvious_steps
+        else:
+            self.bias_to_obvious_steps = self.get_default_bias_to_obvious_steps()
+
+        if max_num_steps_to_explore is not None:
+            self.max_num_steps_to_explore = max_num_steps_to_explore
+        else:
+            self.max_num_steps_to_explore = self.get_default_max_num_steps_to_explore()
+
+    @staticmethod
+    def get_default_bias_to_obvious_steps():
+        return True
+
+    @staticmethod
+    def get_default_max_num_steps_to_explore():
+        return None
+
+    def get_default_params(self):
+        params = dict()
+        params['bias_to_obvious_steps'] = self.get_default_bias_to_obvious_steps()
+        params['max_num_steps_to_explore'] = self.get_default_max_num_steps_to_explore()
+
+        return params
+
+    def set_all_parameters_to_default(self):
+        self.set_params(self.get_default_params())
+        return
 
     def print(self):
         print()

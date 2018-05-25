@@ -22,11 +22,9 @@ def menu(default_user_action=None, num_parties_jouees=50):
         if user_input == '0':
             # noinspection PyPep8Naming
             player_X = UCT('X')
-            player_X.set_params(player_X.get_default_params())
 
             # noinspection PyPep8Naming
             player_O = MC('O')
-            player_O.set_params(player_O.get_default_params())
 
             np(player_X, player_O)
 
@@ -34,23 +32,24 @@ def menu(default_user_action=None, num_parties_jouees=50):
             player_O.print()
 
         if user_input == '1':
+            # NB: player_X is a human player in this case.
+
             # noinspection PyPep8Naming
             player_O = UCT('O')
-            player_O.set_params(player_O.get_default_params())
 
             sp(player_O)
 
         if user_input == '2':
+            # NB: Both player_X and player_O are human players in this case.
+
             pvp()
 
         if user_input == '3':
             # noinspection PyPep8Naming
             player_X = UCT('X')
-            player_X.set_params(player_X.get_default_params())
 
             # noinspection PyPep8Naming
             player_O = MC('O')
-            player_O.set_params(player_O.get_default_params())
 
             ratio_victoires = analyze_ai_self_plays(player_X, player_O, num_parties_jouees)
 

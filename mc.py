@@ -1,20 +1,28 @@
 from ai import AI
 from grille import Grille
 
-from utils import get_default_mc_params
-
 
 class MC(AI):
     """Intelligence artificielle reposant sur des simulations Monte-Carlo"""
 
-    def __init__(self, symbole='O', num_tirages_m_c=3):
+    def __init__(self, symbole='O', num_tirages_MC=None):
         """Créer un joueur du symbole indiqué"""
         AI.__init__(self, symbole)
-        self.num_tirages_MC = num_tirages_m_c
+
+        if num_tirages_MC is not None:
+            self.num_tirages_MC = num_tirages_MC
+        else:
+            self.num_tirages_MC = self.get_default_num_tirages_MC()
 
     @staticmethod
-    def get_default_params():
-        return get_default_mc_params()
+    def get_default_num_tirages_MC():
+        return 3
+
+    def get_default_params(self):
+        params = super().get_default_params()
+        params['num_tirages_MC'] = self.get_default_num_tirages_MC()
+
+        return params
 
     def print(self):
         super().print()

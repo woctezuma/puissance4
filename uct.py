@@ -4,27 +4,44 @@ from random import choice
 from grille import Grille
 from mc import MC
 from node import Node
-from utils import get_default_uct_params
 
 
 class UCT(MC):
     """Intelligence artificielle reposant sur l'algorithme Upper-Confidence-Tree"""
 
-    def __init__(self, symbole='O', num_tirages_m_c=3, num_descentes_dans_arbre=7, facteur_uct=0.0):
+    def __init__(self, symbole='O', num_descentes_dans_arbre=None, facteur_uct=None):
         """Créer un joueur du symbole indiqué"""
-        MC.__init__(self, symbole, num_tirages_m_c)
+        MC.__init__(self, symbole)
+
+        if num_descentes_dans_arbre is not None:
+            self.num_descentes_dans_arbre = num_descentes_dans_arbre
+        else:
+            self.num_descentes_dans_arbre = self.get_default_num_descentes_dans_arbre()
+
+        if facteur_uct is not None:
+            self.facteur_uct = facteur_uct
+        else:
+            self.facteur_uct = self.get_default_facteur_uct()
+
         self.compteur_visite_etat = {}
         self.score_choix_action_dans_etat = {}
         self.compteur_choix_action_dans_etat = {}
-
-        self.num_descentes_dans_arbre = num_descentes_dans_arbre
-        self.facteur_uct = facteur_uct
-
         self.tree = None
 
     @staticmethod
-    def get_default_params():
-        return get_default_uct_params()
+    def get_default_num_descentes_dans_arbre():
+        return 7
+
+    @staticmethod
+    def get_default_facteur_uct():
+        return 0.0
+
+    def get_default_params(self):
+        params = super().get_default_params()
+        params['num_descentes_dans_arbre'] = self.get_default_num_descentes_dans_arbre()
+        params['facteur_uct'] = self.get_default_facteur_uct()
+
+        return params
 
     def print(self):
         super().print()
