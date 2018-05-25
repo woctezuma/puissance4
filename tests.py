@@ -16,7 +16,7 @@ class TestMainMethods(unittest.TestCase):
 class TestTrainingMethods(unittest.TestCase):
 
     def test_prepare_and_train(self):
-        self.assertTrue(training.prepare_and_train(num_parties_jouees=3))
+        self.assertTrue(training.prepare_and_train(trainer_choice='MC', num_parties_jouees=3))
 
 
 if __name__ == '__main__':

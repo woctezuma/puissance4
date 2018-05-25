@@ -1,26 +1,33 @@
 from random import shuffle
 
+from ai import AI
 from grille import Grille
 from mc import MC
 from uct import UCT
 
 
 def main():
+    trainer_choice = 'MC'  # One of the following texts: 'Random', 'MC', 'UCT'
     num_parties_jouees = 3
 
-    is_consistent = prepare_and_train(num_parties_jouees)
+    is_consistent = prepare_and_train(trainer_choice, num_parties_jouees)
 
     assert is_consistent
 
     return True
 
 
-def prepare_and_train(num_parties_jouees):
+def prepare_and_train(trainer_choice='MC', num_parties_jouees=3):
     # Players
     learner = UCT()
 
-    trainer = MC()
-    trainer.equalize_computing_resources(learner)
+    if trainer_choice == 'Random':
+        trainer = AI()
+    elif trainer_choice == 'MC':
+        trainer = MC()
+        trainer.equalize_computing_resources(learner)
+    else:
+        trainer = UCT()
 
     # Load
     learner.load_model()
