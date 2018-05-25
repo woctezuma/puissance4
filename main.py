@@ -1,10 +1,14 @@
 from grille import Grille
 from mc import MC
+from parameters import get_default_num_parties_jouees
 from uct import UCT
 from utils import get_possible_player_inputs, convert_player_input
 
 
-def menu(default_user_action=None, num_parties_jouees=50):
+def menu(default_user_action=None, num_parties_jouees=None):
+    if num_parties_jouees is None:
+        num_parties_jouees = get_default_num_parties_jouees()
+
     """Menu principal"""
     user_input = []
     while user_input not in ['q']:
@@ -200,10 +204,10 @@ def analyze_ai_self_plays(ai_player_X, ai_player_O, num_parties_jouees):
 
 
 if __name__ == "__main__":
-    # Set to None if you want to decide at run-time which kind of play you prefer (AI self-play, human vs. AI, etc.)
-    # Set to '0' to let AI vs. AI self-play (useful for Travis integration on Github)
-    # Set to '1' to play one game against UCT AI.
-    # Set to '2' to allow with no AI, i.e. human vs. human.
-    # Set to '3' to compute AI self-play 50 games: UCT AI vs. biased Monte-Carlo AI.
+    # Set to None if you want to decide at run-time which kind of play you prefer among the following ones:
+    # Set to '0' to compute one game of AI self-play: UCT AI vs. biased Monte-Carlo AI, with equal computing resources.
+    # Set to '1' to let a human player compete against UCT AI.
+    # Set to '2' to let two human players compete against each other.
+    # Set to '3' to compute N games of AI self-play.
 
-    menu(default_user_action='3', num_parties_jouees=50)
+    menu(default_user_action='3')

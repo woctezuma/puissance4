@@ -27,3 +27,10 @@ def get_default_num_descentes_dans_arbre():
 def get_default_facteur_uct():
     facteur_uct = 0.0
     return facteur_uct
+
+
+# For main
+
+def get_default_num_parties_jouees():
+    num_parties_jouees = 50
+    return num_parties_jouees
