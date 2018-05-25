@@ -107,6 +107,7 @@ class UCT(MC):
             f = N
         return f, current_player
 
+    # noinspection PyPep8Naming
     def tree_up(self, node_N, value_R, current_player_at_N):
         """Remonter dans l'arbre UCT"""
         current_player = current_player_at_N

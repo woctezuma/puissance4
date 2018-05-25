@@ -1,5 +1,6 @@
 # For AI interface
 
+
 def get_default_player_symbol():
     return 'O'
 
