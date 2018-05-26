@@ -104,5 +104,7 @@ def get_default_num_parties_jouees():
 if __name__ == "__main__":
     import timeit
 
-    duration = timeit.timeit("menu('3', 6)", setup="from main import menu", number=1)
+    duration = timeit.timeit("prepare_and_train('Random', 10)",
+                             setup="from training import prepare_and_train",
+                             number=1)
     print('Time elapsed = {:.2f} s'.format(duration))
