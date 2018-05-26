@@ -37,6 +37,7 @@ class UCT(MC):
         # self.tree_filename = 'tree.pickle'
 
     def load_model(self):
+        # NB: It is apparently useless to load these variables for different games.
 
         try:
 
@@ -58,6 +59,7 @@ class UCT(MC):
         return
 
     def save_model(self):
+        # NB: It is apparently useless to save these variables for different games.
 
         # Reference of the following line: https://stackoverflow.com/a/14364249
         pathlib.Path(self.data_path).mkdir(parents=True, exist_ok=True)

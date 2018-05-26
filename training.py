@@ -61,11 +61,11 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
 
     trainer.check_obvious_plays = True
 
-    # Load
-    try:
-        learner.load_model()
-    except AttributeError:
-        print('Learner cannot load a model.')
+    # # Load
+    # try:
+    #     learner.load_model()
+    # except AttributeError:
+    #     print('Learner cannot load a model.')
 
     # Train
     learner, num_victories, num_victories_per_symbol, num_victories_per_player = train(learner,
@@ -79,11 +79,11 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
 
     is_consistent = print_stats(num_victories, num_victories_per_symbol, num_victories_per_player)
 
-    # Save
-    try:
-        learner.save_model()
-    except AttributeError:
-        print('Learner cannot save a model.')
+    # # Save
+    # try:
+    #     learner.save_model()
+    # except AttributeError:
+    #     print('Learner cannot save a model.')
 
     return is_consistent, num_victories
 

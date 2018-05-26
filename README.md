@@ -36,7 +36,7 @@ pip install -r requirements.txt
 python play.py
 ```
 
-- (facultatif) Pour calibrer les paramètres de l'IA, ou pour entraîner une IA, lancez le script Python suivant :
+- (facultatif) Pour calibrer les paramètres de l'IA, lancez le script Python suivant :
 
 ```bash
 python training.py

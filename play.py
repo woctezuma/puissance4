@@ -8,11 +8,11 @@ from utils import get_possible_player_inputs, convert_player_input, convert_to_c
 def main():
     ai_player = UCT()
 
-    # Load learnt model
-    try:
-        ai_player.load_model()
-    except AttributeError:
-        print('Learner cannot load a model.')
+    # # Load learnt model
+    # try:
+    #     ai_player.load_model()
+    # except AttributeError:
+    #     print('Learner cannot load a model.')
 
     winner_name = play_versus_ai(ai_player)
 
