@@ -216,4 +216,4 @@ if __name__ == "__main__":
     # Set to '2' to let two human players compete against each other.
     # Set to '3' to compute N games of AI self-play.
 
-    menu(default_user_action='3')
+    menu(default_user_action='2')
