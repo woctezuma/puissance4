@@ -35,9 +35,11 @@ class InterfaceAI:
 
     def play(self, grille):
         if self.check_obvious_plays:
-            return self.play_with_bias(grille)
+            my_play, is_forced_play = self.play_with_bias(grille)
         else:
-            return self.play_witout_bias(grille)
+            my_play = self.play_witout_bias(grille)
+            is_forced_play = None  # We don't know since we don't check whether it would be a forced play.
+        return my_play, is_forced_play
 
     def set_params(self, dico):
         for elem in dico:
@@ -52,10 +54,14 @@ class InterfaceAI:
         """Jouer de façon biaisée : vérifier s'il est possible de gagner en un coup avant toute réflexion"""
         mon_coup_urgent = look_for_obvious_steps(grille)
 
-        if mon_coup_urgent is None:
-            return self.play_witout_bias(grille)
+        is_forced_play = bool(mon_coup_urgent is not None)
+
+        if is_forced_play:
+            my_play = mon_coup_urgent
         else:
-            return mon_coup_urgent
+            my_play = self.play_witout_bias(grille)
+
+        return my_play, is_forced_play
 
     def get_player_symbol(self):
         return self.player
