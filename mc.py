@@ -54,7 +54,8 @@ class MC(AI):
         """
         Evaluer une grille par des simulations Monte-Carlo de la fin de la partie
 
-        Attention! La valeur renvoyée correspond à l'estimation pour "current_player", et pas nécessairement pour "self.player" !
+        Attention! La valeur renvoyée correspond à l'estimation pour "current_player", et pas nécessairement
+        pour "self.player" !
         """
 
         if num_end_game_simulations is None:
