@@ -7,17 +7,16 @@ from uct import UCT
 from utils import convert_to_column_display
 
 
-def main():
+def main(load_and_save_model=False):
     trainer_choice = 'Random'  # One of the following texts: 'Random', 'MC', 'UCT'
     num_parties_jouees = 200
-
-    is_consistent = False
 
     results = dict()
 
     for max_num_steps_to_explore in [30]:
         is_consistent, num_victories = prepare_and_train(trainer_choice, num_parties_jouees,
-                                                         max_num_steps_to_explore=max_num_steps_to_explore)
+                                                         max_num_steps_to_explore=max_num_steps_to_explore,
+                                                         load_and_save_previously_trained_model=load_and_save_model)
 
         results[max_num_steps_to_explore] = num_victories
 
@@ -25,7 +24,7 @@ def main():
 
     print('Final summary: {}'.format(repr(results)))
 
-    return is_consistent
+    return True
 
 
 # noinspection PyPep8Naming
@@ -33,7 +32,8 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
                       num_tirages_MC=None,
                       num_descentes_dans_arbre=None,
                       facteur_uct=None,
-                      max_num_steps_to_explore=None):
+                      max_num_steps_to_explore=None,
+                      load_and_save_previously_trained_model=False):
     # AI player which is learning by playing against the "trainer"
     learner = UCT()
 
@@ -61,11 +61,10 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
 
     trainer.check_obvious_plays = True
 
-    # # Load
-    # try:
-    #     learner.load_model()
-    # except AttributeError:
-    #     print('Learner cannot load a model.')
+    # Load
+
+    if load_and_save_previously_trained_model:
+        learner.load_model()
 
     # Train
     learner, num_victories, num_victories_per_symbol, num_victories_per_player = train(learner,
@@ -79,11 +78,10 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
 
     is_consistent = print_stats(num_victories, num_victories_per_symbol, num_victories_per_player)
 
-    # # Save
-    # try:
-    #     learner.save_model()
-    # except AttributeError:
-    #     print('Learner cannot save a model.')
+    # Save
+
+    if load_and_save_previously_trained_model:
+        learner.save_model()
 
     return is_consistent, num_victories
 

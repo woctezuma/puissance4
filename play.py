@@ -5,16 +5,20 @@ from uct import UCT
 from utils import get_possible_player_inputs, convert_player_input, convert_to_column_display
 
 
-def main():
+def main(load_previously_trained_model=False):
+    # AI player
+
     ai_player = UCT()
 
-    # # Load learnt model
-    # try:
-    #     ai_player.load_model()
-    # except AttributeError:
-    #     print('Learner cannot load a model.')
+    # Load
 
-    winner_name = play_versus_ai(ai_player)
+    if load_previously_trained_model:
+        # Load learnt model
+        ai_player.load_model()
+
+    # Play
+
+    play_versus_ai(ai_player)
 
     return True
 
@@ -50,23 +54,19 @@ def play_versus_ai(ai_player):
             current_symbol = 'O'
 
         if current_symbol == ai_player.player:
-            current_player = ai_player
             current_player_name = 'artificial intelligence'
 
             if step_counter > 0:
                 grille.show_grid()
 
-            my_play, is_forced_play = current_player.play(grille)
+            my_play, is_forced_play = ai_player.play(grille)
 
             grille.drop(current_symbol, my_play)
 
         else:
-            current_player = None
             current_player_name = 'human being'
 
             grille.show_grid()
-
-            user_input = []
 
             while True:
                 user_input = input("Letter a through g  = drop disc, q = quit. \nYour move:")
@@ -84,17 +84,13 @@ def play_versus_ai(ai_player):
                                                                  convert_to_column_display(my_play).upper()))
 
     if grille.check_victory():
-        winner_symbol = current_symbol
-        winner_name = current_player_name
-        print('Winner = {} ({}) after {} steps'.format(winner_symbol, winner_name, step_counter))
+        print('Winner = {} ({}) after {} steps'.format(current_symbol, current_player_name, step_counter))
     else:
-        winner_symbol = 'draw'
-        winner_name = 'draw'
         print('Draw after {} steps'.format(step_counter))
 
     grille.show_grid()
 
-    return winner_name
+    return
 
 
 if __name__ == "__main__":
