@@ -25,16 +25,13 @@ class UCT(MC):
         else:
             self.facteur_uct = get_default_facteur_uct()
 
-        self.compteur_visite_etat = {}
-        self.score_choix_action_dans_etat = {}
-        self.compteur_choix_action_dans_etat = {}
+        self.dict_num_visits_of_board_state = dict()
+        self.dict_for_action_in_board_state = dict()
         self.tree = None
 
         self.data_path = 'data/'
         self.node_visit_filename = 'node_visit.pickle'
-        self.action_score_filename = 'action_score.pickle'
-        self.action_count_filename = 'action_count.pickle'
-        # self.tree_filename = 'tree.pickle'
+        self.node_action_filename = 'node_action.pickle'
 
     def load_model(self):
         # NB: It is apparently useless to load these variables for different games.
@@ -42,16 +39,10 @@ class UCT(MC):
         try:
 
             with open(self.data_path + self.node_visit_filename, 'rb') as f:
-                self.compteur_visite_etat = pickle.load(f)
+                self.dict_num_visits_of_board_state = pickle.load(f)
 
-            with open(self.data_path + self.action_score_filename, 'rb') as f:
-                self.score_choix_action_dans_etat = pickle.load(f)
-
-            with open(self.data_path + self.action_count_filename, 'rb') as f:
-                self.compteur_choix_action_dans_etat = pickle.load(f)
-
-            # with open(self.data_path + self.tree_filename, 'rb') as f:
-            #     self.tree = pickle.load(f)
+            with open(self.data_path + self.node_action_filename, 'rb') as f:
+                self.dict_for_action_in_board_state = pickle.load(f)
 
         except FileNotFoundError:
             print('Model files cound not be loaded.')
@@ -65,16 +56,10 @@ class UCT(MC):
         pathlib.Path(self.data_path).mkdir(parents=True, exist_ok=True)
 
         with open(self.data_path + self.node_visit_filename, 'wb') as f:
-            pickle.dump(self.compteur_visite_etat, f, pickle.HIGHEST_PROTOCOL)
+            pickle.dump(self.dict_num_visits_of_board_state, f, pickle.HIGHEST_PROTOCOL)
 
-        with open(self.data_path + self.action_score_filename, 'wb') as f:
-            pickle.dump(self.score_choix_action_dans_etat, f, pickle.HIGHEST_PROTOCOL)
-
-        with open(self.data_path + self.action_count_filename, 'wb') as f:
-            pickle.dump(self.compteur_choix_action_dans_etat, f, pickle.HIGHEST_PROTOCOL)
-
-        # with open(self.data_path + self.tree_filename, 'wb') as f:
-        #     pickle.dump(self.tree, f, pickle.HIGHEST_PROTOCOL)
+        with open(self.data_path + self.node_action_filename, 'wb') as f:
+            pickle.dump(self.dict_for_action_in_board_state, f, pickle.HIGHEST_PROTOCOL)
 
         return
 
@@ -129,7 +114,7 @@ class UCT(MC):
         grille.copy_name(N.name)
 
         # boucle : fils non explorés de N
-        while all([(N.name, i) in self.compteur_choix_action_dans_etat for i in grille.look_for_allowed_steps()]):
+        while all([(N.name, i) in self.dict_for_action_in_board_state for i in grille.look_for_allowed_steps()]):
             # soit F le fils de N ayant la plus grande valeur UCT
             if len(grille.look_for_allowed_steps()) > 0:
                 action = self.choisir_action_uct(grille)
@@ -149,7 +134,7 @@ class UCT(MC):
         mes_coups_possibles = grille.look_for_allowed_steps()
         if len(mes_coups_possibles) > 0:
             actions_inexplorees = [i for i in mes_coups_possibles if
-                                   (N.name, i) not in self.compteur_choix_action_dans_etat]
+                                   (N.name, i) not in self.dict_for_action_in_board_state]
             action = choice(actions_inexplorees)
             etat_inexplore = self.changer_etat_apres_transition(N.name, action, current_player)
             f = Node(etat_inexplore, N)
@@ -170,14 +155,15 @@ class UCT(MC):
             action_to_reach_N = node_N.code
 
             try:
-                self.compteur_visite_etat[node_N.name] += 1
+                self.dict_num_visits_of_board_state[node_N.name] += 1
             except KeyError:
-                self.compteur_visite_etat[node_N.name] = 1
+                self.dict_num_visits_of_board_state[node_N.name] = 1
 
             try:
-                self.compteur_choix_action_dans_etat[(parent_board_state, action_to_reach_N)] += 1
+                self.dict_for_action_in_board_state[(parent_board_state, action_to_reach_N)]['count'] += 1
             except KeyError:
-                self.compteur_choix_action_dans_etat[(parent_board_state, action_to_reach_N)] = 1
+                self.dict_for_action_in_board_state[(parent_board_state, action_to_reach_N)] = dict()
+                self.dict_for_action_in_board_state[(parent_board_state, action_to_reach_N)]['count'] = 1
 
             symbol_for_parent_of_current_player = self.get_other_symbol(current_player)
 
@@ -193,22 +179,22 @@ class UCT(MC):
 
             try:
                 # En effet, nous nous intéressons au parent de N, et non à N lui-même.
-                mu_avant = self.score_choix_action_dans_etat[(parent_board_state, action_to_reach_N)]
+                mu_avant = self.dict_for_action_in_board_state[(parent_board_state, action_to_reach_N)]['score']
             except KeyError:
                 mu_avant = 0
 
-            n = self.compteur_choix_action_dans_etat[(parent_board_state, action_to_reach_N)]
+            n = self.dict_for_action_in_board_state[(parent_board_state, action_to_reach_N)]['count']
             mu = mu_avant + (1.0 / n) * (q - mu_avant)
-            self.score_choix_action_dans_etat[(parent_board_state, action_to_reach_N)] = mu
+            self.dict_for_action_in_board_state[(parent_board_state, action_to_reach_N)]['score'] = mu
 
             node_N = node_N.parent
             current_player = symbol_for_parent_of_current_player
 
         # Enfin, visite de la racine.
         try:
-            self.compteur_visite_etat[node_N.name] += 1
+            self.dict_num_visits_of_board_state[node_N.name] += 1
         except KeyError:
-            self.compteur_visite_etat[node_N.name] = 1
+            self.dict_num_visits_of_board_state[node_N.name] = 1
 
         return
 
@@ -218,11 +204,11 @@ class UCT(MC):
         meilleure_action = None
         meilleure_evaluation = None
         for action in grille.look_for_allowed_steps():
-            if (etat, action) not in self.score_choix_action_dans_etat:
+            if (etat, action) not in self.dict_for_action_in_board_state:
                 continue
-            recompense_moyenne = self.score_choix_action_dans_etat[(etat, action)]
-            num_etat_action = self.compteur_choix_action_dans_etat[(etat, action)]
-            num_etat = self.compteur_visite_etat[etat]
+            recompense_moyenne = self.dict_for_action_in_board_state[(etat, action)]['score']
+            num_etat_action = self.dict_for_action_in_board_state[(etat, action)]['count']
+            num_etat = self.dict_num_visits_of_board_state[etat]
             evaluation = recompense_moyenne + self.facteur_uct * sqrt(1.0 * log(num_etat) / num_etat_action)
             if meilleure_evaluation is None or evaluation > meilleure_evaluation:
                 meilleure_evaluation = evaluation
