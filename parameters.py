@@ -15,7 +15,7 @@ def get_default_check_obvious_plays():
     leads to actually checking all the children of the current position, which includes all possible obvious win-steps.
 
     """
-    check_obvious_plays = True
+    check_obvious_plays = False
     return check_obvious_plays
 
 
@@ -37,7 +37,7 @@ def get_default_bias_to_obvious_steps():
     Only the end-game simulations rely on this parameter.
     """
 
-    bias_to_obvious_steps = False
+    bias_to_obvious_steps = True
     return bias_to_obvious_steps
 
 
@@ -46,9 +46,11 @@ def get_default_max_num_steps_to_explore():
     [Warning] Important advice: you might want to keep this value small. Otherwise, AI will spend a lot of moves to
     evaluate which player wins in each situation, and this will force you to decrease the number of Monte Carlo
     samples. The result is that the value of each board state might be less accurate due to a low num_tirages_MC.
+
+    If max_num_steps_to_explore is set to None, then end-game simulations are simulated until the end (win/loss/draw).
     """
 
-    max_num_steps_to_explore = 10
+    max_num_steps_to_explore = None
     return max_num_steps_to_explore
 
 
@@ -61,7 +63,7 @@ def get_default_num_tirages_MC():
     """
 
     # noinspection PyPep8Naming
-    num_tirages_MC = 14
+    num_tirages_MC = 1
     return num_tirages_MC
 
 
@@ -77,7 +79,7 @@ def get_default_num_descentes_dans_arbre():
             - Tree Up: the evaluation is propagated up in the search tree using UCT update rules for evaluations.
 
     """
-    num_descentes_dans_arbre = 14
+    num_descentes_dans_arbre = 56
     return num_descentes_dans_arbre
 
 
@@ -85,7 +87,7 @@ def get_default_facteur_uct():
     """
     The following UCT parameter could be equal to 0. Make sure to use a very small value. Typically, between 0 and 0.3.
     """
-    facteur_uct = 0.03
+    facteur_uct = 0
     return facteur_uct
 
 
