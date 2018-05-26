@@ -50,7 +50,7 @@ def get_default_max_num_steps_to_explore():
     If max_num_steps_to_explore is set to None, then end-game simulations are simulated until the end (win/loss/draw).
     """
 
-    max_num_steps_to_explore = None
+    max_num_steps_to_explore = 30
     return max_num_steps_to_explore
 
 
@@ -63,7 +63,7 @@ def get_default_num_tirages_MC():
     """
 
     # noinspection PyPep8Naming
-    num_tirages_MC = 3
+    num_tirages_MC = 8
     return num_tirages_MC
 
 
@@ -79,7 +79,7 @@ def get_default_num_descentes_dans_arbre():
             - Tree Up: the evaluation is propagated up in the search tree using UCT update rules for evaluations.
 
     """
-    num_descentes_dans_arbre = 14
+    num_descentes_dans_arbre = 7
     return num_descentes_dans_arbre
 
 
@@ -87,7 +87,7 @@ def get_default_facteur_uct():
     """
     The following UCT parameter could be equal to 0. Make sure to use a very small value. Typically, between 0 and 0.3.
     """
-    facteur_uct = 0
+    facteur_uct = 0.5
     return facteur_uct
 
 
