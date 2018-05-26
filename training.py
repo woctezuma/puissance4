@@ -23,12 +23,13 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3):
 
     if trainer_choice == 'Random':
         trainer = AI()
-        trainer.check_obvious_plays = True
     elif trainer_choice == 'MC':
         trainer = MC()
         trainer.equalize_computing_resources(learner)
     else:
         trainer = UCT()
+
+    trainer.check_obvious_plays = True
 
     # Load
     try:
