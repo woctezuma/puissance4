@@ -13,14 +13,26 @@ def main():
 
     is_consistent = prepare_and_train(trainer_choice, num_parties_jouees)
 
-    assert is_consistent
-
-    return True
+    return is_consistent
 
 
-def prepare_and_train(trainer_choice='MC', num_parties_jouees=3):
-    # Players
+def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
+                      num_tirages_MC=None,
+                      num_descentes_dans_arbre=None,
+                      facteur_uct=None):
+    # AI player which is learning by playing against the "trainer"
     learner = UCT()
+
+    if num_tirages_MC is not None:
+        learner.num_tirages_MC = num_tirages_MC
+
+    if num_descentes_dans_arbre is not None:
+        learner.num_descentes_dans_arbre = num_descentes_dans_arbre
+
+    if facteur_uct is not None:
+        learner.facteur_uct = facteur_uct
+
+    # AI player which is training the "learner"
 
     if trainer_choice == 'Random':
         trainer = AI()
@@ -43,6 +55,10 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3):
                                                                                        trainer,
                                                                                        num_parties_jouees,
                                                                                        verbose=False)
+
+    # Print
+
+    learner.print()
 
     is_consistent = print_stats(num_victories, num_victories_per_symbol, num_victories_per_player)
 

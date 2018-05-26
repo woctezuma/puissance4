@@ -63,7 +63,7 @@ def get_default_num_tirages_MC():
     """
 
     # noinspection PyPep8Naming
-    num_tirages_MC = 1
+    num_tirages_MC = 3
     return num_tirages_MC
 
 
@@ -79,7 +79,7 @@ def get_default_num_descentes_dans_arbre():
             - Tree Up: the evaluation is propagated up in the search tree using UCT update rules for evaluations.
 
     """
-    num_descentes_dans_arbre = 56
+    num_descentes_dans_arbre = 14
     return num_descentes_dans_arbre
 
 
