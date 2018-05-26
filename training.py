@@ -14,13 +14,15 @@ def main(load_and_save_model=False):
     results = dict()
 
     for max_num_steps_to_explore in [30]:
-        is_consistent, num_victories = prepare_and_train(trainer_choice, num_parties_jouees,
-                                                         max_num_steps_to_explore=max_num_steps_to_explore,
-                                                         load_and_save_previously_trained_model=load_and_save_model)
+        is_consistent, num_victories, num_steps = prepare_and_train(trainer_choice, num_parties_jouees,
+                                                                    max_num_steps_to_explore=max_num_steps_to_explore,
+                                                                    load_and_save_previously_trained_model=load_and_save_model)
 
+        num_victories['average_num_steps'] = sum(num_steps) / len(num_steps)
         results[max_num_steps_to_explore] = num_victories
 
         print('Temporary summary: {}'.format(repr(results)))
+        print('\nAverage number of steps: {}'.format(num_victories['average_num_steps']))
 
     print('Final summary: {}'.format(repr(results)))
 
@@ -67,10 +69,10 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
         learner.load_model()
 
     # Train
-    learner, num_victories, num_victories_per_symbol, num_victories_per_player = train(learner,
-                                                                                       trainer,
-                                                                                       num_parties_jouees,
-                                                                                       verbose=False)
+    learner, num_victories, num_victories_per_symbol, num_victories_per_player, num_steps = train(learner,
+                                                                                                  trainer,
+                                                                                                  num_parties_jouees,
+                                                                                                  verbose=False)
 
     # Print
 
@@ -83,7 +85,7 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
     if load_and_save_previously_trained_model:
         learner.save_model()
 
-    return is_consistent, num_victories
+    return is_consistent, num_victories, num_steps
 
 
 def train(learner, trainer, num_parties_jouees, verbose=False):
@@ -105,6 +107,8 @@ def train(learner, trainer, num_parties_jouees, verbose=False):
     learner.print()
     trainer.print()
     print()
+
+    num_steps = []
 
     grille = Grille()
 
@@ -159,6 +163,8 @@ def train(learner, trainer, num_parties_jouees, verbose=False):
         print(
             'Game n°{}\tnum_steps = {}\twinner = {} ({})'.format(game_no + 1, step_counter, winner_name, winner_symbol))
 
+        num_steps.append(step_counter)
+
         # Randomly shuffle symbols assigned to each player
         shuffle(player_symbols)
 
@@ -166,7 +172,7 @@ def train(learner, trainer, num_parties_jouees, verbose=False):
         learner.player = player_symbols[0]
         trainer.player = player_symbols[1]
 
-    return learner, num_victories, num_victories_per_symbol, num_victories_per_player
+    return learner, num_victories, num_victories_per_symbol, num_victories_per_player, num_steps
 
 
 def print_stats(num_victories, num_victories_per_symbol, num_victories_per_player):
