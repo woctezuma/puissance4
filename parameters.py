@@ -15,7 +15,7 @@ def get_default_check_obvious_plays():
     leads to actually checking all the children of the current position, which includes all possible obvious win-steps.
 
     """
-    check_obvious_plays = True
+    check_obvious_plays = False
     return check_obvious_plays
 
 
