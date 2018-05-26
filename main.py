@@ -2,7 +2,7 @@ from grille import Grille
 from mc import MC
 from parameters import get_default_num_parties_jouees
 from uct import UCT
-from utils import get_possible_player_inputs, convert_player_input
+from utils import get_possible_player_inputs, convert_player_input, convert_to_column_display
 
 
 def menu(default_user_action=None, num_parties_jouees=None):
@@ -90,7 +90,9 @@ def np(ai_player_X, ai_player_O, verbose=True):
         else:
             current_player = ai_player_O
 
-        grille.drop(current_player.get_player_symbol(), current_player.play(grille))
+        my_play, is_forced_play = current_player.play(grille)
+
+        grille.drop(current_player.get_player_symbol(), my_play)
         player_who_last_played = current_player.get_player_symbol()
 
         step_counter += 1
@@ -138,7 +140,16 @@ def sp(ai_player):
         else:
             current_player = ai_player
 
-            grille.drop(current_player.get_player_symbol(), current_player.play(grille))
+            grille.show_grid()
+
+            my_play, is_forced_play = current_player.play(grille)
+
+            grille.drop(current_player.get_player_symbol(), my_play)
+
+            if is_forced_play is not None and is_forced_play:
+                print(
+                    'Obvious play by AI in ({}, {}) below.'.format(current_player.player,
+                                                                   convert_to_column_display(my_play).upper()))
 
             player_who_last_played = current_player.get_player_symbol()
 

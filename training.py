@@ -4,6 +4,7 @@ from ai import AI
 from grille import Grille
 from mc import MC
 from uct import UCT
+from utils import convert_to_column_display
 
 
 def main():
@@ -98,7 +99,15 @@ def train(learner, trainer, num_parties_jouees, verbose=False):
                 current_player = trainer
                 current_player_name = 'trainer'
 
-            grille.drop(current_player.get_player_symbol(), current_player.play(grille))
+            my_play, is_forced_play = current_player.play(grille)
+
+            if verbose:
+                if is_forced_play is not None and is_forced_play:
+                    print(
+                        'Obvious play by {} in ({}, {}) below.'.format(current_player_name, current_symbol,
+                                                                       convert_to_column_display(my_play).upper()))
+
+            grille.drop(current_player.get_player_symbol(), my_play)
             step_counter += 1
 
             if verbose:
