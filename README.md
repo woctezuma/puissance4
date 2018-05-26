@@ -14,9 +14,34 @@
 
 ## Résumé
 
-Ce projet consiste à développer une intelligence artificielle 
+Ce projet consiste à développer une intelligence artificielle (IA)
 pour le jeu "Puissance 4" ("Connect 4" en anglais). Nous 
 présentons une application de la recherche arborescente Monte-Carlo.
+
+### Pré-requis
+
+- Installez la dernière version de [Python 3.X](https://www.python.org/downloads/).
+
+- Installez les modules requis :
+
+```bash
+pip install -r requirements.txt
+```
+
+### Utilisation
+
+- Pour jouer vous-même contre une intelligence artificielle d'un bon niveau, lancez le script Python suivant :
+
+```bash
+python play.py
+```
+
+- (facultatif) Pour calibrer les paramètres de l'IA, ou pour entraîner une IA, lancez le script Python suivant :
+
+```bash
+python training.py
+```
+
 
 ## Introduction
 
