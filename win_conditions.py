@@ -114,30 +114,32 @@ def check_oblique_descendante(grille, x, y):
     return None
 
 
-def look_for_obvious_steps(grille):
+def look_for_obvious_steps(grille, player_symbol='X', opponent_symbol='O'):
     """Vérifier s'il est possible de gagner pour l'un ou l'autre joueur.
     Si oui, renvoyer le numéro de la colonne à jouer, sinon None"""
 
-    for y in range(len(grille.grid)):
-        for x in range(len(grille.grid[y])):
-            # Rechercher un coup qui permette ou empêche un alignement de quatre jetons
-            if grille.grid[y][x] != grille.empty_space:
+    # Check the player symbol first, so that a winning step is preferred to a step to avoid a loss
+    for checked_symbol in [player_symbol, opponent_symbol]:
+        for y in range(len(grille.grid)):
+            for x in range(len(grille.grid[y])):
+                # Rechercher un coup qui permette ou empêche un alignement de quatre jetons
+                if grille.grid[y][x] == checked_symbol:
 
-                my_play = check_horizontale(grille, x, y)
-                if my_play is not None:
-                    return my_play
+                    my_play = check_horizontale(grille, x, y)
+                    if my_play is not None:
+                        return my_play
 
-                my_play = check_verticale(grille, x, y)
-                if my_play is not None:
-                    return my_play
+                    my_play = check_verticale(grille, x, y)
+                    if my_play is not None:
+                        return my_play
 
-                my_play = check_oblique_montante(grille, x, y)
-                if my_play is not None:
-                    return my_play
+                    my_play = check_oblique_montante(grille, x, y)
+                    if my_play is not None:
+                        return my_play
 
-                my_play = check_oblique_descendante(grille, x, y)
-                if my_play is not None:
-                    return my_play
+                    my_play = check_oblique_descendante(grille, x, y)
+                    if my_play is not None:
+                        return my_play
 
     # Aucun coup urgent, alors renvoyer -1
     return None

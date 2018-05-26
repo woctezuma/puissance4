@@ -58,7 +58,9 @@ class InterfaceAI:
 
     def play_with_bias(self, grille):
         """Jouer de façon biaisée : vérifier s'il est possible de gagner en un coup avant toute réflexion"""
-        mon_coup_urgent = look_for_obvious_steps(grille)
+        mon_coup_urgent = look_for_obvious_steps(grille,
+                                                 player_symbol=self.player,
+                                                 opponent_symbol=self.get_opponent_symbol())
 
         is_forced_play = bool(mon_coup_urgent is not None)
 
