@@ -15,21 +15,15 @@ def main():
 
     results = dict()
 
-    for num_descentes_dans_arbre in range(7, 29, 7):
-        for num_tirages_MC in range(1, 6):
-            for facteur_uct in [0]:
-                is_consistent, num_victories = prepare_and_train(trainer_choice, num_parties_jouees,
-                                                                 num_tirages_MC=num_tirages_MC,
-                                                                 num_descentes_dans_arbre=num_descentes_dans_arbre,
-                                                                 facteur_uct=facteur_uct)
+    for max_num_steps_to_explore in [30]:
+        is_consistent, num_victories = prepare_and_train(trainer_choice, num_parties_jouees,
+                                                         max_num_steps_to_explore=max_num_steps_to_explore)
 
-                results[(num_descentes_dans_arbre, num_tirages_MC, facteur_uct)] = num_victories
+        results[max_num_steps_to_explore] = num_victories
 
-                print('Temporary summary:')
-                print(results)
+        print('Temporary summary: {}'.format(repr(results)))
 
-    print('Final summary:')
-    print(results)
+    print('Final summary: {}'.format(repr(results)))
 
     return is_consistent
 
