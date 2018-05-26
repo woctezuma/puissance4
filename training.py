@@ -38,7 +38,8 @@ def main():
 def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
                       num_tirages_MC=None,
                       num_descentes_dans_arbre=None,
-                      facteur_uct=None):
+                      facteur_uct=None,
+                      max_num_steps_to_explore=None):
     # AI player which is learning by playing against the "trainer"
     learner = UCT()
 
@@ -50,6 +51,9 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
 
     if facteur_uct is not None:
         learner.facteur_uct = facteur_uct
+
+    if max_num_steps_to_explore is not None:
+        learner.max_num_steps_to_explore = max_num_steps_to_explore
 
     # AI player which is training the "learner"
 
