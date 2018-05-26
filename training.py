@@ -11,11 +11,30 @@ def main():
     trainer_choice = 'Random'  # One of the following texts: 'Random', 'MC', 'UCT'
     num_parties_jouees = 200
 
-    is_consistent = prepare_and_train(trainer_choice, num_parties_jouees)
+    is_consistent = False
+
+    results = dict()
+
+    for num_descentes_dans_arbre in range(7, 29, 7):
+        for num_tirages_MC in range(1, 6):
+            for facteur_uct in [0]:
+                is_consistent, num_victories = prepare_and_train(trainer_choice, num_parties_jouees,
+                                                                 num_tirages_MC=num_tirages_MC,
+                                                                 num_descentes_dans_arbre=num_descentes_dans_arbre,
+                                                                 facteur_uct=facteur_uct)
+
+                results[(num_descentes_dans_arbre, num_tirages_MC, facteur_uct)] = num_victories
+
+                print('Temporary summary:')
+                print(results)
+
+    print('Final summary:')
+    print(results)
 
     return is_consistent
 
 
+# noinspection PyPep8Naming
 def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
                       num_tirages_MC=None,
                       num_descentes_dans_arbre=None,
@@ -68,7 +87,7 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
     except AttributeError:
         print('Learner cannot save a model.')
 
-    return is_consistent
+    return is_consistent, num_victories
 
 
 def train(learner, trainer, num_parties_jouees, verbose=False):
