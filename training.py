@@ -14,9 +14,9 @@ def main(load_and_save_model=False):
     results = dict()
 
     for max_num_steps_to_explore in [30]:
-        is_consistent, num_victories, num_steps = prepare_and_train(trainer_choice, num_parties_jouees,
-                                                                    max_num_steps_to_explore=max_num_steps_to_explore,
-                                                                    load_and_save_previously_trained_model=load_and_save_model)
+        _, num_victories, num_steps = prepare_and_train(trainer_choice, num_parties_jouees,
+                                                        max_num_steps_to_explore=max_num_steps_to_explore,
+                                                        load_and_save_previously_trained_model=load_and_save_model)
 
         num_victories['average_num_steps'] = sum(num_steps) / len(num_steps)
         results[max_num_steps_to_explore] = num_victories

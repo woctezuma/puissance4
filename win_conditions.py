@@ -1,5 +1,6 @@
 # Objective: check whether win conditions can be achieved in one step
 
+
 def check_horizontale(grille, x, y):
     """Alignements horizontaux"""
     symbole = grille.grid[y][x]
