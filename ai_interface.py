@@ -33,6 +33,12 @@ class InterfaceAI:
     def simulate_end_game(self, grille):
         raise NotImplementedError
 
+    def load_model(self):
+        print('Learner does not know how to load a trained model.')
+
+    def save_model(self):
+        print('Learner does not know how to save a trained model.')
+
     def play(self, grille):
         if self.check_obvious_plays:
             my_play, is_forced_play = self.play_with_bias(grille)
