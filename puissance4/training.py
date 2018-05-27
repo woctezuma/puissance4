@@ -7,7 +7,13 @@ from puissance4.env.grille import Grille
 from puissance4.lib.utils import convert_to_column_display
 
 
-def main(load_and_save_model=False):
+def main():
+    test_range_of_parameters()
+
+    return True
+
+
+def test_range_of_parameters(load_and_save_model=False):
     trainer_choice = 'Random'  # One of the following texts: 'Random', 'MC', 'UCT'
     num_parties_jouees = 200
 
@@ -26,7 +32,7 @@ def main(load_and_save_model=False):
 
     print('Final summary: {}'.format(repr(results)))
 
-    return True
+    return
 
 
 # noinspection PyPep8Naming

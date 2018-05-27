@@ -1,2 +1,2 @@
-from .play import play_versus_ai, main
+from .play import play
 from .training import prepare_and_train

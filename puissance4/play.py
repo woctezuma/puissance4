@@ -5,7 +5,13 @@ from puissance4.env.grille import Grille
 from puissance4.lib.utils import get_possible_player_inputs, convert_player_input, convert_to_column_display
 
 
-def main(load_previously_trained_model=False):
+def main():
+    play()
+
+    return True
+
+
+def play(load_previously_trained_model=False):
     # AI player
 
     ai_player = UCT()
@@ -20,7 +26,7 @@ def main(load_previously_trained_model=False):
 
     play_versus_ai(ai_player)
 
-    return True
+    return
 
 
 def play_versus_ai(ai_player):
