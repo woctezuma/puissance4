@@ -50,10 +50,10 @@ pip install puissance4
 - Pour jouer vous-même contre une intelligence artificielle UCT d'un bon niveau, importez le paquet PyPI depuis Python :
 
 ```python
-import puissance4.play
+import puissance4
 
 # Play an interactive game versus UCT AI
-puissance4.play.play_now() 
+puissance4.play_now() 
 ```
 
 #### Des parties IA contre IA
@@ -61,13 +61,13 @@ puissance4.play.play_now()
 - (facultatif) Pour calibrer les paramètres de l'IA, importez le paquet PyPI depuis Python :
 
 ```python
-import puissance4.training
+import puissance4
 
 # Either 'Random', 'MC', or 'UCT'
 trainer_choice = 'MC' 
 
 # Play 200 games in a setting UCT AI vs. trainer AI
-puissance4.training.prepare_and_train(trainer_choice=trainer_choice, num_parties_jouees=200) 
+puissance4.prepare_and_train(trainer_choice=trainer_choice, num_parties_jouees=200) 
 ```
 
 ## Introduction
