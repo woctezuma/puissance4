@@ -6,12 +6,12 @@ from puissance4.lib.utils import get_possible_player_inputs, convert_player_inpu
 
 
 def main():
-    play()
+    play_now()
 
     return True
 
 
-def play(load_previously_trained_model=False):
+def play_now(load_previously_trained_model=False):
     # AI player
 
     ai_player = UCT()
