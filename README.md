@@ -47,15 +47,7 @@ pip install puissance4
 
 #### Une partie contre l'IA
 
-- Pour jouer vous-même contre une intelligence artificielle UCT d'un bon niveau, au choix :
- 
-i) lancez le script Python suivant :
-
-```bash
-python puissance4/play.py
-```
-
-ii) importez le paquet PyPI depuis Python :
+- Pour jouer vous-même contre une intelligence artificielle UCT d'un bon niveau, importez le paquet PyPI depuis Python :
 
 ```python
 import puissance4
@@ -66,15 +58,7 @@ puissance4.play_now()
 
 #### Des parties IA contre IA
 
-- (facultatif) Pour calibrer les paramètres de l'IA, au choix :
-
-i) lancez le script Python suivant :
-
-```bash
-python puissance4/training.py
-```
-
-ii) importez le paquet PyPI depuis Python :
+- (facultatif) Pour calibrer les paramètres de l'IA, importez le paquet PyPI depuis Python :
 
 ```python
 import puissance4
