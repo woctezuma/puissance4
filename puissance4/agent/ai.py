@@ -1,5 +1,5 @@
+from puissance4.agent import InterfaceAI
 from puissance4.configs import get_default_bias_to_obvious_steps, get_default_max_num_steps_to_explore
-from .ai_interface import InterfaceAI
 
 
 class AI(InterfaceAI):
