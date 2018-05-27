@@ -18,9 +18,11 @@
   [Codecov]: https://codecov.io/gh/woctezuma/puissance4
   [Codecov image]: https://codecov.io/gh/woctezuma/puissance4/branch/master/graph/badge.svg
 
-Ce projet présente une intelligence artificielle (IA) pour le jeu "Puissance 4".
+Ce projet présente une intelligence artificielle (IA) pour le jeu « Puissance 4 ».
 
-## Installation
+## Utilisation
+
+### Installation
 
 - Installez la dernière version de [Python 3.X](https://www.python.org/downloads/).
 
@@ -29,8 +31,6 @@ Ce projet présente une intelligence artificielle (IA) pour le jeu "Puissance 4"
 ```bash
 pip install puissance4
 ```
-
-## Utilisations
 
 ### Une partie contre une IA UCT
 
@@ -45,7 +45,7 @@ puissance4.play_now()
 
 ### Des parties entre IA
 
-Pour tester des paramètres de l'IA, faites jouer l'IA UCT contre l'IA de votre choix :
+Pour tester des paramètres de l'IA, faites jouer une IA UCT contre l'IA de votre choix :
 
 ```python
 import puissance4
