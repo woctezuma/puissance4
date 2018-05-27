@@ -1,6 +1,9 @@
 ﻿# Recherche arborescente Monte-Carlo pour le Puissance 4
 
- [![Build status][Build image]][Build] [![Updates][Dependency image]][PyUp] [![Python 3][Python3 image]][PyUp] [![Code coverage][Codecov image]][Codecov]
+[![PyPI status][PyPI image]][PyPI] [![Build status][Build image]][Build] [![Updates][Dependency image]][PyUp] [![Python 3][Python3 image]][PyUp] [![Code coverage][Coveralls image]][Coveralls] [![Code coverage BIS][Codecov image]][Codecov]
+
+  [PyPI]: https://pypi.python.org/pypi/puissance4
+  [PyPI image]: https://badge.fury.io/py/puissance4.svg
 
   [Build]: https://travis-ci.org/woctezuma/puissance4
   [Build image]: https://travis-ci.org/woctezuma/puissance4.svg?branch=master
@@ -8,6 +11,9 @@
   [PyUp]: https://pyup.io/repos/github/woctezuma/puissance4/
   [Dependency image]: https://pyup.io/repos/github/woctezuma/puissance4/shield.svg
   [Python3 image]: https://pyup.io/repos/github/woctezuma/puissance4/python-3-shield.svg
+
+  [Coveralls]: https://coveralls.io/github/woctezuma/puissance4?branch=master
+  [Coveralls image]: https://coveralls.io/repos/github/woctezuma/puissance4/badge.svg?branch=master
 
   [Codecov]: https://codecov.io/gh/woctezuma/puissance4
   [Codecov image]: https://codecov.io/gh/woctezuma/puissance4/branch/master/graph/badge.svg
@@ -18,30 +24,67 @@ Ce projet consiste à développer une intelligence artificielle (IA)
 pour le jeu "Puissance 4" ("Connect 4" en anglais). Nous 
 présentons une application de la recherche arborescente Monte-Carlo.
 
-### Pré-requis
+### Installation
 
 - Installez la dernière version de [Python 3.X](https://www.python.org/downloads/).
 
-- Installez les modules requis :
+Puis, au choix :
+
+i) téléchargez ce dépôt Github et installez les modules requis :
 
 ```bash
-pip install -r requirements.txt
+git clone https://github.com/woctezuma/puissance4.git
+pip install -r puissance4/requirements.txt
+```
+
+ii) Installez le paquet que j'ai déposé sur [PyPI](https://pypi.org/project/puissance4/):
+
+```bash
+pip install puissance4
 ```
 
 ### Utilisation
 
-- Pour jouer vous-même contre une intelligence artificielle d'un bon niveau, lancez le script Python suivant :
+#### Une partie contre l'IA
+
+- Pour jouer vous-même contre une intelligence artificielle UCT d'un bon niveau, au choix :
+ 
+i) lancez le script Python suivant :
 
 ```bash
-python play.py
+python puissance4/play.py
 ```
 
-- (facultatif) Pour calibrer les paramètres de l'IA, lancez le script Python suivant :
+ii) importez le paquet PyPI depuis Python :
+
+```python
+import puissance4
+
+# Play an interactive game versus UCT AI
+puissance4.play()
+```
+
+#### Des parties IA contre IA
+
+- (facultatif) Pour calibrer les paramètres de l'IA, au choix :
+
+i) lancez le script Python suivant :
 
 ```bash
-python training.py
+python puissance4/training.py
 ```
 
+ii) importez le paquet PyPI depuis Python :
+
+```python
+import puissance4
+
+# Either 'Random', 'MC', or 'UCT'
+trainer_choice = 'MC' 
+
+# Play 200 games in a setting UCT AI vs. trainer AI
+puissance4.prepare_and_train(trainer_choice=trainer_choice, num_parties_jouees=200)
+```
 
 ## Introduction
 
