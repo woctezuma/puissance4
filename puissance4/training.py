@@ -14,21 +14,28 @@ def main():
 
 
 def test_range_of_parameters(load_and_save_model=False):
-    trainer_choice = 'Random'  # One of the following texts: 'Random', 'MC', 'UCT'
-    num_parties_jouees = 200
+    trainer_choice = 'UCT'  # One of the following texts: 'Random', 'MC', 'UCT'
+    num_parties_jouees = 50
 
     results = dict()
 
-    for max_num_steps_to_explore in [30]:
-        _, num_victories, num_steps = prepare_and_train(trainer_choice, num_parties_jouees,
-                                                        max_num_steps_to_explore=max_num_steps_to_explore,
-                                                        load_and_save_previously_trained_model=load_and_save_model)
+    for num_tirages_MC in [2, 4, 8]:
+        for num_descentes_dans_arbre in [4, 7, 10]:
+            for facteur_uct in [0, 0.25, 0.5]:
+                for max_num_steps_to_explore in [10, 20, 30]:
+                    _, num_victories, num_steps = prepare_and_train(trainer_choice, num_parties_jouees,
+                                                                    num_tirages_MC=num_tirages_MC,
+                                                                    num_descentes_dans_arbre=num_descentes_dans_arbre,
+                                                                    facteur_uct=facteur_uct,
+                                                                    max_num_steps_to_explore=max_num_steps_to_explore,
+                                                                    load_and_save_previously_trained_model=load_and_save_model)
 
-        num_victories['average_num_steps'] = sum(num_steps) / len(num_steps)
-        results[max_num_steps_to_explore] = num_victories
+                    num_victories['average_num_steps'] = sum(num_steps) / len(num_steps)
+                    results[(num_tirages_MC, num_descentes_dans_arbre, facteur_uct, max_num_steps_to_explore)] \
+                        = num_victories
 
-        print('Temporary summary: {}'.format(repr(results)))
-        print('\nAverage number of steps: {}'.format(num_victories['average_num_steps']))
+                    print('Temporary summary: {}'.format(repr(results)))
+                    print('\nAverage number of steps: {}'.format(num_victories['average_num_steps']))
 
     print('Final summary: {}'.format(repr(results)))
 
