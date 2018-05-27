@@ -1,6 +1,6 @@
-from puissance4.configs import get_default_num_tirages_MC
-from puissance4.env import Grille
 from .ai import AI
+from ..configs.parameters import get_default_num_tirages_MC
+from ..env.grille import Grille
 
 
 class MC(AI):

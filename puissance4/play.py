@@ -1,8 +1,8 @@
 from random import shuffle
 
-from puissance4.agent import UCT
-from puissance4.env import Grille
-from puissance4.lib import get_possible_player_inputs, convert_player_input, convert_to_column_display
+from .agent.uct import UCT
+from .env.grille import Grille
+from .lib.utils import get_possible_player_inputs, convert_player_input, convert_to_column_display
 
 
 def main():

@@ -1,10 +1,10 @@
 from random import shuffle
 
-from puissance4.agent import AI
-from puissance4.agent import MC
-from puissance4.agent import UCT
-from puissance4.env import Grille
-from puissance4.lib import convert_to_column_display
+from .agent.ai import AI
+from .agent.mc import MC
+from .agent.uct import UCT
+from .env.grille import Grille
+from .lib.utils import convert_to_column_display
 
 
 def main():

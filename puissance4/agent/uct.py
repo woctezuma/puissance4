@@ -3,10 +3,10 @@ import pickle
 from math import sqrt, log
 from random import choice
 
-from puissance4.configs import get_default_num_descentes_dans_arbre, get_default_facteur_uct
-from puissance4.env import Grille
-from puissance4.lib import Node
 from .mc import MC
+from ..configs.parameters import get_default_num_descentes_dans_arbre, get_default_facteur_uct
+from ..env.grille import Grille
+from ..lib.node import Node
 
 
 class UCT(MC):
