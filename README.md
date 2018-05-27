@@ -18,13 +18,9 @@
   [Codecov]: https://codecov.io/gh/woctezuma/puissance4
   [Codecov image]: https://codecov.io/gh/woctezuma/puissance4/branch/master/graph/badge.svg
 
-## Résumé
+Ce projet présente une intelligence artificielle (IA) pour le jeu "Puissance 4".
 
-Ce projet consiste à développer une intelligence artificielle (IA)
-pour le jeu "Puissance 4" ("Connect 4" en anglais). Nous 
-présentons une application de la recherche arborescente Monte-Carlo.
-
-### Installation
+## Installation
 
 - Installez la dernière version de [Python 3.X](https://www.python.org/downloads/).
 
@@ -34,11 +30,11 @@ présentons une application de la recherche arborescente Monte-Carlo.
 pip install puissance4
 ```
 
-### Utilisation
+## Utilisations
 
-#### Une partie contre l'IA
+### Une partie contre une IA UCT
 
-- Pour jouer vous-même contre une intelligence artificielle UCT, exécutez :
+Pour jouer contre une intelligence artificielle UCT, exécutez :
 
 ```python
 import puissance4
@@ -47,9 +43,9 @@ import puissance4
 puissance4.play_now() 
 ```
 
-#### Des parties IA contre IA
+### Des parties entre IA
 
-- Pour tester des paramètres de l'IA, faites jouer l'IA UCT contre l'IA de votre choix :
+Pour tester des paramètres de l'IA, faites jouer l'IA UCT contre l'IA de votre choix :
 
 ```python
 import puissance4
@@ -71,7 +67,7 @@ un pion de leur couleur dans l'une des colonnes. La partie s'arrête
 dès que l'un des joueurs a réussi à aligner (horizontalement, verticalement 
 ou en diagonale) quatre pions de sa couleur, ce joueur est alors le gagnant.
 
-## Recherche Monte-Carlo
+## Recherche arborescente Monte-Carlo
 
 Nous présentons trois types de « joueur » par ordre croissant de complexité.
 
