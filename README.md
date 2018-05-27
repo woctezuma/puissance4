@@ -54,7 +54,7 @@ puissance4.play_now()
 ```python
 import puissance4
 
-# Either 'Random', 'MC' for Monte Carlo, or 'UCT' for Upper-Confidence boundes for Trees
+# Either 'Random', 'MC' for Monte Carlo, or 'UCT' for Upper-Confidence bounds for Trees
 trainer_choice = 'Random'
 
 # Play 200 games in a setting UCT AI vs. trainer AI
