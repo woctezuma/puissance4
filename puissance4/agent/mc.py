@@ -1,6 +1,5 @@
 from puissance4.configs import get_default_num_tirages_MC
 from puissance4.env import Grille
-
 from .ai import AI
 
 
