@@ -28,16 +28,7 @@ présentons une application de la recherche arborescente Monte-Carlo.
 
 - Installez la dernière version de [Python 3.X](https://www.python.org/downloads/).
 
-Puis, au choix :
-
-i) téléchargez ce dépôt Github et installez les modules requis :
-
-```bash
-git clone https://github.com/woctezuma/puissance4.git
-pip install -r puissance4/requirements.txt
-```
-
-ii) Installez le paquet que j'ai déposé sur [PyPI](https://pypi.org/project/puissance4/):
+- Installez le paquet [PyPI](https://pypi.org/project/puissance4/) :
 
 ```bash
 pip install puissance4
@@ -47,7 +38,7 @@ pip install puissance4
 
 #### Une partie contre l'IA
 
-- Pour jouer vous-même contre une intelligence artificielle UCT d'un bon niveau, importez le paquet PyPI depuis Python :
+- Pour jouer vous-même contre une intelligence artificielle UCT, exécutez :
 
 ```python
 import puissance4
@@ -58,13 +49,13 @@ puissance4.play_now()
 
 #### Des parties IA contre IA
 
-- (facultatif) Pour calibrer les paramètres de l'IA, importez le paquet PyPI depuis Python :
+- Pour tester des paramètres de l'IA, faites jouer l'IA UCT contre l'IA de votre choix :
 
 ```python
 import puissance4
 
-# Either 'Random', 'MC', or 'UCT'
-trainer_choice = 'MC' 
+# Either 'Random', 'MC' for Monte Carlo, or 'UCT' for Upper-Confidence boundes for Trees
+trainer_choice = 'Random'
 
 # Play 200 games in a setting UCT AI vs. trainer AI
 puissance4.prepare_and_train(trainer_choice=trainer_choice, num_parties_jouees=200) 
