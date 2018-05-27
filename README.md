@@ -61,7 +61,7 @@ ii) importez le paquet PyPI depuis Python :
 import puissance4
 
 # Play an interactive game versus UCT AI
-puissance4.play()
+puissance4.play_now() 
 ```
 
 #### Des parties IA contre IA
@@ -83,7 +83,7 @@ import puissance4
 trainer_choice = 'MC' 
 
 # Play 200 games in a setting UCT AI vs. trainer AI
-puissance4.prepare_and_train(trainer_choice=trainer_choice, num_parties_jouees=200)
+puissance4.prepare_and_train(trainer_choice=trainer_choice, num_parties_jouees=200) 
 ```
 
 ## Introduction
