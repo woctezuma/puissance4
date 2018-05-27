@@ -101,10 +101,16 @@ def get_default_num_parties_jouees():
     return num_parties_jouees
 
 
-if __name__ == "__main__":
+def main():
     import timeit
 
     duration = timeit.timeit("prepare_and_train('Random', 10)",
-                             setup="from training import prepare_and_train",
+                             setup="from puissance4.training import prepare_and_train",
                              number=1)
     print('Time elapsed = {:.2f} s'.format(duration))
+
+    return
+
+
+if __name__ == "__main__":
+    main()
