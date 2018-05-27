@@ -1,10 +1,10 @@
 from random import shuffle
 
-from .agent.ai import AI
-from .agent.mc import MC
-from .agent.uct import UCT
-from .env.grille import Grille
-from .lib.utils import convert_to_column_display
+from .agent import AI
+from .agent import MC
+from .agent import UCT
+from .env import Grille
+from .lib import convert_to_column_display
 
 
 def main():

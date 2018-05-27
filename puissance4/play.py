@@ -1,8 +1,8 @@
 from random import shuffle
 
-from .agent.uct import UCT
-from .env.grille import Grille
-from .lib.utils import get_possible_player_inputs, convert_player_input, convert_to_column_display
+from .agent import UCT
+from .env import Grille
+from .lib import get_possible_player_inputs, convert_player_input, convert_to_column_display
 
 
 def main():
