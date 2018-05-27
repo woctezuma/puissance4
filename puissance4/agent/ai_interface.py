@@ -1,5 +1,5 @@
-from parameters import get_default_player_symbol, get_default_check_obvious_plays
-from win_conditions import look_for_obvious_steps
+from puissance4.configs.parameters import get_default_player_symbol, get_default_check_obvious_plays
+from puissance4.env.win_conditions import look_for_obvious_steps
 
 
 class InterfaceAI:

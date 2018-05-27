@@ -1,6 +1,6 @@
 import unittest
 
-import training
+from puissance4 import training
 
 
 class TestTrainingMethods(unittest.TestCase):
