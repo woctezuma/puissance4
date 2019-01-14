@@ -1,6 +1,6 @@
 ﻿# Recherche arborescente Monte-Carlo pour le Puissance 4
 
-[![PyPI status][PyPI image]][PyPI] [![Build status][Build image]][Build] [![Updates][Dependency image]][PyUp] [![Python 3][Python3 image]][PyUp] [![Code coverage][Coveralls image]][Coveralls] [![Code coverage BIS][Codecov image]][Codecov]
+[![PyPI status][PyPI image]][PyPI] [![Build status][Build image]][Build] [![Updates][Dependency image]][PyUp] [![Python 3][Python3 image]][PyUp] [![Code coverage][Coveralls image]][Coveralls] [![Code coverage BIS][Codecov image]][Codecov] [![Code Quality][codacy image]][codacy]
 
   [PyPI]: https://pypi.python.org/pypi/puissance4
   [PyPI image]: https://badge.fury.io/py/puissance4.svg
@@ -17,6 +17,9 @@
 
   [Codecov]: https://codecov.io/gh/woctezuma/puissance4
   [Codecov image]: https://codecov.io/gh/woctezuma/puissance4/branch/master/graph/badge.svg
+
+  [codacy]: https://www.codacy.com/app/woctezuma/puissance4
+  [codacy image]: https://api.codacy.com/project/badge/Grade/fc278be88ea24bf79f8e8ceac1b3c305 
 
 Ce projet présente une intelligence artificielle (IA) pour le jeu « Puissance 4 ».
 
