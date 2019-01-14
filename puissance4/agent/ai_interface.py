@@ -15,7 +15,8 @@ class InterfaceAI:
         else:
             self.check_obvious_plays = get_default_check_obvious_plays()
 
-    def get_default_params(self):
+    @classmethod
+    def get_default_params(cls):
         params = dict()
         params['player'] = get_default_player_symbol()
         params['check_obvious_plays'] = get_default_check_obvious_plays()
@@ -33,10 +34,12 @@ class InterfaceAI:
     def simulate_end_game(self, grille):
         raise NotImplementedError
 
-    def load_model(self):
+    @classmethod
+    def load_model(cls):
         print('Learner does not know how to load a trained model.')
 
-    def save_model(self):
+    @classmethod
+    def save_model(cls):
         print('Learner does not know how to save a trained model.')
 
     def play(self, grille):
