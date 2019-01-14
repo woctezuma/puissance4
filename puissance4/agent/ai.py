@@ -46,11 +46,9 @@ class AI(InterfaceAI):
             current_player = self.get_other_symbol(player_who_last_played)
 
             if self.bias_to_obvious_steps:
-                my_play, is_forced_play = self.play_with_bias(grille)
+                my_play, _ = self.play_with_bias(grille)
             else:
                 my_play = self.play_witout_bias(grille)
-                # noinspection PyUnusedLocal
-                is_forced_play = None  # We don't know since we don't check whether it would be a forced play.
 
             grille.drop(current_player, my_play)
 
