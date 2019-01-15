@@ -15,6 +15,11 @@ class TestTrainingMethods(unittest.TestCase):
                                                                     num_parties_jouees=200)
         self.assertTrue(is_consistent)
 
+    def test_prepare_and_train_vs_self(self):
+        is_consistent, _, _ = puissance4.training.prepare_and_train(trainer_choice='UCT',
+                                                                    num_parties_jouees=10)
+        self.assertTrue(is_consistent)
+
     def test_save_then_load_model(self):
         is_consistent_save, _, _ = puissance4.training.prepare_and_train(trainer_choice='Random',
                                                                          num_parties_jouees=3,
