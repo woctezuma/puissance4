@@ -69,7 +69,7 @@ Nous améliorons le joueur « aléatoire » en utilisant une connaissance propre
 
 ###	2. Monte-Carlo biaisé
 
-Le joueur « Monte-Carlo biaisé » repose sur l'utilisation de simulations Monte-Carlo utilisant le joueur « aléatoire biaisé » : une grille étant donnée, le joueur répertorie l'ensemble des coups admissibles, puis, après avoir virtuellement joué chacun de ces coups possibles, simule un nombre fixé de fins de partie obtenues par l'affrontement de deux joueurs de type « aléatoire biaisé ». Le score associé à chacun des coups admissibles correspond au nombre de victoires suivant ce coup lors des simulations. Le joueur choisit alors le coup qui rend maximal ce score. C'est donc un joueur qui évalue un couple (position, action)
+Le joueur « Monte-Carlo biaisé » repose sur l'utilisation de [simulations Monte-Carlo](https://en.wikipedia.org/wiki/Monte_Carlo_tree_search#Pure_Monte_Carlo_game_search) utilisant le joueur « aléatoire biaisé » : une grille étant donnée, le joueur répertorie l'ensemble des coups admissibles, puis, après avoir virtuellement joué chacun de ces coups possibles, simule un nombre fixé de fins de partie obtenues par l'affrontement de deux joueurs de type « aléatoire biaisé ». Le score associé à chacun des coups admissibles correspond au nombre de victoires suivant ce coup lors des simulations. Le joueur choisit alors le coup qui rend maximal ce score. C'est donc un joueur qui évalue un couple (position, action).
 
 ###	3. Upper Confidence bounds for Trees
 
