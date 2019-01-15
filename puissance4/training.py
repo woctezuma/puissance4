@@ -50,7 +50,7 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
                       max_num_steps_to_explore=None,
                       bias_to_obvious_steps=None,
                       check_obvious_plays=None,
-                      deterministic_sampling_of_actions_at_root=True,
+                      deterministic_root_action_sample=True,
                       enforce_identical_computing_resources=True,
                       load_and_save_previously_trained_model=False):
     # AI player which is learning by playing against the "trainer"
@@ -80,7 +80,7 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
         trainer = AI()
     elif trainer_choice == 'MC':
         trainer = MC()
-        trainer.deterministic_sampling_of_actions_at_root = deterministic_sampling_of_actions_at_root
+        trainer.deterministic_sampling_of_actions_at_root = deterministic_root_action_sample
     else:
         trainer = UCT()
 
