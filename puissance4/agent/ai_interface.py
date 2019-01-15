@@ -87,3 +87,12 @@ class InterfaceAI:
             return 'O'
         else:
             return 'X'
+
+    # noinspection PyPep8Naming
+    def equalize_computing_resources(self, UCT_ai_instance):
+        # Give the same computing resources to player X (UCT) and player O (InterfaceAI):
+        try:
+            self.check_obvious_plays = UCT_ai_instance.check_obvious_plays
+        except AttributeError:
+            print(
+                'Equalization of computing resources failed: missing attributes from {}'.format(repr(UCT_ai_instance)))

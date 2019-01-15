@@ -84,7 +84,9 @@ class MC(AI):
     # noinspection PyPep8Naming
     def equalize_computing_resources(self, UCT_ai_instance):
         # Give the same computing resources to player X (UCT) and player O (MC):
+        super().equalize_computing_resources(UCT_ai_instance)
         try:
+            # The numboer of Monte-Carlo samples is increased, to make up for the fact that there is only 1 tree descent
             self.num_tirages_MC = UCT_ai_instance.num_tirages_MC * UCT_ai_instance.num_descentes_dans_arbre
         except AttributeError:
             print(

@@ -64,3 +64,14 @@ class AI(InterfaceAI):
             winner_symbol = 'draw'
 
         return winner_symbol
+
+    # noinspection PyPep8Naming
+    def equalize_computing_resources(self, UCT_ai_instance):
+        # Give the same computing resources to player X (UCT) and player O (AI):
+        super().equalize_computing_resources(UCT_ai_instance)
+        try:
+            self.bias_to_obvious_steps = UCT_ai_instance.bias_to_obvious_steps
+            self.max_num_steps_to_explore = UCT_ai_instance.max_num_steps_to_explore
+        except AttributeError:
+            print(
+                'Equalization of computing resources failed: missing attributes from {}'.format(repr(UCT_ai_instance)))

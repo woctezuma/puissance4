@@ -226,3 +226,20 @@ class UCT(MC):
         grille_copiee.drop(joueur, action)
         nouvel_etat = grille_copiee.get_name()
         return nouvel_etat
+
+    # noinspection PyPep8Naming
+    def equalize_computing_resources(self, UCT_ai_instance):
+        # Give the same computing resources to player X (UCT) and player O (UCT):
+        super().equalize_computing_resources(UCT_ai_instance)
+        try:
+
+            # Override the value set by superclass MC
+            self.num_tirages_MC = UCT_ai_instance.num_tirages_MC
+
+            # Set values for class UCT
+            self.num_descentes_dans_arbre = UCT_ai_instance.num_descentes_dans_arbre
+            self.facteur_uct = UCT_ai_instance.facteur_uct
+
+        except AttributeError:
+            print(
+                'Equalization of computing resources failed: missing attributes from {}'.format(repr(UCT_ai_instance)))
