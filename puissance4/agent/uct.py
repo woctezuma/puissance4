@@ -77,6 +77,9 @@ class UCT(MC):
         print("[Upper Confidence Tree] UCT factor = {}".format(self.facteur_uct))
         return
 
+    def print_strategy(self):
+        return
+
     def play_witout_bias(self, grille):
         """Déterminer la meilleure action en fonction des résultats de l'exploration UCT"""
         # recevoir une position p
