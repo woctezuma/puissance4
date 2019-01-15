@@ -7,12 +7,12 @@ class TestTrainingMethods(unittest.TestCase):
 
     def test_prepare_and_train(self):
         is_consistent, _, _ = puissance4.training.prepare_and_train(trainer_choice='Random',
-                                                                    num_parties_jouees=200)
+                                                                    num_parties_jouees=10)
         self.assertTrue(is_consistent)
 
     def test_prepare_and_train_vs_monte_carlo(self):
         is_consistent, _, _ = puissance4.training.prepare_and_train(trainer_choice='MC',
-                                                                    num_parties_jouees=200)
+                                                                    num_parties_jouees=10)
         self.assertTrue(is_consistent)
 
     def test_prepare_and_train_vs_self(self):
