@@ -11,9 +11,15 @@ class TestTrainingMethods(unittest.TestCase):
         self.assertTrue(is_consistent)
 
     def test_prepare_and_train_vs_monte_carlo(self):
-        is_consistent, _, _ = puissance4.training.prepare_and_train(trainer_choice='MC',
-                                                                    num_parties_jouees=10)
-        self.assertTrue(is_consistent)
+        is_consistent_deterministic, _, _ = puissance4.training.prepare_and_train(trainer_choice='MC',
+                                                                                  num_parties_jouees=10,
+                                                                                  deterministic_root_action_sample=True)
+        self.assertTrue(is_consistent_deterministic)
+
+        is_consistent_random, _, _ = puissance4.training.prepare_and_train(trainer_choice='MC',
+                                                                           num_parties_jouees=10,
+                                                                           deterministic_root_action_sample=False)
+        self.assertTrue(is_consistent_random)
 
     def test_prepare_and_train_vs_self(self):
         is_consistent, _, _ = puissance4.training.prepare_and_train(trainer_choice='UCT',
