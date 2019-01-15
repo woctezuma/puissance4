@@ -6,8 +6,8 @@ import puissance4.training
 class TestTrainingMethods(unittest.TestCase):
 
     def test_prepare_and_train(self):
-        is_consistent, _, num_steps = puissance4.training.prepare_and_train(trainer_choice='Random',
-                                                                            num_parties_jouees=200)
+        is_consistent, _, _ = puissance4.training.prepare_and_train(trainer_choice='Random',
+                                                                    num_parties_jouees=200)
         self.assertTrue(is_consistent)
 
 
