@@ -1,22 +1,22 @@
 ﻿# Recherche arborescente Monte-Carlo pour le Puissance 4
 
-[![PyPI status][PyPI image]][PyPI] [![Build status][Build image]][Build] [![Updates][Dependency image]][PyUp] [![Python 3][Python3 image]][PyUp] [![Code coverage][Coveralls image]][Coveralls] [![Code coverage BIS][Codecov image]][Codecov] [![Code Quality][codacy image]][codacy]
+[![PyPI status][pypi image]][pypi] [![Build status][build image]][build] [![Updates][dependency image]][pyup] [![Python 3][python3 image]][pyup] [![Code coverage][coveralls image]][coveralls] [![Code coverage BIS][codecov image]][codecov] [![Code Quality][codacy image]][codacy]
 
-  [PyPI]: https://pypi.python.org/pypi/puissance4
-  [PyPI image]: https://badge.fury.io/py/puissance4.svg
+  [pypi]: https://pypi.python.org/pypi/puissance4
+  [pypi image]: https://badge.fury.io/py/puissance4.svg
 
-  [Build]: https://travis-ci.org/woctezuma/puissance4
-  [Build image]: https://travis-ci.org/woctezuma/puissance4.svg?branch=master
+  [build]: https://travis-ci.org/woctezuma/puissance4
+  [build image]: https://travis-ci.org/woctezuma/puissance4.svg?branch=master
 
-  [PyUp]: https://pyup.io/repos/github/woctezuma/puissance4/
-  [Dependency image]: https://pyup.io/repos/github/woctezuma/puissance4/shield.svg
-  [Python3 image]: https://pyup.io/repos/github/woctezuma/puissance4/python-3-shield.svg
+  [pyup]: https://pyup.io/repos/github/woctezuma/puissance4/
+  [dependency image]: https://pyup.io/repos/github/woctezuma/puissance4/shield.svg
+  [python3 image]: https://pyup.io/repos/github/woctezuma/puissance4/python-3-shield.svg
 
-  [Coveralls]: https://coveralls.io/github/woctezuma/puissance4?branch=master
-  [Coveralls image]: https://coveralls.io/repos/github/woctezuma/puissance4/badge.svg?branch=master
+  [coveralls]: https://coveralls.io/github/woctezuma/puissance4?branch=master
+  [coveralls image]: https://coveralls.io/repos/github/woctezuma/puissance4/badge.svg?branch=master
 
-  [Codecov]: https://codecov.io/gh/woctezuma/puissance4
-  [Codecov image]: https://codecov.io/gh/woctezuma/puissance4/branch/master/graph/badge.svg
+  [codecov]: https://codecov.io/gh/woctezuma/puissance4
+  [codecov image]: https://codecov.io/gh/woctezuma/puissance4/branch/master/graph/badge.svg
 
   [codacy]: https://www.codacy.com/app/woctezuma/puissance4
   [codacy image]: https://api.codacy.com/project/badge/Grade/fc278be88ea24bf79f8e8ceac1b3c305 
