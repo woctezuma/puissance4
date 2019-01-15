@@ -1,5 +1,4 @@
 import pathlib
-import pickle
 from math import sqrt, log
 from random import choice
 
@@ -38,11 +37,13 @@ class UCT(MC):
 
         try:
 
-            with open(self.data_path + self.node_visit_filename, 'rb') as f:
-                self.dict_num_visits_of_board_state = pickle.load(f)
+            import ast
 
-            with open(self.data_path + self.node_action_filename, 'rb') as f:
-                self.dict_for_action_in_board_state = pickle.load(f)
+            with open(self.data_path + self.node_visit_filename, 'r', encoding="utf8") as f:
+                self.dict_num_visits_of_board_state = ast.literal_eval(f.readlines()[0])
+
+            with open(self.data_path + self.node_action_filename, 'r', encoding="utf8") as f:
+                self.dict_for_action_in_board_state = ast.literal_eval(f.readlines()[0])
 
         except FileNotFoundError:
             print('Model files cound not be loaded.')
@@ -55,11 +56,11 @@ class UCT(MC):
         # Reference of the following line: https://stackoverflow.com/a/14364249
         pathlib.Path(self.data_path).mkdir(parents=True, exist_ok=True)
 
-        with open(self.data_path + self.node_visit_filename, 'wb') as f:
-            pickle.dump(self.dict_num_visits_of_board_state, f, pickle.HIGHEST_PROTOCOL)
+        with open(self.data_path + self.node_visit_filename, 'w', encoding="utf8") as f:
+            print(self.dict_num_visits_of_board_state, file=f)
 
-        with open(self.data_path + self.node_action_filename, 'wb') as f:
-            pickle.dump(self.dict_for_action_in_board_state, f, pickle.HIGHEST_PROTOCOL)
+        with open(self.data_path + self.node_action_filename, 'w', encoding="utf8") as f:
+            print(self.dict_for_action_in_board_state, file=f)
 
         return
 
