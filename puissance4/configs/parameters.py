@@ -67,6 +67,30 @@ def get_default_num_tirages_MC():
     return num_tirages_MC
 
 
+def get_default_num_samples_of_action():
+    """
+    Number of first actions to sample at the root of the tree.
+    For each first action, a new board state is obtained, and an estimation of its value based on MC samples is computed
+    """
+    num_samples_of_action = 7
+    return num_samples_of_action
+
+
+def get_default_action_sampling_strategy():
+    """
+    If true, then we try each allowed first action at the root of the tree, in which case:
+     - we spend as much computing resources to value each board state obtained after a first action,
+     - the total number of MC samples may slightly differ from 'num_tirages_MC'.
+
+    Otherwise, we randomly sample the first actions at the root of the tree, in which case:
+     - we might over-sample or under-sample a few of them,
+     - we have a better control of the total number of MC samples.
+    """
+
+    deterministic_sampling_of_actions_at_root = True
+    return deterministic_sampling_of_actions_at_root
+
+
 # Only for UCT AI
 
 def get_default_num_descentes_dans_arbre():
