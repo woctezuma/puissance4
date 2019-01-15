@@ -50,6 +50,7 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
                       max_num_steps_to_explore=None,
                       bias_to_obvious_steps=None,
                       check_obvious_plays=None,
+                      enforce_identical_computing_resources=True,
                       load_and_save_previously_trained_model=False):
     # AI player which is learning by playing against the "trainer"
     learner = UCT()
@@ -81,7 +82,8 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
     else:
         trainer = UCT()
 
-    trainer.equalize_computing_resources(learner)
+    if enforce_identical_computing_resources:
+        trainer.equalize_computing_resources(learner)
 
     # Load
 
