@@ -27,9 +27,8 @@ Ce projet présente une intelligence artificielle (IA) pour le jeu « Puissance 
 
 ### Installation
 
-- Installez la dernière version de [Python 3.X](https://www.python.org/downloads/).
-
-- Installez le paquet [PyPI](https://pypi.org/project/puissance4/) :
+-   Installez la dernière version de [Python 3.X](https://www.python.org/downloads/).
+-   Installez le paquet [PyPI](https://pypi.org/project/puissance4/) :
 
 ```bash
 pip install puissance4
@@ -93,14 +92,14 @@ Une position étant donnée, nous effectuons le choix entre exploration et explo
 > $$\mu+C\sqrt{\frac{\log\left(n\right)}{s}}$$
 
 avec :
-- $\mu$ : moyenne des scores obtenus
-- C : constante UCT, d'autant plus grande que l'on est prêt à explorer plutôt qu'exploiter.
-- n : nombre de simulations effectuées dans le père du noeud
-- s : nombre de simulations passant par ce noeud
+-   $\mu$ : moyenne des scores obtenus
+-   C : constante UCT, d'autant plus grande que l'on est prêt à explorer plutôt qu'exploiter.
+-   n : nombre de simulations effectuées dans le père du noeud
+-   s : nombre de simulations passant par ce noeud
 
 En pratique, pour un noeud donné :
-- si l'un des fils du noeud considéré n'est pas exploré, alors nous l'évaluons.
-- sinon, nous considérons un nouveau noeud : le fils de plus grande valeur UCT.
+-   si l'un des fils du noeud considéré n'est pas exploré, alors nous l'évaluons.
+-   sinon, nous considérons un nouveau noeud : le fils de plus grande valeur UCT.
 
 Nous aboutissons donc à une position non encore explorée en suivant un chemin qui rend la valeur de l'UCT maximale. Nous évaluons cette position par un nombre fixé de simulations Monte-Carlo biaisées. Nous mettons enfin à jour le score de chacun des noeuds par lesquels nous sommes passés en suivant le chemin qui rend la valeur de l'UCT maximale.
 
@@ -108,10 +107,10 @@ Le noeud de départ correspond à la position actuelle, nous mettons donc à jou
 
 ## Bibliographie
 
-[1] T. Cazenave, A. Saffidine,
+\[1] T. Cazenave, A. Saffidine,
 	**Utilisation de la recherche arborescente Monte-Carlo au Hex**,
 	*Revue d'Intelligence Artificielle*, vol. 23, no. 2-3, pp. 183-202, 2009.
 
-[2] F. Teytaud, O. Teytaud,
+\[2] F. Teytaud, O. Teytaud,
 	**Creating an Upper-Condence-Tree program for Havannah**,
 	*Advances in Computer Games* 12, in Pamplona, Spain, 2009.
