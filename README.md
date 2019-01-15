@@ -1,6 +1,12 @@
 ﻿# Recherche arborescente Monte-Carlo pour le Puissance 4
 
-[![PyPI status][pypi image]][pypi] [![Build status][build image]][build] [![Updates][dependency image]][pyup] [![Python 3][python3 image]][pyup] [![Code coverage][coveralls image]][coveralls] [![Code coverage BIS][codecov image]][codecov] [![Code Quality][codacy image]][codacy]
+[![PyPI status][pypi image]][pypi]
+[![Build status][build image]][build]
+[![Updates][dependency image]][pyup]
+[![Python 3][python3 image]][pyup]
+[![Code coverage][coveralls image]][coveralls]
+[![Code coverage BIS][codecov image]][codecov]
+[![Code Quality][codacy image]][codacy]
 
 Ce projet présente une intelligence artificielle (IA) pour le jeu « Puissance 4 ».
 
