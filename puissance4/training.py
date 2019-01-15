@@ -48,6 +48,8 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
                       num_descentes_dans_arbre=None,
                       facteur_uct=None,
                       max_num_steps_to_explore=None,
+                      bias_to_obvious_steps=None,
+                      check_obvious_plays=None,
                       load_and_save_previously_trained_model=False):
     # AI player which is learning by playing against the "trainer"
     learner = UCT()
@@ -63,6 +65,12 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
 
     if max_num_steps_to_explore is not None:
         learner.max_num_steps_to_explore = max_num_steps_to_explore
+
+    if bias_to_obvious_steps is not None:
+        learner.bias_to_obvious_steps = bias_to_obvious_steps
+
+    if check_obvious_plays is not None:
+        learner.check_obvious_plays = check_obvious_plays
 
     # AI player which is training the "learner"
 
