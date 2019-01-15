@@ -29,8 +29,8 @@ class UCT(MC):
         self.tree = None
 
         self.data_path = 'data/'
-        self.node_visit_filename = 'node_visit.pickle'
-        self.node_action_filename = 'node_action.pickle'
+        self.node_visit_filename = 'node_visit.txt'
+        self.node_action_filename = 'node_action.txt'
 
     def load_model(self):
         # NB: It is apparently useless to load these variables for different games.
