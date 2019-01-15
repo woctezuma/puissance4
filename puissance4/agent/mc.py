@@ -42,9 +42,10 @@ class MC(AI):
             # Le joueur (A) joue un coup.
             grille_simulee.drop(self.player, action)
             # C'est maintenant au tour de l'autre joueur (B).
+            R, first_action_dict = self.simuler_monte_carlo(grille_simulee, self.get_opponent_symbol(),
+                                                            num_end_game_simulations)
             # Nous prenons l'opposé de la valeur simulée, car nous nous intéressons au joueur A.
-            evaluation = - self.simuler_monte_carlo(grille_simulee, self.get_opponent_symbol(),
-                                                    num_end_game_simulations)
+            evaluation = - R
             if meilleure_evaluation is None or evaluation > meilleure_evaluation:
                 meilleure_evaluation = evaluation
                 meilleure_action = action
@@ -62,6 +63,7 @@ class MC(AI):
             num_end_game_simulations = self.num_tirages_MC
 
         num_victoires = {'O': 0, 'X': 0, 'draw': 0}
+        first_action_dict = dict()
 
         # Warning: this is a random AI, so you might want to use values different from the defaults used by MC for:
         # - self.bias_to_obvious_steps
@@ -70,8 +72,13 @@ class MC(AI):
 
         for _ in range(num_end_game_simulations):
             grille_simulee = Grille(grille)
-            winner_symbol = ai.simulate_end_game(grille_simulee)
+            winner_symbol, first_action = ai.simulate_end_game(grille_simulee)
             num_victoires[winner_symbol] += 1
+            try:
+                first_action_dict[first_action][winner_symbol] += 1
+            except KeyError:
+                first_action_dict[first_action] = {'O': 0, 'X': 0, 'draw': 0}
+                first_action_dict[first_action][winner_symbol] += 1
 
         try:
             score = (num_victoires[ai.get_player_symbol()] - num_victoires[ai.get_opponent_symbol()]) \
@@ -79,7 +86,7 @@ class MC(AI):
                        + num_victoires['draw'])
         except ZeroDivisionError:
             score = 0
-        return score
+        return score, first_action_dict
 
     # noinspection PyPep8Naming
     def equalize_computing_resources(self, UCT_ai_instance):

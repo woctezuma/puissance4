@@ -41,6 +41,7 @@ class AI(InterfaceAI):
         player_who_last_played = self.get_opponent_symbol()
 
         step_counter = 0
+        first_action = None
 
         while not (grille.check_victory()) and len(grille.look_for_allowed_steps()) > 0:
             current_player = self.get_other_symbol(player_who_last_played)
@@ -49,6 +50,9 @@ class AI(InterfaceAI):
                 my_play, _ = self.play_with_bias(grille)
             else:
                 my_play = self.play_witout_bias(grille)
+
+            if step_counter == 0:
+                first_action = my_play
 
             grille.drop(current_player, my_play)
 
@@ -63,7 +67,7 @@ class AI(InterfaceAI):
         else:
             winner_symbol = 'draw'
 
-        return winner_symbol
+        return winner_symbol, first_action
 
     # noinspection PyPep8Naming
     def equalize_computing_resources(self, UCT_ai_instance):

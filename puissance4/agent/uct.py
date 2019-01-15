@@ -92,7 +92,7 @@ class UCT(MC):
             grille_copiee.copy_name(N.name)
 
             # noinspection PyPep8Naming
-            R = self.simuler_monte_carlo(grille_copiee, current_player_at_N)
+            R, _ = self.simuler_monte_carlo(grille_copiee, current_player_at_N)
             # Attention! R est la valeur pour 'current_player_at_N', pas forcément pour 'self.player'!
 
             # nous effectuons une remontée de l'arbre (A, N, R)
