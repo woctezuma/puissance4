@@ -78,11 +78,10 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
         trainer = AI()
     elif trainer_choice == 'MC':
         trainer = MC()
-        trainer.equalize_computing_resources(learner)
     else:
         trainer = UCT()
 
-    trainer.check_obvious_plays = True
+    trainer.equalize_computing_resources(learner)
 
     # Load
 
