@@ -50,7 +50,7 @@ def get_default_max_num_steps_to_explore():
     If max_num_steps_to_explore is set to None, then end-game simulations are simulated until the end (win/loss/draw).
     """
 
-    max_num_steps_to_explore = 5
+    max_num_steps_to_explore = 30
     return max_num_steps_to_explore
 
 
