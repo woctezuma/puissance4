@@ -137,25 +137,45 @@ class MC(AI):
                 victory_stats_for_first_actions[first_action] = {'O': 0, 'X': 0, 'draw': 0}
                 victory_stats_for_first_actions[first_action][winner_symbol] += 1
 
+        grid_valuations_for_first_actions = self.find_grid_valuations_for_first_actions(victory_stats_for_first_actions,
+                                                                                        ai.get_player_symbol(),
+                                                                                        ai.get_opponent_symbol())
+
+        best_first_action = self.find_best_first_action(grid_valuations_for_first_actions)
+
+        best_grid_valuation = self.find_best_grid_valuation(grid_valuations_for_first_actions, best_first_action)
+
+        return best_grid_valuation, best_first_action
+
+    @classmethod
+    def find_grid_valuations_for_first_actions(cls, victory_stats_for_first_actions, player_symbol, opponent_symbol):
         # Compute a score based on the stats of victories
 
         grid_valuations_for_first_actions = dict()
         for (action, num_victoires) in victory_stats_for_first_actions.items():
 
             try:
-                action_score = (num_victoires[ai.get_player_symbol()] - num_victoires[ai.get_opponent_symbol()]) \
-                               / (num_victoires[ai.get_player_symbol()] + num_victoires[ai.get_opponent_symbol()]
+                action_score = (num_victoires[player_symbol] - num_victoires[opponent_symbol]) \
+                               / (num_victoires[player_symbol] + num_victoires[opponent_symbol]
                                   + num_victoires['draw'])
             except ZeroDivisionError:
                 action_score = 0
 
             grid_valuations_for_first_actions[action] = action_score
 
+        return grid_valuations_for_first_actions
+
+    @classmethod
+    def find_best_first_action(cls, grid_valuations_for_first_actions):
         # Reference: https://stackoverflow.com/a/268285
         best_first_action = max(grid_valuations_for_first_actions.items(), key=operator.itemgetter(1))[0]
-        best_grid_valuation = grid_valuations_for_first_actions[best_first_action]
+        return best_first_action
 
-        return best_grid_valuation, best_first_action
+    def find_best_grid_valuation(self, grid_valuations_for_first_actions, best_first_action=None):
+        if best_first_action is None:
+            best_first_action = self.find_best_first_action(grid_valuations_for_first_actions)
+        best_grid_valuation = grid_valuations_for_first_actions[best_first_action]
+        return best_grid_valuation
 
     # noinspection PyPep8Naming
     def equalize_computing_resources(self, UCT_ai_instance):
