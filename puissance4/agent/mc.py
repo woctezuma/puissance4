@@ -69,15 +69,25 @@ class MC(AI):
 
     def randomly_sample_actions_at_root(self, grille):
 
-        meilleure_action = None
-        meilleure_evaluation = None
+        current_player = self.get_player_symbol()
+
+        merged_victory_stats = dict()
 
         for _ in range(self.num_samples_of_action):
-            evaluation, action = self.simuler_monte_carlo(grille, self.get_player_symbol())
+            victory_stats_for_first_actions = self.core_process_monte_carlo(grille, current_player)
 
-            if meilleure_evaluation is None or evaluation > meilleure_evaluation:
-                meilleure_evaluation = evaluation
-                meilleure_action = action
+            for (action, num_victoires) in victory_stats_for_first_actions.items():
+
+                if action not in merged_victory_stats:
+                    merged_victory_stats[action] = dict()
+
+                for winner_symbol in num_victoires:
+                    try:
+                        merged_victory_stats[action][winner_symbol] += num_victoires[winner_symbol]
+                    except KeyError:
+                        merged_victory_stats[action][winner_symbol] = num_victoires[winner_symbol]
+
+        _, meilleure_action = self.post_process_monte_carlo(merged_victory_stats, current_player)
 
         return meilleure_action
 
@@ -163,12 +173,10 @@ class MC(AI):
 
         return best_grid_valuation, best_first_action
 
-    @classmethod
-    def find_grid_valuations_for_first_actions(cls, victory_stats_for_first_actions, current_player):
+    def find_grid_valuations_for_first_actions(self, victory_stats_for_first_actions, player_symbol):
         # Compute a score based on the stats of victories
 
-        player_symbol = current_player.get_player_symbol()
-        opponent_symbol = current_player.get_opponent_symbol()
+        opponent_symbol = self.get_other_symbol(player_symbol)
 
         grid_valuations_for_first_actions = dict()
         for (action, num_victoires) in victory_stats_for_first_actions.items():
