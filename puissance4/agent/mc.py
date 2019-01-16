@@ -85,8 +85,7 @@ class MC(AI):
             # Le joueur (A) joue un coup.
             grille_simulee.drop(self.player, action)
             # C'est maintenant au tour de l'autre joueur (B).
-            R, _ = self.simuler_monte_carlo(grille_simulee, self.get_opponent_symbol(),
-                                            num_end_game_simulations)
+            R, _ = self.simuler_monte_carlo(grille_simulee, self.get_opponent_symbol(), num_end_game_simulations)
             # Nous prenons l'opposé de la valeur simulée, car nous nous intéressons au joueur A.
             evaluation = - R
 
