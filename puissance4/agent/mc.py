@@ -120,6 +120,19 @@ class MC(AI):
         if num_end_game_simulations is None:
             num_end_game_simulations = self.num_tirages_MC
 
+        victory_stats_for_first_actions = self.core_process_monte_carlo(grille, current_player,
+                                                                        num_end_game_simulations)
+
+        best_grid_valuation, best_first_action = self.post_process_monte_carlo(victory_stats_for_first_actions,
+                                                                               current_player)
+
+        return best_grid_valuation, best_first_action
+
+    def core_process_monte_carlo(self, grille, current_player, num_end_game_simulations=None):
+
+        if num_end_game_simulations is None:
+            num_end_game_simulations = self.num_tirages_MC
+
         victory_stats_for_first_actions = dict()
 
         # Warning: this is a random AI, so you might want to use values different from the defaults used by MC for:
@@ -137,9 +150,12 @@ class MC(AI):
                 victory_stats_for_first_actions[first_action] = {'O': 0, 'X': 0, 'draw': 0}
                 victory_stats_for_first_actions[first_action][winner_symbol] += 1
 
+        return victory_stats_for_first_actions
+
+    def post_process_monte_carlo(self, victory_stats_for_first_actions, current_player):
+
         grid_valuations_for_first_actions = self.find_grid_valuations_for_first_actions(victory_stats_for_first_actions,
-                                                                                        ai.get_player_symbol(),
-                                                                                        ai.get_opponent_symbol())
+                                                                                        current_player)
 
         best_first_action = self.find_best_first_action(grid_valuations_for_first_actions)
 
@@ -148,8 +164,11 @@ class MC(AI):
         return best_grid_valuation, best_first_action
 
     @classmethod
-    def find_grid_valuations_for_first_actions(cls, victory_stats_for_first_actions, player_symbol, opponent_symbol):
+    def find_grid_valuations_for_first_actions(cls, victory_stats_for_first_actions, current_player):
         # Compute a score based on the stats of victories
+
+        player_symbol = current_player.get_player_symbol()
+        opponent_symbol = current_player.get_opponent_symbol()
 
         grid_valuations_for_first_actions = dict()
         for (action, num_victoires) in victory_stats_for_first_actions.items():
