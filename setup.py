@@ -9,14 +9,14 @@ setup(
     packages=find_packages(),
     install_requires=[
     ],
-    version='0.5.2',
+    version='0.6.0',
     description='Artificial Intelligence for the game Connect Four on PyPI',
     long_description='Artificial Intelligence for Puissance-4/Connect-4, based on "Upper Confidence bounds for Trees".',
     long_description_content_type='text/x-rst',
     author='Wok',
     author_email='wok@tuta.io',
     url='https://github.com/woctezuma/puissance4',
-    download_url='https://github.com/woctezuma/puissance4/archive/0.5.2.tar.gz',
+    download_url='https://github.com/woctezuma/puissance4/archive/0.6.0.tar.gz',
     keywords=['puissance4', 'puissance-4', 'connect4', 'connect-4', 'connect-four', 'artificial intelligence', 'UCT'],
     classifiers=[
         'Topic :: Games/Entertainment',
