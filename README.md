@@ -76,7 +76,7 @@ Le joueur « Monte-Carlo biaisé » repose sur l'utilisation de [simulations Mon
 L'algorithme « Upper Confidence bounds for Trees » (UCT) est une adaptation de l'algorithme « Upper Confidence Bound » (UCB) aux problèmes faisant intervenir des arbres, comme c'est le cas du jeu de Puissance 4.
 
 Une position étant donnée, nous effectuons le choix entre exploration et exploitation à l'aide de la formule intervenant dans UCB. Pour un noeud (hors racine) donné :
-![UCT score][https://github.com/woctezuma/puissance4/wiki/eqn.png]
+![UCT score](https://github.com/woctezuma/puissance4/wiki/eqn.png)
 
 avec :
 -   $\mu$ : moyenne des scores obtenus
