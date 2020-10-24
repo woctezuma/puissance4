@@ -97,7 +97,11 @@ class Grille:
         return choice(self.look_for_allowed_steps())
 
     def get_num_steps(self):
-        return sum([self.grid[y][x] != self.empty_space for y in range(self.height) for x in range(self.width)])
+        return sum(
+            self.grid[y][x] != self.empty_space
+            for y in range(self.height)
+            for x in range(self.width)
+        )
 
     def is_empty_space(self, x, y):
         return bool(self.grid[y][x] == self.empty_space)

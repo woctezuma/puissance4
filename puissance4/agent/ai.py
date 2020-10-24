@@ -62,11 +62,7 @@ class AI(InterfaceAI):
             if self.max_num_steps_to_explore is not None and step_counter >= self.max_num_steps_to_explore:
                 break
 
-        if grille.check_victory():
-            winner_symbol = player_who_last_played
-        else:
-            winner_symbol = 'draw'
-
+        winner_symbol = player_who_last_played if grille.check_victory() else 'draw'
         return winner_symbol, first_action
 
     # noinspection PyPep8Naming

@@ -54,11 +54,7 @@ def play_versus_ai(ai_player):
     step_counter = 0
     while not (grille.check_victory()) and len(grille.look_for_allowed_steps()) > 0:
 
-        if step_counter % 2 == 0:
-            current_symbol = 'X'
-        else:
-            current_symbol = 'O'
-
+        current_symbol = 'X' if step_counter % 2 == 0 else 'O'
         if current_symbol == ai_player.player:
             current_player_name = 'artificial intelligence'
 

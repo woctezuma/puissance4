@@ -15,8 +15,7 @@ def get_default_check_obvious_plays():
     leads to actually checking all the children of the current position, which includes all possible obvious win-steps.
 
     """
-    check_obvious_plays = True
-    return check_obvious_plays
+    return True
 
 
 # For random AI, which is used to simulate end games for every AI!
@@ -37,8 +36,7 @@ def get_default_bias_to_obvious_steps():
     Only the end-game simulations rely on this parameter.
     """
 
-    bias_to_obvious_steps = True
-    return bias_to_obvious_steps
+    return True
 
 
 def get_default_max_num_steps_to_explore():
@@ -50,8 +48,7 @@ def get_default_max_num_steps_to_explore():
     If max_num_steps_to_explore is set to None, then end-game simulations are simulated until the end (win/loss/draw).
     """
 
-    max_num_steps_to_explore = 30
-    return max_num_steps_to_explore
+    return 30
 
 
 # For both Monte Carlo AI and UCT AI
@@ -78,8 +75,7 @@ def get_default_action_sampling_strategy():
      - we have a better control of the total number of MC samples.
     """
 
-    deterministic_sampling_of_actions_at_root = True
-    return deterministic_sampling_of_actions_at_root
+    return True
 
 
 # Only for UCT AI
@@ -94,16 +90,14 @@ def get_default_num_descentes_dans_arbre():
             - Tree Up: the evaluation is propagated up in the search tree using UCT update rules for evaluations.
 
     """
-    num_descentes_dans_arbre = 7
-    return num_descentes_dans_arbre
+    return 7
 
 
 def get_default_facteur_uct():
     """
     The following UCT parameter could be equal to 0. Make sure to use a very small value. Typically, between 0 and 0.3.
     """
-    facteur_uct = 0.01
-    return facteur_uct
+    return 0.01
 
 
 # For main
@@ -112,8 +106,7 @@ def get_default_num_parties_jouees():
     """
     The number of AI self-play games to find out which of two AI is the best one.
     """
-    num_parties_jouees = 10
-    return num_parties_jouees
+    return 10
 
 
 def main():

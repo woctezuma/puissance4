@@ -25,7 +25,7 @@ class UCT(MC):
             self.facteur_uct = get_default_facteur_uct()
 
         self.dict_num_visits_of_board_state = dict()
-        self.dict_for_action_in_board_state = dict()
+        self.dict_for_action_in_board_state = {}
         self.tree = None
 
         self.data_path = 'data/'
@@ -119,7 +119,10 @@ class UCT(MC):
         grille.copy_name(N.name)
 
         # boucle : fils non explorés de N
-        while all([(N.name, i) in self.dict_for_action_in_board_state for i in grille.look_for_allowed_steps()]):
+        while all(
+            (N.name, i) in self.dict_for_action_in_board_state
+            for i in grille.look_for_allowed_steps()
+        ):
             # soit F le fils de N ayant la plus grande valeur UCT
             if len(grille.look_for_allowed_steps()) > 0:
                 action = self.choisir_action_uct(grille)
@@ -228,8 +231,7 @@ class UCT(MC):
         grille_copiee = Grille()
         grille_copiee.copy_name(etat)
         grille_copiee.drop(joueur, action)
-        nouvel_etat = grille_copiee.get_name()
-        return nouvel_etat
+        return grille_copiee.get_name()
 
     # noinspection PyPep8Naming
     def equalize_computing_resources(self, UCT_ai_instance):

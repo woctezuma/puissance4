@@ -17,7 +17,7 @@ def test_range_of_parameters(load_and_save_model=False):
     trainer_choice = 'UCT'  # One of the following texts: 'Random', 'MC', 'UCT'
     num_parties_jouees = 200
 
-    results = dict()
+    results = {}
 
     for num_tirages_MC in [8]:
         for num_descentes_dans_arbre in range(6, 14, 2):
@@ -146,11 +146,7 @@ def train(learner, trainer, num_parties_jouees, verbose=False):
         step_counter = 0
         while not (grille.check_victory()) and len(grille.look_for_allowed_steps()) > 0:
 
-            if step_counter % 2 == 0:
-                current_symbol = 'X'
-            else:
-                current_symbol = 'O'
-
+            current_symbol = 'X' if step_counter % 2 == 0 else 'O'
             if current_symbol == learner.player:
                 current_player = learner
                 current_player_name = 'learner'
@@ -160,11 +156,10 @@ def train(learner, trainer, num_parties_jouees, verbose=False):
 
             my_play, is_forced_play = current_player.play(grille)
 
-            if verbose:
-                if is_forced_play is not None and is_forced_play:
-                    print(
-                        'Obvious play by {} in ({}, {}) below.'.format(current_player_name, current_symbol,
-                                                                       convert_to_column_display(my_play).upper()))
+            if verbose and is_forced_play is not None and is_forced_play:
+                print(
+                    'Obvious play by {} in ({}, {}) below.'.format(current_player_name, current_symbol,
+                                                                   convert_to_column_display(my_play).upper()))
 
             grille.drop(current_player.get_player_symbol(), my_play)
             step_counter += 1

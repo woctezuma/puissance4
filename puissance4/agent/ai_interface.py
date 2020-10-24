@@ -5,11 +5,7 @@ from ..env.win_conditions import look_for_obvious_steps
 class InterfaceAI:
     def __init__(self, symbole=None, check_obvious_plays=None):
         """Créer un joueur du symbole indiqué"""
-        if symbole is not None:
-            self.player = symbole
-        else:
-            self.player = get_default_player_symbol()
-
+        self.player = symbole if symbole is not None else get_default_player_symbol()
         if check_obvious_plays is not None:
             self.check_obvious_plays = check_obvious_plays
         else:
@@ -17,8 +13,7 @@ class InterfaceAI:
 
     @classmethod
     def get_default_params(cls):
-        params = dict()
-        params['player'] = get_default_player_symbol()
+        params = {'player': get_default_player_symbol()}
         params['check_obvious_plays'] = get_default_check_obvious_plays()
 
         return params
@@ -67,11 +62,7 @@ class InterfaceAI:
 
         is_forced_play = bool(mon_coup_urgent is not None)
 
-        if is_forced_play:
-            my_play = mon_coup_urgent
-        else:
-            my_play = self.play_witout_bias(grille)
-
+        my_play = mon_coup_urgent if is_forced_play else self.play_witout_bias(grille)
         return my_play, is_forced_play
 
     def get_player_symbol(self):
