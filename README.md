@@ -1,12 +1,11 @@
 ﻿# Recherche arborescente Monte-Carlo pour le Puissance 4
 
-[![PyPI status][pypi image]][pypi]
-[![Build status][build image]][build]
-[![Updates][dependency image]][pyup]
-[![Python 3][python3 image]][pyup]
-[![Code coverage][coveralls image]][coveralls]
-[![Code coverage BIS][codecov image]][codecov]
-[![Code Quality][codacy image]][codacy]
+[![PyPI status][pypi-image]][pypi]
+[![Build status][build-image]][build]
+[![Updates][dependency-image]][pyup]
+[![Python 3][python3-image]][pyup]
+[![Code coverage][codecov-image]][codecov]
+[![Code Quality][codacy-image]][codacy]
 
 Ce projet présente une intelligence artificielle (IA) pour le jeu « Puissance 4 ».
 
@@ -103,21 +102,21 @@ Le noeud de départ correspond à la position actuelle, nous mettons donc à jou
 	**Creating an Upper-Condence-Tree program for Havannah**,
 	*Advances in Computer Games* 12, in Pamplona, Spain, 2009.
 
-[pypi]: https://pypi.python.org/pypi/puissance4
-[pypi image]: https://badge.fury.io/py/puissance4.svg
+<!-- Definitions for badges -->
 
-[build]: https://travis-ci.org/woctezuma/puissance4
-[build image]: https://travis-ci.org/woctezuma/puissance4.svg?branch=master
+[pypi]: <https://pypi.python.org/pypi/puissance4>
+[pypi-image]: <https://badge.fury.io/py/puissance4.svg>
 
-[pyup]: https://pyup.io/repos/github/woctezuma/puissance4/
-[dependency image]: https://pyup.io/repos/github/woctezuma/puissance4/shield.svg
-[python3 image]: https://pyup.io/repos/github/woctezuma/puissance4/python-3-shield.svg
+[build]: <https://github.com/woctezuma/puissance4/actions>
+[build-image]: <https://github.com/woctezuma/puissance4/workflows/Python package/badge.svg?branch=master>
+[publish-image]: <https://github.com/woctezuma/puissance4/workflows/Upload Python Package/badge.svg?branch=master>
 
-[coveralls]: https://coveralls.io/github/woctezuma/puissance4?branch=master
-[coveralls image]: https://coveralls.io/repos/github/woctezuma/puissance4/badge.svg?branch=master
+[pyup]: <https://pyup.io/repos/github/woctezuma/puissance4/>
+[dependency-image]: <https://pyup.io/repos/github/woctezuma/puissance4/shield.svg>
+[python3-image]: <https://pyup.io/repos/github/woctezuma/puissance4/python-3-shield.svg>
 
-[codecov]: https://codecov.io/gh/woctezuma/puissance4
-[codecov image]: https://codecov.io/gh/woctezuma/puissance4/branch/master/graph/badge.svg
+[codecov]: <https://codecov.io/gh/woctezuma/puissance4>
+[codecov-image]: <https://codecov.io/gh/woctezuma/puissance4/branch/master/graph/badge.svg>
 
-[codacy]: https://www.codacy.com/app/woctezuma/puissance4
-[codacy image]: https://api.codacy.com/project/badge/Grade/fc278be88ea24bf79f8e8ceac1b3c305 
+[codacy]: <https://www.codacy.com/app/woctezuma/puissance4>
+[codacy-image]: <https://api.codacy.com/project/badge/Grade/fc278be88ea24bf79f8e8ceac1b3c305>
