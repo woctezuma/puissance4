@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='puissance4',
-    version='0.6.0',
+    version='0.6.1',
     author='Wok',
     author_email='wok@tuta.io',
     description='Artificial Intelligence for the game Connect Four on PyPI',
@@ -13,7 +13,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/woctezuma/puissance4',
-    download_url='https://github.com/woctezuma/puissance4/archive/0.6.0.tar.gz',
+    download_url='https://github.com/woctezuma/puissance4/archive/0.6.1.tar.gz',
     packages=setuptools.find_packages(),
     install_requires=[
     ],
