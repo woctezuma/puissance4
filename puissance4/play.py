@@ -3,9 +3,9 @@ from random import shuffle
 from .agent.uct import UCT
 from .env.grille import Grille
 from .lib.utils import (
-    get_possible_player_inputs,
     convert_player_input,
     convert_to_column_display,
+    get_possible_player_inputs,
 )
 
 
@@ -47,7 +47,7 @@ def play_versus_ai(ai_player):
     ai_player.print()
     print()
 
-    print('Human player is {}'.format(human_player))
+    print(f'Human player is {human_player}')
     print()
 
     grille = Grille()
@@ -57,10 +57,7 @@ def play_versus_ai(ai_player):
 
     step_counter = 0
     while not (grille.check_victory()) and len(grille.look_for_allowed_steps()) > 0:
-        if step_counter % 2 == 0:
-            current_symbol = 'X'
-        else:
-            current_symbol = 'O'
+        current_symbol = 'X' if step_counter % 2 == 0 else 'O'
 
         if current_symbol == ai_player.player:
             current_player_name = 'artificial intelligence'
@@ -107,7 +104,7 @@ def play_versus_ai(ai_player):
             ),
         )
     else:
-        print('Draw after {} steps'.format(step_counter))
+        print(f'Draw after {step_counter} steps')
 
     grille.show_grid()
 

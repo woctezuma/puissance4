@@ -78,7 +78,7 @@ def check_oblique_montante(grille, x, y):
 
 
 def check_oblique_descendante(grille, x, y):
-    """Alignements diagonaux descendants (\) : allant du coin haut gauche au coin bas droit"""
+    """Alignements diagonaux descendants (\\) : allant du coin haut gauche au coin bas droit"""
     symbole = grille.grid[y][x]
 
     # Alignement diagonal descendant de la forme .XXX, le noeud (x,y) étant le plus bas et à droite

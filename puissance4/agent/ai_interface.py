@@ -1,6 +1,6 @@
 from ..configs.parameters import (
-    get_default_player_symbol,
     get_default_check_obvious_plays,
+    get_default_player_symbol,
 )
 from ..env.win_conditions import look_for_obvious_steps
 
@@ -20,7 +20,7 @@ class InterfaceAI:
 
     @classmethod
     def get_default_params(cls):
-        params = dict()
+        params = {}
         params['player'] = get_default_player_symbol()
         params['check_obvious_plays'] = get_default_check_obvious_plays()
 
@@ -28,8 +28,8 @@ class InterfaceAI:
 
     def print(self):
         print()
-        print('[AI] symbol = {}'.format(self.player))
-        print('[AI] bias to obvious steps = {}'.format(self.check_obvious_plays))
+        print(f'[AI] symbol = {self.player}')
+        print(f'[AI] bias to obvious steps = {self.check_obvious_plays}')
 
     def play_witout_bias(self, grille):
         raise NotImplementedError
@@ -72,10 +72,7 @@ class InterfaceAI:
 
         is_forced_play = bool(mon_coup_urgent is not None)
 
-        if is_forced_play:
-            my_play = mon_coup_urgent
-        else:
-            my_play = self.play_witout_bias(grille)
+        my_play = mon_coup_urgent if is_forced_play else self.play_witout_bias(grille)
 
         return my_play, is_forced_play
 

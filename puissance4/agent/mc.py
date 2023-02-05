@@ -1,11 +1,11 @@
 import operator
 
-from .ai import AI
 from ..configs.parameters import (
-    get_default_num_tirages_MC,
     get_default_action_sampling_strategy,
+    get_default_num_tirages_MC,
 )
 from ..env.grille import Grille
+from .ai import AI
 
 
 class MC(AI):
@@ -167,7 +167,7 @@ class MC(AI):
         if num_end_game_simulations is None:
             num_end_game_simulations = self.num_tirages_MC
 
-        victory_stats_for_first_actions = dict()
+        victory_stats_for_first_actions = {}
 
         # Warning: this is a random AI, so you might want to use values different from the defaults used by MC for:
         # - self.bias_to_obvious_steps
@@ -220,7 +220,7 @@ class MC(AI):
 
         opponent_symbol = self.get_other_symbol(player_symbol)
 
-        grid_valuations_for_first_actions = dict()
+        grid_valuations_for_first_actions = {}
         for action, num_victoires in victory_stats_for_first_actions.items():
             try:
                 action_score = (

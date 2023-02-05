@@ -1,14 +1,14 @@
 import pathlib
-from math import sqrt, log
+from math import log, sqrt
 from random import choice
 
-from .mc import MC
 from ..configs.parameters import (
-    get_default_num_descentes_dans_arbre,
     get_default_facteur_uct,
+    get_default_num_descentes_dans_arbre,
 )
 from ..env.grille import Grille
 from ..lib.node import Node
+from .mc import MC
 
 
 class UCT(MC):
@@ -27,8 +27,8 @@ class UCT(MC):
         else:
             self.facteur_uct = get_default_facteur_uct()
 
-        self.dict_num_visits_of_board_state = dict()
-        self.dict_for_action_in_board_state = dict()
+        self.dict_num_visits_of_board_state = {}
+        self.dict_for_action_in_board_state = {}
         self.tree = None
 
         self.data_path = 'data/'
@@ -43,14 +43,12 @@ class UCT(MC):
 
             with open(
                 self.data_path + self.node_visit_filename,
-                'r',
                 encoding="utf8",
             ) as f:
                 self.dict_num_visits_of_board_state = ast.literal_eval(f.readlines()[0])
 
             with open(
                 self.data_path + self.node_action_filename,
-                'r',
                 encoding="utf8",
             ) as f:
                 self.dict_for_action_in_board_state = ast.literal_eval(f.readlines()[0])
@@ -92,7 +90,7 @@ class UCT(MC):
                 self.num_descentes_dans_arbre,
             ),
         )
-        print("[Upper Confidence Tree] UCT factor = {}".format(self.facteur_uct))
+        print(f"[Upper Confidence Tree] UCT factor = {self.facteur_uct}")
         return
 
     @classmethod
@@ -205,7 +203,7 @@ class UCT(MC):
             except KeyError:
                 self.dict_for_action_in_board_state[
                     (parent_board_state, action_to_reach_N)
-                ] = dict()
+                ] = {}
                 self.dict_for_action_in_board_state[
                     (parent_board_state, action_to_reach_N)
                 ]['count'] = 1

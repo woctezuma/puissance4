@@ -127,7 +127,7 @@ def main():
         setup="from puissance4.training import prepare_and_train",
         number=1,
     )
-    print('Time elapsed = {:.2f} s'.format(duration))
+    print(f'Time elapsed = {duration:.2f} s')
 
     return
 

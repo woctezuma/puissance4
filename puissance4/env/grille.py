@@ -85,19 +85,17 @@ class Grille:
                         ):
                             return True
                         # Alignement diagonal, le noeud (x,y) étant le plus haut et à gauche
-                        if self.is_far_from_right(x):
-                            if all(
-                                self.grid[y][x] == self.grid[y + i + 1][x + i + 1]
-                                for i in range(3)
-                            ):
-                                return True
+                        if self.is_far_from_right(x) and all(
+                            self.grid[y][x] == self.grid[y + i + 1][x + i + 1]
+                            for i in range(3)
+                        ):
+                            return True
                         # Alignement diagonal, le noeud (x,y) étant le plus haut et à droite
-                        if self.is_far_from_left(x):
-                            if all(
-                                self.grid[y][x] == self.grid[y + i + 1][x - i - 1]
-                                for i in range(3)
-                            ):
-                                return True
+                        if self.is_far_from_left(x) and all(
+                            self.grid[y][x] == self.grid[y + i + 1][x - i - 1]
+                            for i in range(3)
+                        ):
+                            return True
         return False
 
     def look_for_allowed_steps(self):

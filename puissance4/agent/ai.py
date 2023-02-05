@@ -1,8 +1,8 @@
-from .ai_interface import InterfaceAI
 from ..configs.parameters import (
     get_default_bias_to_obvious_steps,
     get_default_max_num_steps_to_explore,
 )
+from .ai_interface import InterfaceAI
 
 
 class AI(InterfaceAI):
@@ -81,10 +81,7 @@ class AI(InterfaceAI):
             ):
                 break
 
-        if grille.check_victory():
-            winner_symbol = player_who_last_played
-        else:
-            winner_symbol = 'draw'
+        winner_symbol = player_who_last_played if grille.check_victory() else "draw"
 
         return winner_symbol, first_action
 
