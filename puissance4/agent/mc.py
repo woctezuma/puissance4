@@ -1,11 +1,11 @@
 import operator
 
-from ..configs.parameters import (
+from puissance4.agent.ai import AI
+from puissance4.configs.parameters import (
     get_default_action_sampling_strategy,
     get_default_num_tirages_MC,
 )
-from ..env.grille import Grille
-from .ai import AI
+from puissance4.env.grille import Grille
 
 
 class MC(AI):

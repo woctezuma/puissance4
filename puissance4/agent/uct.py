@@ -2,13 +2,13 @@ import pathlib
 from math import log, sqrt
 from random import choice
 
-from ..configs.parameters import (
+from puissance4.agent.mc import MC
+from puissance4.configs.parameters import (
     get_default_facteur_uct,
     get_default_num_descentes_dans_arbre,
 )
-from ..env.grille import Grille
-from ..lib.node import Node
-from .mc import MC
+from puissance4.env.grille import Grille
+from puissance4.lib.node import Node
 
 
 class UCT(MC):

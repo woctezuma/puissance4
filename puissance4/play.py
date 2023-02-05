@@ -1,8 +1,8 @@
 from random import shuffle
 
-from .agent.uct import UCT
-from .env.grille import Grille
-from .lib.utils import (
+from puissance4.agent.uct import UCT
+from puissance4.env.grille import Grille
+from puissance4.lib.utils import (
     convert_player_input,
     convert_to_column_display,
     get_possible_player_inputs,
