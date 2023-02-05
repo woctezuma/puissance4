@@ -23,19 +23,32 @@ def test_range_of_parameters(load_and_save_model=False):
         for num_descentes_dans_arbre in range(6, 14, 2):
             for facteur_uct in [0]:
                 for max_num_steps_to_explore in [30]:
-                    _, num_victories, num_steps = prepare_and_train(trainer_choice, num_parties_jouees,
-                                                                    num_tirages_MC=num_tirages_MC,
-                                                                    num_descentes_dans_arbre=num_descentes_dans_arbre,
-                                                                    facteur_uct=facteur_uct,
-                                                                    max_num_steps_to_explore=max_num_steps_to_explore,
-                                                                    load_and_save_previously_trained_model=load_and_save_model)
+                    _, num_victories, num_steps = prepare_and_train(
+                        trainer_choice,
+                        num_parties_jouees,
+                        num_tirages_MC=num_tirages_MC,
+                        num_descentes_dans_arbre=num_descentes_dans_arbre,
+                        facteur_uct=facteur_uct,
+                        max_num_steps_to_explore=max_num_steps_to_explore,
+                        load_and_save_previously_trained_model=load_and_save_model,
+                    )
 
                     num_victories['average_num_steps'] = sum(num_steps) / len(num_steps)
-                    results[(num_tirages_MC, num_descentes_dans_arbre, facteur_uct, max_num_steps_to_explore)] \
-                        = num_victories
+                    results[
+                        (
+                            num_tirages_MC,
+                            num_descentes_dans_arbre,
+                            facteur_uct,
+                            max_num_steps_to_explore,
+                        )
+                    ] = num_victories
 
                     print('Temporary summary: {}'.format(repr(results)))
-                    print('\nAverage number of steps: {}'.format(num_victories['average_num_steps']))
+                    print(
+                        '\nAverage number of steps: {}'.format(
+                            num_victories['average_num_steps'],
+                        ),
+                    )
 
     print('Final summary: {}'.format(repr(results)))
 
@@ -43,16 +56,19 @@ def test_range_of_parameters(load_and_save_model=False):
 
 
 # noinspection PyPep8Naming
-def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
-                      num_tirages_MC=None,
-                      num_descentes_dans_arbre=None,
-                      facteur_uct=None,
-                      max_num_steps_to_explore=None,
-                      bias_to_obvious_steps=None,
-                      check_obvious_plays=None,
-                      deterministic_root_action_sample=True,
-                      enforce_identical_computing_resources=True,
-                      load_and_save_previously_trained_model=False):
+def prepare_and_train(
+    trainer_choice='MC',
+    num_parties_jouees=3,
+    num_tirages_MC=None,
+    num_descentes_dans_arbre=None,
+    facteur_uct=None,
+    max_num_steps_to_explore=None,
+    bias_to_obvious_steps=None,
+    check_obvious_plays=None,
+    deterministic_root_action_sample=True,
+    enforce_identical_computing_resources=True,
+    load_and_save_previously_trained_model=False,
+):
     # AI player which is learning by playing against the "trainer"
     learner = UCT()
 
@@ -80,7 +96,9 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
         trainer = AI()
     elif trainer_choice == 'MC':
         trainer = MC()
-        trainer.deterministic_sampling_of_actions_at_root = deterministic_root_action_sample
+        trainer.deterministic_sampling_of_actions_at_root = (
+            deterministic_root_action_sample
+        )
     else:
         trainer = UCT()
 
@@ -93,16 +111,23 @@ def prepare_and_train(trainer_choice='MC', num_parties_jouees=3,
         learner.load_model()
 
     # Train
-    learner, num_victories, num_victories_per_symbol, num_victories_per_player, num_steps = train(learner,
-                                                                                                  trainer,
-                                                                                                  num_parties_jouees,
-                                                                                                  verbose=False)
+    (
+        learner,
+        num_victories,
+        num_victories_per_symbol,
+        num_victories_per_player,
+        num_steps,
+    ) = train(learner, trainer, num_parties_jouees, verbose=False)
 
     # Print
 
     learner.print()
 
-    is_consistent = print_stats(num_victories, num_victories_per_symbol, num_victories_per_player)
+    is_consistent = print_stats(
+        num_victories,
+        num_victories_per_symbol,
+        num_victories_per_player,
+    )
 
     # Save
 
@@ -137,7 +162,6 @@ def train(learner, trainer, num_parties_jouees, verbose=False):
     grille = Grille()
 
     for game_no in range(num_parties_jouees):
-
         grille.wipe()
 
         current_symbol = None
@@ -145,7 +169,6 @@ def train(learner, trainer, num_parties_jouees, verbose=False):
 
         step_counter = 0
         while not (grille.check_victory()) and len(grille.look_for_allowed_steps()) > 0:
-
             if step_counter % 2 == 0:
                 current_symbol = 'X'
             else:
@@ -163,8 +186,12 @@ def train(learner, trainer, num_parties_jouees, verbose=False):
             if verbose:
                 if is_forced_play is not None and is_forced_play:
                     print(
-                        'Obvious play by {} in ({}, {}) below.'.format(current_player_name, current_symbol,
-                                                                       convert_to_column_display(my_play).upper()))
+                        'Obvious play by {} in ({}, {}) below.'.format(
+                            current_player_name,
+                            current_symbol,
+                            convert_to_column_display(my_play).upper(),
+                        ),
+                    )
 
             grille.drop(current_player.get_player_symbol(), my_play)
             step_counter += 1
@@ -185,7 +212,13 @@ def train(learner, trainer, num_parties_jouees, verbose=False):
         num_victories_per_player[winner_name] += 1
 
         print(
-            'Game n°{}\tnum_steps = {}\twinner = {} ({})'.format(game_no + 1, step_counter, winner_name, winner_symbol))
+            'Game n°{}\tnum_steps = {}\twinner = {} ({})'.format(
+                game_no + 1,
+                step_counter,
+                winner_name,
+                winner_symbol,
+            ),
+        )
 
         num_steps.append(step_counter)
 
@@ -196,39 +229,59 @@ def train(learner, trainer, num_parties_jouees, verbose=False):
         learner.player = player_symbols[0]
         trainer.player = player_symbols[1]
 
-    return learner, num_victories, num_victories_per_symbol, num_victories_per_player, num_steps
+    return (
+        learner,
+        num_victories,
+        num_victories_per_symbol,
+        num_victories_per_player,
+        num_steps,
+    )
 
 
 def print_stats(num_victories, num_victories_per_symbol, num_victories_per_player):
     # Symbols: X vs. O
 
-    num_games_for_symbols = num_victories_per_symbol['X'] \
-                            + num_victories_per_symbol['O'] \
-                            + num_victories_per_symbol['draw']
+    num_games_for_symbols = (
+        num_victories_per_symbol['X']
+        + num_victories_per_symbol['O']
+        + num_victories_per_symbol['draw']
+    )
 
     try:
-        ratio_victoires_per_symbol = (num_victories_per_symbol['X'] + 0.5 * num_victories_per_symbol['draw']) \
-                                     / num_games_for_symbols
+        ratio_victoires_per_symbol = (
+            num_victories_per_symbol['X'] + 0.5 * num_victories_per_symbol['draw']
+        ) / num_games_for_symbols
     except ZeroDivisionError:
         ratio_victoires_per_symbol = 0.5
 
-    print("\n[Players X vs. O] winrate = {:.2f} (over {} games)".format(ratio_victoires_per_symbol,
-                                                                        num_games_for_symbols))
+    print(
+        "\n[Players X vs. O] winrate = {:.2f} (over {} games)".format(
+            ratio_victoires_per_symbol,
+            num_games_for_symbols,
+        ),
+    )
 
     # Players: Learner vs. Trainer
 
-    num_games_for_players = num_victories_per_player['learner'] \
-                            + num_victories_per_player['trainer'] \
-                            + num_victories_per_player['draw']
+    num_games_for_players = (
+        num_victories_per_player['learner']
+        + num_victories_per_player['trainer']
+        + num_victories_per_player['draw']
+    )
 
     try:
-        ratio_victoires_per_player = (num_victories_per_player['learner'] + 0.5 * num_victories_per_player['draw']) \
-                                     / num_games_for_players
+        ratio_victoires_per_player = (
+            num_victories_per_player['learner'] + 0.5 * num_victories_per_player['draw']
+        ) / num_games_for_players
     except ZeroDivisionError:
         ratio_victoires_per_player = 0.5
 
-    print("\n[Learner vs. Trainer] winrate = {:.2f} (over {} games)".format(ratio_victoires_per_player,
-                                                                            num_games_for_players))
+    print(
+        "\n[Learner vs. Trainer] winrate = {:.2f} (over {} games)".format(
+            ratio_victoires_per_player,
+            num_games_for_players,
+        ),
+    )
 
     is_consistent = bool(num_games_for_symbols == num_games_for_players)
 

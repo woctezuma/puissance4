@@ -1,11 +1,19 @@
 from .ai_interface import InterfaceAI
-from ..configs.parameters import get_default_bias_to_obvious_steps, get_default_max_num_steps_to_explore
+from ..configs.parameters import (
+    get_default_bias_to_obvious_steps,
+    get_default_max_num_steps_to_explore,
+)
 
 
 class AI(InterfaceAI):
     """Intelligence artificielle"""
 
-    def __init__(self, symbole='O', bias_to_obvious_steps=None, max_num_steps_to_explore=None):
+    def __init__(
+        self,
+        symbole='O',
+        bias_to_obvious_steps=None,
+        max_num_steps_to_explore=None,
+    ):
         super().__init__(symbole)
 
         if bias_to_obvious_steps is not None:
@@ -27,8 +35,16 @@ class AI(InterfaceAI):
 
     def print(self):
         super().print()
-        print('[End-game simulations] bias to obvious steps = {}'.format(self.bias_to_obvious_steps))
-        print('[End-game simulations] maximal number of steps = {}'.format(self.max_num_steps_to_explore))
+        print(
+            '[End-game simulations] bias to obvious steps = {}'.format(
+                self.bias_to_obvious_steps,
+            ),
+        )
+        print(
+            '[End-game simulations] maximal number of steps = {}'.format(
+                self.max_num_steps_to_explore,
+            ),
+        )
         return
 
     def play_witout_bias(self, grille):
@@ -59,7 +75,10 @@ class AI(InterfaceAI):
             player_who_last_played = current_player
 
             step_counter += 1
-            if self.max_num_steps_to_explore is not None and step_counter >= self.max_num_steps_to_explore:
+            if (
+                self.max_num_steps_to_explore is not None
+                and step_counter >= self.max_num_steps_to_explore
+            ):
                 break
 
         if grille.check_victory():
@@ -78,4 +97,7 @@ class AI(InterfaceAI):
             self.max_num_steps_to_explore = UCT_ai_instance.max_num_steps_to_explore
         except AttributeError:
             print(
-                'Equalization of computing resources failed: missing attributes from {}'.format(repr(UCT_ai_instance)))
+                'Equalization of computing resources failed: missing attributes from {}'.format(
+                    repr(UCT_ai_instance),
+                ),
+            )

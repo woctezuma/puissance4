@@ -2,7 +2,11 @@ from random import shuffle
 
 from .agent.uct import UCT
 from .env.grille import Grille
-from .lib.utils import get_possible_player_inputs, convert_player_input, convert_to_column_display
+from .lib.utils import (
+    get_possible_player_inputs,
+    convert_player_input,
+    convert_to_column_display,
+)
 
 
 def main():
@@ -53,7 +57,6 @@ def play_versus_ai(ai_player):
 
     step_counter = 0
     while not (grille.check_victory()) and len(grille.look_for_allowed_steps()) > 0:
-
         if step_counter % 2 == 0:
             current_symbol = 'X'
         else:
@@ -75,7 +78,9 @@ def play_versus_ai(ai_player):
             grille.show_grid()
 
             while True:
-                user_input = input("Letter a through g  = drop disc, q = quit. \nYour move:")
+                user_input = input(
+                    "Letter a through g  = drop disc, q = quit. \nYour move:",
+                )
                 if user_input in get_possible_player_inputs(grille.width):
                     my_play = convert_player_input(user_input)
                     if grille.drop(current_symbol, my_play):
@@ -86,11 +91,21 @@ def play_versus_ai(ai_player):
         step_counter += 1
 
         if is_forced_play is not None and is_forced_play:
-            print('Obvious play by AI in ({}, {}) below.'.format(current_symbol,
-                                                                 convert_to_column_display(my_play).upper()))
+            print(
+                'Obvious play by AI in ({}, {}) below.'.format(
+                    current_symbol,
+                    convert_to_column_display(my_play).upper(),
+                ),
+            )
 
     if grille.check_victory():
-        print('Winner = {} ({}) after {} steps'.format(current_symbol, current_player_name, step_counter))
+        print(
+            'Winner = {} ({}) after {} steps'.format(
+                current_symbol,
+                current_player_name,
+                step_counter,
+            ),
+        )
     else:
         print('Draw after {} steps'.format(step_counter))
 

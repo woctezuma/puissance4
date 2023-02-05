@@ -125,7 +125,6 @@ def look_for_obvious_steps(grille, player_symbol='X', opponent_symbol='O'):
         for y in range(len(grille.grid)):
             for x in range(len(grille.grid[y])):
                 if grille.grid[y][x] == checked_symbol:
-
                     my_play = check_horizontale(grille, x, y)
                     if my_play is not None:
                         return my_play

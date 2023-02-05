@@ -3,7 +3,10 @@ from math import sqrt, log
 from random import choice
 
 from .mc import MC
-from ..configs.parameters import get_default_num_descentes_dans_arbre, get_default_facteur_uct
+from ..configs.parameters import (
+    get_default_num_descentes_dans_arbre,
+    get_default_facteur_uct,
+)
 from ..env.grille import Grille
 from ..lib.node import Node
 
@@ -36,13 +39,20 @@ class UCT(MC):
         # NB: It is apparently useless to load these variables for different games.
 
         try:
-
             import ast
 
-            with open(self.data_path + self.node_visit_filename, 'r', encoding="utf8") as f:
+            with open(
+                self.data_path + self.node_visit_filename,
+                'r',
+                encoding="utf8",
+            ) as f:
                 self.dict_num_visits_of_board_state = ast.literal_eval(f.readlines()[0])
 
-            with open(self.data_path + self.node_action_filename, 'r', encoding="utf8") as f:
+            with open(
+                self.data_path + self.node_action_filename,
+                'r',
+                encoding="utf8",
+            ) as f:
                 self.dict_for_action_in_board_state = ast.literal_eval(f.readlines()[0])
 
         except FileNotFoundError:
@@ -59,7 +69,11 @@ class UCT(MC):
         with open(self.data_path + self.node_visit_filename, 'w', encoding="utf8") as f:
             print(self.dict_num_visits_of_board_state, file=f)
 
-        with open(self.data_path + self.node_action_filename, 'w', encoding="utf8") as f:
+        with open(
+            self.data_path + self.node_action_filename,
+            'w',
+            encoding="utf8",
+        ) as f:
             print(self.dict_for_action_in_board_state, file=f)
 
         return
@@ -73,7 +87,11 @@ class UCT(MC):
 
     def print(self):
         super().print()
-        print("[Upper Confidence Tree] number of tree descents = {}".format(self.num_descentes_dans_arbre))
+        print(
+            "[Upper Confidence Tree] number of tree descents = {}".format(
+                self.num_descentes_dans_arbre,
+            ),
+        )
         print("[Upper Confidence Tree] UCT factor = {}".format(self.facteur_uct))
         return
 
@@ -119,11 +137,20 @@ class UCT(MC):
         grille.copy_name(N.name)
 
         # boucle : fils non explorés de N
-        while all([(N.name, i) in self.dict_for_action_in_board_state for i in grille.look_for_allowed_steps()]):
+        while all(
+            [
+                (N.name, i) in self.dict_for_action_in_board_state
+                for i in grille.look_for_allowed_steps()
+            ],
+        ):
             # soit F le fils de N ayant la plus grande valeur UCT
             if len(grille.look_for_allowed_steps()) > 0:
                 action = self.choisir_action_uct(grille)
-                nouvel_etat = self.changer_etat_apres_transition(N.name, action, current_player)
+                nouvel_etat = self.changer_etat_apres_transition(
+                    N.name,
+                    action,
+                    current_player,
+                )
                 f = Node(nouvel_etat, N)
                 f.code = action
 
@@ -138,10 +165,17 @@ class UCT(MC):
         # soir F un fils de N tiré au hasard parmi les fils non explorés
         mes_coups_possibles = grille.look_for_allowed_steps()
         if len(mes_coups_possibles) > 0:
-            actions_inexplorees = [i for i in mes_coups_possibles if
-                                   (N.name, i) not in self.dict_for_action_in_board_state]
+            actions_inexplorees = [
+                i
+                for i in mes_coups_possibles
+                if (N.name, i) not in self.dict_for_action_in_board_state
+            ]
             action = choice(actions_inexplorees)
-            etat_inexplore = self.changer_etat_apres_transition(N.name, action, current_player)
+            etat_inexplore = self.changer_etat_apres_transition(
+                N.name,
+                action,
+                current_player,
+            )
             f = Node(etat_inexplore, N)
             f.code = action
 
@@ -165,10 +199,16 @@ class UCT(MC):
                 self.dict_num_visits_of_board_state[node_N.name] = 1
 
             try:
-                self.dict_for_action_in_board_state[(parent_board_state, action_to_reach_N)]['count'] += 1
+                self.dict_for_action_in_board_state[
+                    (parent_board_state, action_to_reach_N)
+                ]['count'] += 1
             except KeyError:
-                self.dict_for_action_in_board_state[(parent_board_state, action_to_reach_N)] = dict()
-                self.dict_for_action_in_board_state[(parent_board_state, action_to_reach_N)]['count'] = 1
+                self.dict_for_action_in_board_state[
+                    (parent_board_state, action_to_reach_N)
+                ] = dict()
+                self.dict_for_action_in_board_state[
+                    (parent_board_state, action_to_reach_N)
+                ]['count'] = 1
 
             symbol_for_parent_of_current_player = self.get_other_symbol(current_player)
 
@@ -177,20 +217,28 @@ class UCT(MC):
             # q = R if the PARENT of current player shares its symbol with Node N,
             # q = -R if the PARENT of current player does not share its symbol with Node N.
             #
-            if current_player != current_player_at_N:  # <- La ligne qui m'a fait perdre beaucoup de temps.
+            if (
+                current_player != current_player_at_N
+            ):  # <- La ligne qui m'a fait perdre beaucoup de temps.
                 q = value_R
             else:
-                q = - value_R
+                q = -value_R
 
             try:
                 # En effet, nous nous intéressons au parent de N, et non à N lui-même.
-                mu_avant = self.dict_for_action_in_board_state[(parent_board_state, action_to_reach_N)]['score']
+                mu_avant = self.dict_for_action_in_board_state[
+                    (parent_board_state, action_to_reach_N)
+                ]['score']
             except KeyError:
                 mu_avant = 0
 
-            n = self.dict_for_action_in_board_state[(parent_board_state, action_to_reach_N)]['count']
+            n = self.dict_for_action_in_board_state[
+                (parent_board_state, action_to_reach_N)
+            ]['count']
             mu = mu_avant + (1.0 / n) * (q - mu_avant)
-            self.dict_for_action_in_board_state[(parent_board_state, action_to_reach_N)]['score'] = mu
+            self.dict_for_action_in_board_state[
+                (parent_board_state, action_to_reach_N)
+            ]['score'] = mu
 
             node_N = node_N.parent
             current_player = symbol_for_parent_of_current_player
@@ -211,10 +259,16 @@ class UCT(MC):
         for action in grille.look_for_allowed_steps():
             if (etat, action) not in self.dict_for_action_in_board_state:
                 continue
-            recompense_moyenne = self.dict_for_action_in_board_state[(etat, action)]['score']
-            num_etat_action = self.dict_for_action_in_board_state[(etat, action)]['count']
+            recompense_moyenne = self.dict_for_action_in_board_state[(etat, action)][
+                'score'
+            ]
+            num_etat_action = self.dict_for_action_in_board_state[(etat, action)][
+                'count'
+            ]
             num_etat = self.dict_num_visits_of_board_state[etat]
-            evaluation = recompense_moyenne + self.facteur_uct * sqrt(1.0 * log(num_etat) / num_etat_action)
+            evaluation = recompense_moyenne + self.facteur_uct * sqrt(
+                1.0 * log(num_etat) / num_etat_action,
+            )
             if meilleure_evaluation is None or evaluation > meilleure_evaluation:
                 meilleure_evaluation = evaluation
                 meilleure_action = action
@@ -236,7 +290,6 @@ class UCT(MC):
         # Give the same computing resources to player X (UCT) and player O (UCT):
         super().equalize_computing_resources(UCT_ai_instance)
         try:
-
             # Override the value set by superclass MC
             self.num_tirages_MC = UCT_ai_instance.num_tirages_MC
 
@@ -246,4 +299,7 @@ class UCT(MC):
 
         except AttributeError:
             print(
-                'Equalization of computing resources failed: missing attributes from {}'.format(repr(UCT_ai_instance)))
+                'Equalization of computing resources failed: missing attributes from {}'.format(
+                    repr(UCT_ai_instance),
+                ),
+            )

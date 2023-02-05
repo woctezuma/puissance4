@@ -56,6 +56,7 @@ def get_default_max_num_steps_to_explore():
 
 # For both Monte Carlo AI and UCT AI
 
+
 # noinspection PyPep8Naming
 def get_default_num_tirages_MC():
     """
@@ -84,6 +85,7 @@ def get_default_action_sampling_strategy():
 
 # Only for UCT AI
 
+
 def get_default_num_descentes_dans_arbre():
     """
     UCT algorithm relies on Monte-Carlo Tree search. However, it differs from MCT because it works in a layered manner.
@@ -108,6 +110,7 @@ def get_default_facteur_uct():
 
 # For main
 
+
 def get_default_num_parties_jouees():
     """
     The number of AI self-play games to find out which of two AI is the best one.
@@ -119,9 +122,11 @@ def get_default_num_parties_jouees():
 def main():
     import timeit
 
-    duration = timeit.timeit("prepare_and_train('Random', 10)",
-                             setup="from puissance4.training import prepare_and_train",
-                             number=1)
+    duration = timeit.timeit(
+        "prepare_and_train('Random', 10)",
+        setup="from puissance4.training import prepare_and_train",
+        number=1,
+    )
     print('Time elapsed = {:.2f} s'.format(duration))
 
     return

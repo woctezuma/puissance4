@@ -1,4 +1,7 @@
-from ..configs.parameters import get_default_player_symbol, get_default_check_obvious_plays
+from ..configs.parameters import (
+    get_default_player_symbol,
+    get_default_check_obvious_plays,
+)
 from ..env.win_conditions import look_for_obvious_steps
 
 
@@ -61,9 +64,11 @@ class InterfaceAI:
 
     def play_with_bias(self, grille):
         """Jouer de façon biaisée : vérifier s'il est possible de gagner en un coup avant toute réflexion"""
-        mon_coup_urgent = look_for_obvious_steps(grille,
-                                                 player_symbol=self.player,
-                                                 opponent_symbol=self.get_opponent_symbol())
+        mon_coup_urgent = look_for_obvious_steps(
+            grille,
+            player_symbol=self.player,
+            opponent_symbol=self.get_opponent_symbol(),
+        )
 
         is_forced_play = bool(mon_coup_urgent is not None)
 
@@ -95,4 +100,7 @@ class InterfaceAI:
             self.check_obvious_plays = UCT_ai_instance.check_obvious_plays
         except AttributeError:
             print(
-                'Equalization of computing resources failed: missing attributes from {}'.format(repr(UCT_ai_instance)))
+                'Equalization of computing resources failed: missing attributes from {}'.format(
+                    repr(UCT_ai_instance),
+                ),
+            )
