@@ -51,7 +51,7 @@ def check_oblique_montante(grille, x, y):
     # Alignement diagonal montant de la forme XXX., le noeud (x,y) étant le plus bas et à gauche
     if grille.is_far_from_top(y) and grille.is_far_from_right(x):
         if all(symbole == grille.grid[y - i - 1][x + i + 1] for i in range(2)):
-            my_play = grille.play_if_possible(x + 3, y - 2)
+            my_play = grille.play_if_possible(x + 3, y - 3)
             if my_play is not None:
                 return my_play
     # Alignements diagonaux montants, le noeud (x,y) étant le plus haut et à droite
@@ -84,7 +84,7 @@ def check_oblique_descendante(grille, x, y):
     # Alignement diagonal descendant de la forme .XXX, le noeud (x,y) étant le plus bas et à droite
     if grille.is_far_from_top(y) and grille.is_far_from_left(x):
         if all(symbole == grille.grid[y - i - 1][x - i - 1] for i in range(2)):
-            my_play = grille.play_if_possible(x - 2, y - 3)
+            my_play = grille.play_if_possible(x - 3, y - 3)
             if my_play is not None:
                 return my_play
 
