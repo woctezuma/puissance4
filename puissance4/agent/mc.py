@@ -61,7 +61,7 @@ class MC(AI):
         )
         return
 
-    def play_witout_bias(self, grille):
+    def play_without_bias(self, grille):
         """Déterminer la meilleure action en fonction des résultats des simulations Monte-Carlo"""
         meilleure_action = None
 
