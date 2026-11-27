@@ -18,10 +18,8 @@ class Grille:
             self.copy_name(grille_initiale.get_name())
 
     def get_name(self):
-        """Renvoyer un texte représentant la grille de façon unique"""
-        return self.sep_ligne.join(
-            [self.sep_colonne.join(liste) for liste in self.grid],
-        )
+        """Renvoyer un tuple représentant la grille de façon unique"""
+        return tuple(tuple(row) for row in self.grid)
 
     def get_grid(self):
         return self.grid
@@ -33,9 +31,12 @@ class Grille:
         self.__init__()
 
     def copy_name(self, name):
-        """Créer la grille représentée par le texte"""
-        listes = name.split(self.sep_ligne)
-        self.grid = [l.split(self.sep_colonne) for l in listes]
+        """Créer la grille représentée par le nom fourni"""
+        if isinstance(name, str):
+            listes = name.split(self.sep_ligne)
+            self.grid = [l.split(self.sep_colonne) for l in listes]
+        else:
+            self.grid = [list(row) for row in name]
 
     def copy(self, grille):
         self.set_grid([list(row) for row in grille.get_grid()])
