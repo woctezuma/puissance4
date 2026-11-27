@@ -78,6 +78,9 @@ def play_versus_ai(ai_player):
                 user_input = input(
                     "Letter a through g  = drop disc, q = quit. \nYour move:",
                 )
+                if user_input == 'q':
+                    print('Game quit by the human player.')
+                    return
                 if user_input in get_possible_player_inputs(grille.width):
                     my_play = convert_player_input(user_input)
                     if grille.drop(current_symbol, my_play):
