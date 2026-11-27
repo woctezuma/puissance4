@@ -109,10 +109,6 @@ Le noeud de départ correspond à la position actuelle, nous mettons donc à jou
 [build-image]: <https://github.com/woctezuma/puissance4/workflows/Python package/badge.svg?branch=master>
 [publish-image]: <https://github.com/woctezuma/puissance4/workflows/Upload Python Package/badge.svg?branch=master>
 
-[pyup]: <https://pyup.io/repos/github/woctezuma/puissance4/>
-[dependency-image]: <https://pyup.io/repos/github/woctezuma/puissance4/shield.svg>
-[python3-image]: <https://pyup.io/repos/github/woctezuma/puissance4/python-3-shield.svg>
-
 [codecov]: <https://codecov.io/gh/woctezuma/puissance4>
 [codecov-image]: <https://codecov.io/gh/woctezuma/puissance4/branch/master/graph/badge.svg>
 

@@ -17,8 +17,6 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=[
     ],
-    test_suite='nose.collector',
-    tests_require=['nose'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Topic :: Games/Entertainment',
@@ -28,5 +26,5 @@ setuptools.setup(
         'Intended Audience :: End Users/Desktop',
         'Natural Language :: French',
     ],
-    python_requires='>=3',
+    python_requires='>=3.10',
 )
