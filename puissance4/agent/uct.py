@@ -54,7 +54,7 @@ class UCT(MC):
                 self.dict_for_action_in_board_state = ast.literal_eval(f.readlines()[0])
 
         except FileNotFoundError:
-            print('Model files cound not be loaded.')
+            print('Model files could not be loaded.')
 
         return
 
@@ -97,7 +97,7 @@ class UCT(MC):
     def print_strategy(cls):
         return
 
-    def play_witout_bias(self, grille):
+    def play_without_bias(self, grille):
         """Déterminer la meilleure action en fonction des résultats de l'exploration UCT"""
         # recevoir une position p
         initial_board_state = grille.get_name()

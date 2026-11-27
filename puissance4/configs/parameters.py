@@ -37,7 +37,7 @@ def get_default_bias_to_obvious_steps():
     Only the end-game simulations rely on this parameter.
     """
 
-    bias_to_obvious_steps = True
+    bias_to_obvious_steps = False
     return bias_to_obvious_steps
 
 

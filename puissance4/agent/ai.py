@@ -47,7 +47,7 @@ class AI(InterfaceAI):
         )
         return
 
-    def play_witout_bias(self, grille):
+    def play_without_bias(self, grille):
         """Jouer de façon non biaisée : renvoyer au hasard un coup possible"""
         return grille.get_random_allowed_step()
 
@@ -65,7 +65,7 @@ class AI(InterfaceAI):
             if self.bias_to_obvious_steps:
                 my_play, _ = self.play_with_bias(grille)
             else:
-                my_play = self.play_witout_bias(grille)
+                my_play = self.play_without_bias(grille)
 
             if step_counter == 0:
                 first_action = my_play

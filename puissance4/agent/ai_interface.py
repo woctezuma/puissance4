@@ -31,7 +31,7 @@ class InterfaceAI:
         print(f'[AI] symbol = {self.player}')
         print(f'[AI] bias to obvious steps = {self.check_obvious_plays}')
 
-    def play_witout_bias(self, grille):
+    def play_without_bias(self, grille):
         raise NotImplementedError
 
     def simulate_end_game(self, grille):
@@ -49,7 +49,7 @@ class InterfaceAI:
         if self.check_obvious_plays:
             my_play, is_forced_play = self.play_with_bias(grille)
         else:
-            my_play = self.play_witout_bias(grille)
+            my_play = self.play_without_bias(grille)
             is_forced_play = None  # We don't know since we don't check whether it would be a forced play.
         return my_play, is_forced_play
 
@@ -72,7 +72,7 @@ class InterfaceAI:
 
         is_forced_play = bool(mon_coup_urgent is not None)
 
-        my_play = mon_coup_urgent if is_forced_play else self.play_witout_bias(grille)
+        my_play = mon_coup_urgent if is_forced_play else self.play_without_bias(grille)
 
         return my_play, is_forced_play
 
