@@ -38,8 +38,7 @@ class Grille:
         self.grid = [l.split(self.sep_colonne) for l in listes]
 
     def copy(self, grille):
-        # TODO
-        self.set_grid(grille.get_grid())
+        self.set_grid([list(row) for row in grille.get_grid()])
 
     def show_grid(self, reverse_displayed_row_no=False):
         """Afficher la grille"""
